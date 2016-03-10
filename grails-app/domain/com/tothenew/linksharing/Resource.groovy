@@ -32,7 +32,7 @@ abstract class Resource {
     }
 
      RatingInfoVO getRatingInfo() {
-        List result = ResourceRating.createCriteria().get{
+            List result = ResourceRating.createCriteria().get{
             projections {
                 count('id', 'totalVotes')
                 sum('score')

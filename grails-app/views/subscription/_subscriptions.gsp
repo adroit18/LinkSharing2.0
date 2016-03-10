@@ -24,12 +24,14 @@
         </br></br>
         <span class="col-xs-6 text-muted">@${subscription[2]}</span>
         <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
-        <span class="col-xs-2" style="padding-left:1px">Topics</span><br>
+        <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
 
-        <span class="col-xs-6" style="color:blue;"><a href="#" style="text-decoration:underline">Unsubscribe</a>
+
+        <span class="col-xs-6" style="color:blue;"> <ls:showSubscribe topicId="${subscription[0]}"/>${subscription[0]}
         </span>
-        <span class="col-xs-4" style="color:blue;padding-left:1px">${subscription[3]}</span>
-        <span class="col-xs-2" style="color:blue;padding-left:1px">50</span>
+        %{--${subscription[3]}--}%
+        <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount topicId="${subscription[0]}" user="${subscription[2]}"/></span>
+        <span class="col-xs-2" style="color:blue;padding-left:1px"><ls:resourceCount topicId="${subscription[0]}" /></span>
         </div>
 
         <g:set var="1" value="${session.user.username}">
@@ -64,11 +66,11 @@
 
             <div class="glyphicon glyphicon-envelope"></div>
 
-                %{--<g:if test="${1==2}">--}%
+            %{--<g:if test="${1==2}">--}%
             <div class="glyphicon glyphicon-edit"></div>
 
             <div class="glyphicon glyphicon-trash"></div>
-                    %{--</g:if>--}%
+            %{--</g:if>--}%
 
         </div>
 

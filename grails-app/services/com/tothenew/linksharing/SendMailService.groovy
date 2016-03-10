@@ -1,4 +1,3 @@
-/*
 package com.tothenew.linksharing
 
 import grails.transaction.Transactional
@@ -22,4 +21,3 @@ class SendMailService {
     }
 
 }
-*/

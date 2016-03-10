@@ -5,14 +5,14 @@
             <g:include controller="user" action="userImage" params='[username: "${session.user.username}"]'/>
         </div>
 
-        <div class="col-xs-10"><%="Welcome " + session.user.username%><span
+        <div class="col-xs-10"><%=" Welcome " + session.user.username%><span
                 class="text-muted"><br><%=session.user.emailId%><br>
             <span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
                                                                                       style="padding-left:1px">Topics</span><br>
         </span>
 
-            <span class="col-xs-6" style="color:blue;padding-left:1px">${userDetails[0]}</span><span class="col-xs-6"
-                                                                                                     style="color:blue;padding-left:1px">${userDetails[1]}</span>
+            <span class="col-xs-6" style="color:blue;padding-left:1px"><ls:subscriptionCount user="${session.user.username}"/></span>
+<span class="col-xs-6" style="color:blue;padding-left:1px"><ls:topicCount user="${session.user}"/> </span>
         </div>
     </div>
 </div>

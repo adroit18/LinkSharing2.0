@@ -75,26 +75,6 @@ class User {
         return vos[0..4];
     }
 
-    static List userTotalSubscriptionsAndTopics(User user1) {
-
-        List userDetails1 = Subscription.createCriteria().listDistinct {
-            projections {
-                count()
-            }
-            eq("user.id", user1.id)
-        }
-        List userDetails2 = Topic.createCriteria().listDistinct {
-            projections {
-                count()
-            }
-            eq("createdBy", user1)
-        }
-        List userDetails = userDetails1 + userDetails2
-        println userDetails
-
-        return userDetails;
-
-    }
 
 
     static List getSubscribedTopics(User user1) {
@@ -121,17 +101,20 @@ class User {
         }
     }
 
-    int getScore(Resource resource)
-    {
-        int score = ResourceRating.createCriteria().get{
-            projections {
-                property("score")
-            }
-            eq("user",this)
-            eq("resource",resource)
+    int getScore(Resource resource){
+        ResourceRating resourceRating= ResourceRating.findByUserAndResource(this,resource)
+        int score=1
+        if(resourceRating){
+            score=resourceRating.score
         }
         return score
     }
+
+    boolean isSubscribed(long topicId)
+    {
+        return(Subscription.findByUserAndTopic(this,Topic.read(topicId)))
+    }
+
 
 
 }

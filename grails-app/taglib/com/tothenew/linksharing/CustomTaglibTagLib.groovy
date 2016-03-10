@@ -14,12 +14,12 @@ class CustomTaglibTagLib {
             def isRead = readingItem.isRead
             if (isRead) {
                 out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: false], "style": "font-size:10px") {
-                    "Mark as Unread "
+                    "Mark as Unread"
                 }
 
             } else {
                 out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: true], "style": "font-size:10px") {
-                    "Mark as Read "
+                    "Mark as Read"
                 }
 
             }
@@ -29,7 +29,7 @@ class CustomTaglibTagLib {
 
     def trendingTopics = { body ->
         List<TopicVO> trendingTopics = Topic.getTrendingTopics();
-        out << g.render(template: "/topic/trendingTopics", model: [trendingTopicsList: trendingTopics])
+        out << g.render(template: "/topic/trendingTopics", model: [trendingTopics: trendingTopics])
     }
     def topPosts = { body ->
         List resourceList = ResourceRating.getTopPosts();
@@ -40,39 +40,46 @@ class CustomTaglibTagLib {
     def userImage = { attrs ->
         out << "<img src='/images/${attrs.username}' width=64 height=64 id='test'/>"
     }
-    def canDeleteResouce = { attr, body ->
-        User loggedInUser = session.user
-        Resource resource = attr.resource
-        (loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Delete") : out << ""
 
+    def canDeleteResouce = { attrs, body ->
+        User loggedInUser = session.user
+        Resource resource = attrs.resource
+        (loggedInUser.canDeleteResource(resource)) ? out << link(controller: "resource", action: "delete", id: resource.id, "Delete") : out << ""
     }
+
+    def showSubscribe = { attrs, body ->
+        User loggedInUser = session.user
+      println "-----hello------------"+loggedInUser?.isSubscribed(attrs.topicId)
+        if (session.user && loggedInUser.isSubscribed(attrs.topicId)) {
+            out << g.link(controller: "subscription", action: "delete", id: "${attrs.topicId}") {
+                "Unsubscribe"
+            }
+        }
+    else
+    {
+        out << g.link(controller: "subscription", action: "saveTopic", id: "${attrs.topicId}") {
+            "Subscribe"
+        }
+    }
+}
+
+def subscriptionCount = { attr, body ->
+    int subscription;
+    if (attr.topicId) {
+        subscription = Subscription.countByTopic(Topic.read(attr.topicId))
+    } else if (attr.user) {
+        subscription = Subscription.countByUser(session.user)
+    } else if (attr.topicId && attr.user) {
+        subscription = Subscription.countByUserAndTopic(session.user, Topic.read(attr.topicId))
+    }
+    out << subscription
+}
+def resourceCount = { attrs, body ->
+    out << Resource.countByTopic(Topic.read(attrs.topicId))
+}
+def topicCount = { attrs, body ->
+    out << Topic.countByCreatedBy(attrs.user)
+}
 
 
 }
-//    def checkReading = { attr ->
-//        User loggedInUser = session.getAttribute("user")
-//        if (loggedInUser != null) {
-//            ReadingItem readingItem = ReadingItem.changeIsRead(loggedInUser, attr?.resource, false)
-//            if (readingItem) {
-//                out << g.render(template: '/templates/readResource', model: [resourceId: attr?.resource?.id, ajaxClass: "markReadInbox"])
-//            } else {
-//                return
-//            }
-//        }
-//        return
-//    }
-
-//}
-
-//    class CustomTagLib {
-//    def checkRes = { attr ->
-//        def resType = attr?.resource?.class
-//        if (resType == LinkResource) {
-//            LinkResource linkResource = Resource.findById(attr?.resource?.id)
-//            out << "<a  href=" + linkResource?.url + ' target = "_blank" ' + ">View Full Site</a>"
-//        } else {
-//            out << g.render(template: "/templates/downloadResource", model: [resourceId: attr?.resource?.id])
-//        }
-//    }
-//
-//}

@@ -16,8 +16,8 @@ class SubscriptionController {
         else
             ([message: "Subscription could not be saved"] as JSON)
 
-
 //        render flash.message;
+        redirect(controller: 'login', action: 'index')
 
 
     }
@@ -27,25 +27,26 @@ class SubscriptionController {
         if (subscription && Seriousness.toenum(seriousness)) {
             subscription.seriousness = Seriousness.toenum(seriousness)
             if (subscription.save(flush: true)) {
-                 ([message: "Success"] as JSON)
+                ([message: "Success"] as JSON)
             } else {
-                 ([message: "Error"] as JSON)
+                ([message: "Error"] as JSON)
 
             }
         } else {
-             ([message: "Subscription or Seriousness Not Found"] as JSON)
+            ([message: "Subscription or Seriousness Not Found"] as JSON)
         }
     }
 
     def delete(long id) {
-        Subscription subscription = Subscription.get(id);
+        Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {
             subscription.delete(flush: true)
-             ([message: "Subscription Deleted Successfully"] as JSON)
+           // redirect(request.getHeader('referer'));
+            ([message: "Subscription Deleted Successfully"] as JSON)
         } else
-             ([message: "Subscription Not Found"] as JSON)
+            ([message: "Subscription Not Found"] as JSON)
 
-//        render flash.message;
+        redirect(controller: 'login',action: 'index')
     }
 
 

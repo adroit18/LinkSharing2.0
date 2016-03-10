@@ -16,7 +16,7 @@
 <div class="col-xs-5">
 %{--<g:each in="${userDetails}" var="details">--}%
     %{--sadfasdfadfadfadfafafass ${details[0]}</g:each>--}%
-<g:render template="/user/details" model="[userDetails:userDetails]" />
+<g:render template="/user/details" />
 <g:render template="/subscription/subscriptions" model="[subscriptionList:subscriptionList]" />
 </div>
 <div class="col-xs-7">

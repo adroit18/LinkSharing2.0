@@ -42,7 +42,7 @@ class Topic {
             vos << new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4])
         }
         return vos[0..4];
-        println vos[0..4]
+       // println vos[0..4]
     }
 
 

@@ -10,7 +10,7 @@ class Subscription {
 
     static constraints = {
         seriousness(nullable: false, blank: false, defaultValue: Seriousness.SERIOUS)
-        user(nullable: true)        // , unique: 'topic'
+        user(nullable: true, unique: 'topic')
     }
 
     static mapping = {

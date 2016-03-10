@@ -39,10 +39,11 @@ class TopicController {
         if(name && visibility) {
          User createdBy = session.user;
          topic = new Topic(name: name, createdBy: createdBy, visibility: Link_Visibility.toenum(visibility))
-         if (topic.save()) {
+         if (topic.save(failOnError: true)) {
               ([message: "Topic saved Successfully"] as JSON)
 
-         } else
+         }
+         else
               ([message: "Topic could not be saved"] as JSON)
 
         }
@@ -51,7 +52,7 @@ class TopicController {
 
         //render flash.message
         //render  view:"../index";
-         render(view: 'create', model: [topic: topic])
+         redirect(controller:"login", action:"index", model: [topic: topic])
       //  <g:renderErrors bean="${topic}"/>
     }
 

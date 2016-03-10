@@ -1,29 +1,29 @@
 <head><script>
 
-    alert("${message}");
-    console.log("${message}")
-        $("document").ready(function(){
-        $('#loginButton').click(function () {
-            alert("calling login method..........");
-            callAjax()
-        });
-        function callAjax() {.
-            $.ajax({
-                url: "/login/login",
-                type: "post",
-                dataType: 'json',
-              data:{ids:JSON.stringify(idList), option:option, id:id}
-                success: function (data) {
-                    console.log(data);
-                    %{--<-----this logs the data in browser's console--}%
-                },
-                error: function (xhr) {
-                    alert(xhr.responseText);
-                    %{--<----when no data alert the err msg--}%
-                }
-
+    %{--alert("${message}");--}%
+    $('#my-alert').text(message)
+/*        $("document").ready(function() {
+            $('#loginButton').click(function () {
+                alert("calling login method..........");
+                callAjax()
             });
-        }
+            function callAjax() {
+                $.ajax({
+                    url: "/login/login",
+                    type: "post",
+                    dataType: 'json',
+                    data: {ids: JSON.stringify(idList), option: option, id: id}
+                    success: function (data) {
+                        console.log(data);
+                        <-----this logs the data in browser's console
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+
+                });
+            }
+        })*/
 </script></head>
 
 <div class="panel panel-default ">

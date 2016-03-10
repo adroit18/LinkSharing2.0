@@ -7,14 +7,13 @@ class LoginController {
 
     def index() {
         if (session.user) {
-            List userDetails = User.userTotalSubscriptionsAndTopics(session.user)
+
             List subscriptionList = Subscription.getSubscriptions(session.user)
-//            List trendingTopicsList = Topic.getTrendingTopics();
             List inboxList = ReadingItem.userNotReadResource(session.user)
             List<Topic> subscribedTopics = User.getSubscribedTopics(session.user)
 
             ([message: "Login Successfull"] as JSON)
-            render view: '/user/userIndex', model: [subscriptionList: subscriptionList, userDetails: userDetails, inboxList: inboxList, subscribedTopics: subscribedTopics]
+            render view: '/user/userIndex', model: [subscriptionList: subscriptionList, inboxList: inboxList, subscribedTopics: subscribedTopics]
 
         } else {
             List resourceList = ResourceRating.getTopPosts()//.collect { it[2] };

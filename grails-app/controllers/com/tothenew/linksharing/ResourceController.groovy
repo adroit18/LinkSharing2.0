@@ -22,12 +22,12 @@ class ResourceController {
     }
 
     def search(ResourcesSearchCo co) {
-        println "params : ${params}"
+        println "params------------- : ${co.properties}"
         if (co) {
             List<Resource> list = Resource.search(co).list();
-            render(view: "search", model: [searchResources: list, query : params.q])
+            render(view: "search", model: [searchResources: list])
         } else{
-            flash.message = "Search Parametre not Set"
+            flash.message = "Search Parametres not Set"
         }
 
 

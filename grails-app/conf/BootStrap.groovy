@@ -110,7 +110,7 @@ class BootStrap {
         Resource resource
         Subscription.getAll().each {
             resource = Resource.findByTopic(it.topic)
-            println resource
+            //println resource
             if ((resource.createdBy != it.user) && (!ReadingItem.findByUserAndResource(it.user, resource))) {
                 readingItem = new ReadingItem(user: it.user, resource: resource, isRead: false)
                 if (readingItem.save()) {
@@ -119,6 +119,11 @@ class BootStrap {
           }
         }
     }
+
+
+
+
+
 
     void createResourceRatings() {
         ResourceRating rating
