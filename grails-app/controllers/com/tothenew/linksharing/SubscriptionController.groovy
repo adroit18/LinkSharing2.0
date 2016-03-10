@@ -7,17 +7,18 @@ class SubscriptionController {
     def index() {}
 
     def saveTopic(long id) {
+        println 'saveTopic ' +id
         Topic topic = Topic.get(id);
         User user = session.user;
         Subscription subscription = new Subscription(topic: topic, user: user, seriousness: Seriousness.SERIOUS);
         if (subscription.save(flush: true))
-            ([message: "Subscription saved Successfully"] as JSON)
+           render ([message: "Unsubscribe", status:true] as JSON)
 
         else
-            ([message: "Subscription could not be saved"] as JSON)
+           render ([error: "Subscription could not be saved",status: false] as JSON)
 
 //        render flash.message;
-        redirect(controller: 'login', action: 'index')
+//        redirect(controller: 'login', action: 'index')
 
 
     }
@@ -38,15 +39,16 @@ class SubscriptionController {
     }
 
     def delete(long id) {
+        println 'delete ' +id
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {
             subscription.delete(flush: true)
            // redirect(request.getHeader('referer'));
-            ([message: "Subscription Deleted Successfully"] as JSON)
+           render ([message: "Subscribe",status: true] as JSON)
         } else
-            ([message: "Subscription Not Found"] as JSON)
+           render ([error: "Subscription Not Found",status: false] as JSON)
 
-        redirect(controller: 'login',action: 'index')
+        //redirect(controller: 'login',action: 'index')
     }
 
 

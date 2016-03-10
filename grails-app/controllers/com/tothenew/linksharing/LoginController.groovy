@@ -9,7 +9,7 @@ class LoginController {
         if (session.user) {
 
             List subscriptionList = Subscription.getSubscriptions(session.user)
-            List inboxList = ReadingItem.userNotReadResource(session.user)
+            List inboxList = ReadingItem.userInbox(session.user)
             List<Topic> subscribedTopics = User.getSubscribedTopics(session.user)
 
             ([message: "Login Successfull"] as JSON)

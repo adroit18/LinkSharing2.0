@@ -10,7 +10,7 @@
         <div class="panel-body">
 
              <div class="col-xs-2">
-        <g:include controller="user" action="userImage" params='[username: "${subscription[2]}"]'/>
+        <g:include controller="user" action="userImage" params='[username: "${subscription[2].username}"]'/>
         </div>
 
         <div class="col-xs-10 pull-left">
@@ -27,7 +27,7 @@
         <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
 
 
-        <span class="col-xs-6" style="color:blue;"> <ls:showSubscribe topicId="${subscription[0]}"/>${subscription[0]}
+        <span class="col-xs-6" style="color:blue;"> <ls:showSubscribe topicId="${subscription[0]}"/>
         </span>
         %{--${subscription[3]}--}%
         <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount topicId="${subscription[0]}" user="${subscription[2]}"/></span>

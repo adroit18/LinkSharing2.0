@@ -56,6 +56,14 @@ class TopicController {
       //  <g:renderErrors bean="${topic}"/>
     }
 
+    def topicDelete(long id){
+        Topic topic=Topic.get(id);
+        if(topic?.delete(flush: true))
+            ([message: "Topic Deleted Successfully"])
+        else
+            ([message: "Error Occured"])
+    }
+
 
 
 }

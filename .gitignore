@@ -44,3 +44,9 @@
 .project
 .gradle
 build/
+
+
+
+.jpg
+.png
+.pdf

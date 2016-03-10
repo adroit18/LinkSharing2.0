@@ -1,10 +1,8 @@
 <head><script>
-
-    %{--alert("${message}");--}%
     $('#my-alert').text(message)
-/*        $("document").ready(function() {
+        $("document").ready(function() {
             $('#loginButton').click(function () {
-                alert("calling login method..........");
+
                 callAjax()
             });
             function callAjax() {
@@ -13,9 +11,9 @@
                     type: "post",
                     dataType: 'json',
                     data: {ids: JSON.stringify(idList), option: option, id: id}
+
                     success: function (data) {
                         console.log(data);
-                        <-----this logs the data in browser's console
                     },
                     error: function (xhr) {
                         alert(xhr.responseText);
@@ -23,7 +21,7 @@
 
                 });
             }
-        })*/
+        })
 </script></head>
 
 <div class="panel panel-default ">

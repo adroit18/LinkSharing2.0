@@ -1,7 +1,5 @@
 package com.tothenew.linksharing
 
-import grails.converters.JSON
-
 class ResourceController {
 
     def index() {}
@@ -10,15 +8,13 @@ class ResourceController {
 
         User loggediInUser = session.user
         Resource resource = Resource.read(id)
-        if(loggediInUser.canDeleteResource(resource))
-        {
+        if (loggediInUser.canDeleteResource(resource)) {
             resource.delete()
             flash.message = "Resource Deleted"
-        }
-        else {
+        } else {
             flash.error = "Cannot found resource"
         }
-        redirect(controller:"login",action:"index")
+        redirect(controller: "login", action: "index")
     }
 
     def search(ResourcesSearchCo co) {
@@ -26,10 +22,9 @@ class ResourceController {
         if (co) {
             List<Resource> list = Resource.search(co).list();
             render(view: "search", model: [searchResources: list])
-        } else{
+        } else {
             flash.message = "Search Parametres not Set"
         }
-
 
 
     }
@@ -47,14 +42,15 @@ class ResourceController {
 //
 
 
-    def show(long id)
-    {
+    def show(long id) {
+
         Resource resource = Resource.get(id)
-        if(resource.canViewedBy(session.user)) {
+
+        if (resource.canViewedBy(session.user)) {
+
             List trendingTopics = Topic.getTrendingTopics()
             render(view: "/resource/_show", model: [resource: resource, trendingTopics: trendingTopics])
-        }
-        else {
+        } else {
             flash.error = "User Cannot view Topic"
         }
     }

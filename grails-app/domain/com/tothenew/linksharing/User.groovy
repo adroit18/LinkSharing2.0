@@ -92,7 +92,7 @@ class User {
 
     boolean canDeleteResource(Resource resource)
     {
-        if((resource.createdBy.id==this.id)|| this.admin)
+        if((resource.createdBy.id==this.id)|| this.isAdmin)
         {
             return true
         }
@@ -101,8 +101,9 @@ class User {
         }
     }
 
-    int getScore(Resource resource){
-        ResourceRating resourceRating= ResourceRating.findByUserAndResource(this,resource)
+    static int getScore(Resource resource,User user){
+
+        ResourceRating resourceRating= ResourceRating.findByUserAndResource(user,resource)
         int score=1
         if(resourceRating){
             score=resourceRating.score

@@ -27,12 +27,12 @@ abstract class Resource {
             if (co.visibility) {
                 eq('topic.visibility', co.visibility)
             }
-            ilike('description',"%${co.q}%")
+            ilike('description', "%${co.q}%")
         }
     }
 
-     RatingInfoVO getRatingInfo() {
-            List result = ResourceRating.createCriteria().get{
+    RatingInfoVO getRatingInfo() {
+        List result = ResourceRating.createCriteria().get {
             projections {
                 count('id', 'totalVotes')
                 sum('score')
@@ -50,6 +50,7 @@ abstract class Resource {
         List recentSharesList, recentSharesList1;
         recentSharesList = Resource.createCriteria().list(max: 5, offset: 0, sort: 'lastUpdated', order: 'desc') {
             projections {
+                //createAlias('readingItems','r')
                 property('url')
                 property('description')
                 property('filePath')
@@ -61,42 +62,23 @@ abstract class Resource {
 
             }
 
-            Date date = new Date()
-            Calendar calendar = Calendar.getInstance();
-            recentSharesList.each {
-                calendar.setTimeInMillis((date.time - recentSharesList[it][5].time));
-                int time_HOUR = calendar.get(Calendar.HOUR);
-                int time_MINUTE = calendar.get(Calendar.MINUTE);
-                int time_SECOND = calendar.get(Calendar.SECOND);
-                recentSharesList1 = recentSharesList
-                if (time_HOUR > 1)
-                    recentSharesList1[it][6] = time_HOUR
-                else
-                    recentSharesList1[it][6] = time_MINUTE > 1 ? time_MINUTE : time_SECOND
-
-            }
-
         }
         return recentSharesList
 
     }
 
-    String whichResource()
-    {
-        if(this instanceof LinkResource) {
+    String whichResource() {
+        if (this instanceof LinkResource) {
             return "Link"
-        }
-        else if(this instanceof DocumentResource)
-        {
+        } else if (this instanceof DocumentResource) {
             return "Document"
         }
     }
-    boolean canViewedBy(User user)
-    {
+
+    boolean canViewedBy(User user) {
         Topic resourceTopic = this.topic
         return resourceTopic.canViewedBy(user)
     }
-
 
 
 }

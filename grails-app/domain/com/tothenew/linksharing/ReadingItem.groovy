@@ -16,7 +16,7 @@ class ReadingItem {
         }
 
 
-    static List userNotReadResource(User user1) {
+    static List userInbox(User user1) {
 
         List list=ReadingItem.createCriteria().list{
             projections{

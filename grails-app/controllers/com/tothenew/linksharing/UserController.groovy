@@ -31,19 +31,30 @@ class UserController {
 
 
 
-//    def isUsernameValid(String username) {
-//        Integer numberOfUser = 0
-//        if (username) {
-//              ZZZZZZZZser = User.countByUsername(username)
-//        }
-//        if (numberOfUser)
-//    }
+    def isUsernameValid(String username) {
+        int numUser=User.countByUsername(username)
+        if(numUser>=1)
+            return false
+        else
+            return true
+    }
+
+    def isEmailIdValid(String emailId){
+        int num=User.countByEmailId(emailId)
+        if(num>=1)
+            return false
+        else
+            return true
+
+    }
+
 
 def userImage() {
 
-    println "-------------------------${params.username}"
     User user = User.findByUsername(params.username);
-    if (user.profilePic) {
+    println "-...........${user}"
+
+    if (user?.profilePic) {
         render ls.userImage([username: params.username])
     } else {
         render asset.image(src: 'img.png', width: '64px', height: '64px')
