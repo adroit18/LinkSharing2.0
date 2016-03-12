@@ -32,19 +32,21 @@ class UserController {
 
 
     def isUsernameValid(String username) {
-        int numUser=User.countByUsername(username)
+        int numUser=0
+         numUser=User.countByUsername(username)
         if(numUser>=1)
-            return false
+            render false
         else
-            return true
+            render true
     }
 
     def isEmailIdValid(String emailId){
-        int num=User.countByEmailId(emailId)
+        int num=0;
+        num=User.countByEmailId(emailId)
         if(num>=1)
-            return false
+            render false
         else
-            return true
+            render true
 
     }
 

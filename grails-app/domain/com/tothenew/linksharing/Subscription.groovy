@@ -23,9 +23,11 @@ class Subscription {
             projections {
                 createAlias("topic", "t")
                 createAlias("user", "u")
+
                 groupProperty("t.id")
                 property("t.name");
                 property("t.createdBy")
+                property("id")
                 count()
 
             }

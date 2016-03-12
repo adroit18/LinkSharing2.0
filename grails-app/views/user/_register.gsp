@@ -8,9 +8,10 @@
                     firstName: "required",
                     lastName: "required",
                     emailId: {
-                        unique: true,
+//                        unique: true,
                         required: true,
-                        email: true
+                        email: true,
+                        remote: "${createLink(controller: 'user',action: 'isEmailIdValid')}"
                     },
                     password: {
                         required: true,
@@ -21,27 +22,32 @@
                         minlength: 5
                     },
                     username: {
-                        remote: {
-                            url: ''
-                        }
+                            remote: "${createLink(controller: 'user',action: 'isUsernameValid')}"
                     }
                 },
 
 // Specify the validation error messages
-                messages: {
-                    firstname: "Please enter your first name",
-                    lastname: "Please enter your last name",
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
+                    messages: {
+                        firstname: "Please enter your first name",
+                        lastname: "Please enter your last name",
+                        password: {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 5 characters long"
+                        },
+                        emailId: {
+                          required:  "Please enter a valid email address",
+                           remote: jQuery.validator.format("Email ID already exists")
+                        },
+                        username: {
+                            remote: jQuery.validator.format("Username already exists")
+                        }
+
                     },
-                    emailId: "Please enter a valid email address"
 
-                },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
 
-                submitHandler: function (form) {
-                    form.submit();
-                }
             });
 
         });
@@ -83,7 +89,7 @@
         <div class="form-group">
             <div class="col-xs-5"><label class="control-label">Username<sup>*</sup></label></div>
 
-            <div class="col-lg-7"><g:textField name="username"
+            <div class="col-lg-7"><g:textField name="username" id="username"
                                                class="form-control form-register-field"></g:textField>
             </div></div>
 

@@ -52,4 +52,21 @@ class SubscriptionController {
     }
 
 
+    def changeSeriousness() {
+        Topic topic = Topic.load(params.topicId)
+        User user = session.getAttribute("user")
+        Subscription subscription = Subscription.findByUserAndTopic(user, topic)
+        subscription.seriousness = params.seriousness
+        if(subscription.save(flush: true, failOnError: true))
+            render([message: "Seriousness successfully Changed"] as JSON)
+        else
+            render([message: "Seriousness Could not be Changed"] as JSON)
+
+    }
+
+
+
+
+
+
 }

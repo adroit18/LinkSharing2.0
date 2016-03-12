@@ -14,12 +14,10 @@ class CustomTaglibTagLib {
             def isRead = readingItem.isRead
             if (isRead) {
 //                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: false], "style": "font-size:10px") {
-                    out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
-                }
-
-             else {
+                out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
+            } else {
 //                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: true], "style": "font-size:10px") {
-                out<<  "<span class='read' data-id=${attrs.id} style='color:blue' > Mark as Read </span>"
+                out << "<span class='read' data-id=${attrs.id} style='color:blue' > Mark as Read </span>"
 
 
             }
@@ -55,11 +53,11 @@ class CustomTaglibTagLib {
 //        println "-----hello------------" + loggedInUser?.isSubscribed(attrs.topicId)
         if (session.user && loggedInUser.isSubscribed(attrs.topicId)) {
 //            out << g.link(controller: "subscription", action: "delete", id: "${attrs.topicId}") {
-               out << "<span class='unsubscribe' data-id=${attrs.topicId} >Unsubscribe </span>"
+            out << "<span class='unsubscribe' data-id=${attrs.topicId} >Unsubscribe </span>"
 //            }
         } else {
 //            out << g.link(controller: "subscription", action: "saveTopic", id: "${attrs.topicId}") {
-         out<<       "<span class='subscribe' data-id=${attrs.topicId} >Subscribe </span>"
+            out << "<span class='subscribe' data-id=${attrs.topicId} >Subscribe </span>"
 //            }
         }
     }
@@ -82,8 +80,35 @@ class CustomTaglibTagLib {
         out << Topic.countByCreatedBy(attrs.user)
     }
 
-    def canUpdateTopic={attrs,body ->
+    def canUpdateTopic = { attrs, body ->
+        Topic topic = Topic.get(attrs.topicId)
+        if (session.user.isAdmin == true || topic.createdBy == session.user) {
 
+            out << "<span class='col-xs-4'>"
+            out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
+            out << "<span class='col-xs-4'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
+            out << "</span><br>"
+        }
+        else {
+            out << "<div class='col-xs-4' id='visibilityDropDown'>"
+            out << "${topic.visibility}           "
+            out<< "${Subscription.get(attrs.subId).seriousness}"
+            out << "</div>"
+        }
+
+        //  flash.message=attrs.topicId;
+//        class="seditTopicInline"
+//        id="sedit-${sub?.topic?.id}" style="width: 22px; cursor: pointer;"
+
+    }
+
+    def showSeriousness = { attrs, body ->
+        Topic topic = Topic.get(attrs.topicId)
+
+        out << g.select(name: 'seriousness', from: ['SERIOUS', 'VERY SERIOUS', 'CASUAL'], value: "${}")
+        if (session.user.isAdmin == true || topic.createdBy == session.user) {
+
+        }
 
     }
 
