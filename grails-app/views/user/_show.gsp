@@ -11,7 +11,8 @@
         <div class="panel-body">
 
             <div class="col-xs-4">
-                <g:include controller="user" action="userImage" params='[username: "${user.username}"]'/>
+                %{--<g:include controller="user" action="userImage" params='[username: "${user.username}"]'/>--}%
+                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:user.id])}" width="65px" height="65px"/>
             </div>
 
             <div class="col-xs-8">${user.firstName}<span class="text-muted"><br>@${user.username}<br>

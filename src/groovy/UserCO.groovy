@@ -15,11 +15,14 @@ class UserCO {
         String lastName
         Boolean isAdmin = false
         Boolean isActive = true
-        String photo
+        byte[] profilePic
         String confirmPassword
         String imageFileName
+        transient photoType
 
-
+       static mapping={
+           isActive defaultValue: true
+       }
         String toString() {
             return "${firstName} ${lastName}"
         }
@@ -31,7 +34,8 @@ class UserCO {
             password(size: 4..50, validator: { val, obj ->
                 return val.equals(obj.confirmPassword)
             })
-            photo(nullable: true)
+            profilePic(nullable: true)
+            photoType(nullable:true)
         }
     }
 

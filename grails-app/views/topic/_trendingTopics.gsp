@@ -60,12 +60,18 @@
         <div class="pull-right">
             <a href="#" style="text-decoration:underline">View ALL</a></div></div>
 
+
+    %{--<div class="pagination">--}%
+        %{--<g:paginate total="${trendingTopics}" />--}%
+    %{--</div>--}%
+
     <g:each in="${trendingTopics}" var="trending">
 
         <div class="panel-body">
 
             <div class="col-xs-2">
-                <g:include controller="user" action="userImage" params='[username: "${trending.createdBy}"]'/>
+                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:trending.createdBy.id])}" width="65px" height="65px"/>
+                %{--<g:include controller="user" action="userImage" params='[username: "${trending.createdBy}"]'/>--}%
             </div>
 
             <div class="col-xs-10 pull-left">

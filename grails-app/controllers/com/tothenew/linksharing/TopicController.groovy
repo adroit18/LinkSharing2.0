@@ -6,6 +6,9 @@ import grails.converters.JSON
 
 class TopicController {
 
+    EmailService emailService;
+
+
     def index() {
         Topic topic = Topic.get(params.id)
         render(view: 'topicIndex', model: [users: topic.getSubscribedUsers(), topicName: topic.name])
@@ -88,9 +91,12 @@ class TopicController {
 
 def deleteTopic() {
     Topic topicObj = Topic.get(params.topicId)
-    topicObj.delete(flush: true)
-    render([message: "Topic Deleted Successfully"] as JSON)
-
+    if(topicObj.createdBy==session.user)
+        render([message: "Creator of Topic Cannot delete Topic"] as JSON)
+    else {
+        topicObj.delete(flush: true)
+        render([message: "Topic Deleted Successfully"] as JSON)
+    }
 
 }
 
@@ -104,6 +110,17 @@ def changeVisibility() {
         render([message: "Visibility Could not be Changed"] as JSON)
 
 }
+
+    def invite(long id,String emailId){
+        Topic topic=Topic.get(id);
+        if(topic)
+            emailService.sendEmail()
+        else
+            ([message:"Topic Not Found"] as JSON)
+
+
+
+    }
 
 
 }

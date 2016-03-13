@@ -2,7 +2,8 @@
     %{--<g:set value="${userDetails}" var="details">--}%
     <div class="panel-body">
         <div class="col-xs-2">
-            <g:include controller="user" action="userImage" params='[username: "${session.user.username}"]'/>
+            %{--<g:include controller="user" action="userImage" params='[username: "${session.user.username}"]'/>--}%
+            <img src="${g.createLink(controller: 'user', action: 'image', params:[id:session.user.id])}" width="65px" height="65px"/>
         </div>
 
         <div class="col-xs-10"><%=" Welcome " + session.user.username%><span

@@ -19,6 +19,7 @@
 <g:render template="/user/details" />
 <g:render template="/subscription/subscriptions" model="[subscriptionList:subscriptionList]" />
 </div>
+
 <div class="col-xs-7">
 <ls:trendingTopics/>
 %{--<g:render template="/topic/trendingTopics" model="[trendingTopicsList:trendingTopicsList]"/>--}%

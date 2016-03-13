@@ -9,9 +9,10 @@ class User {
     String password;
     Boolean isActive;
     Boolean isAdmin;
-    String profilePic;
+    byte[] profilePic;
     static transients = ['name', 'subscribedTopics']
     transient confirmPassword;
+    transient photoType
 
     Date lastUpdated;
     Date dateCreated;
@@ -19,7 +20,7 @@ class User {
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource, ratingItems: ResourceRating]
     static mapping = {
-        //profilePic(sqlType: 'longblob')
+        profilePic(sqlType: 'longblob')
         sort id: 'desc'
         isActive defaultValue: true
     }

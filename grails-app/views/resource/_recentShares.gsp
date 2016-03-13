@@ -6,7 +6,8 @@
         <div class="panel-body">
 
             <div class="col-xs-2">
-                <g:include controller="user" action="userImage" params='[username: "${shares[3].username}"]'/>
+                %{--<g:include controller="user" action="userImage" params='[username: "${shares[3].username}"]'/>--}%
+                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:shares[3].id])}" width="65px" height="65px"/>
             </div>
             <div class="col-xs-10">${shares[3]}<span class="text-muted">
             @${shares[3 ]}

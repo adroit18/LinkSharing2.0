@@ -48,7 +48,7 @@
     }
 
     </style>
-<g:layoutHead/>
+    <g:layoutHead/>
 </head>
 
 <body>
@@ -63,84 +63,91 @@
                     </div>
 
 
-                 <g:if test="${session.user}">
-                    <div class="col-xs-3">
+                    <g:if test="${session.user}">
+                        <div class="col-xs-3">
                         %{--<div class="panel" id="search-panel">--}%
                             <g:form controller="resource" action="search" class="navbar-form">
                                 <div class="input-group">
-                                    <g:textField type="text" class="form-control" placeholder="Search" name="q" id="srch-term"/>
+                                    <g:textField type="text" class="form-control" placeholder="Search" name="q"
+                                                 id="srch-term"/>
                                     <div class="input-group-btn">
-                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit" value="Search"/>
+                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit"
+                                                        value="Search"/>
                                     </div>
                                 </div>
                             </g:form>
-                            %{--<div class="glyphicon glyphicon-search"></div>--}%
+                        %{--<div class="glyphicon glyphicon-search"></div>--}%
 
-                            %{--<div class="badge pull-right">--}%
-                                %{--<div class="glyphicon glyphicon-remove"></div>--}%
-                            %{--</div>--}%
-                           %{----}%
-                            %{--<input type="text" placeholder="search" style="border:none">--}%
+                        %{--<div class="badge pull-right">--}%
+                        %{--<div class="glyphicon glyphicon-remove"></div>--}%
                         %{--</div>--}%
-                    </div>
-                     </g:if>
+                        %{----}%
+                        %{--<input type="text" placeholder="search" style="border:none">--}%
+                        %{--</div>--}%
+                        </div>
+                    </g:if>
 
                     <g:else>
                         <div class="col-xs-6 pull-right">
-                            %{--<div class="panel" id="search-panel">--}%
-                                %{--<div class="glyphicon glyphicon-search"></div>--}%
+                        %{--<div class="panel" id="search-panel">--}%
+                        %{--<div class="glyphicon glyphicon-search"></div>--}%
 
-                                %{--<div class="badge pull-right">--}%
-                                    %{--<div class="glyphicon glyphicon-remove"></div>--}%
-                                %{--</div>--}%
-                                %{--<input type="text" size="50px" placeholder="search" style="border:none">--}%
-                            %{--</div>--}%
+                        %{--<div class="badge pull-right">--}%
+                        %{--<div class="glyphicon glyphicon-remove"></div>--}%
+                        %{--</div>--}%
+                        %{--<input type="text" size="50px" placeholder="search" style="border:none">--}%
+                        %{--</div>--}%
                             <g:form controller="resource" action="search" class="navbar-form">
                                 <div class="input-group">
-                                    <g:textField type="text" class="form-control" placeholder="Search" name="q" id="srch-term"/>
+                                    <g:textField type="text" class="form-control" placeholder="Search" name="q"
+                                                 id="srch-term"/>
                                     <div class="input-group-btn">
-                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit" value="Search"/>
+                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit"
+                                                        value="Search"/>
                                     </div>
                                 </div>
                             </g:form>
                         </div>
                     </g:else>
 
-                <g:if test="${session.user}">
-                    <div class="col-xs-5">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4"
-                                style="border:none;background:none;color:black">
-                            <div class="glyphicon glyphicon-comment"></div></button>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1"
-                                style="border:none;background:none;color:black"><div
-                                class="glyphicon glyphicon-envelope"></div></button>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2"
-                                style="border:none;background:none;color:black"><div
-                                class="glyphicon glyphicon-paperclip"></div></button>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3"
-                                style="border:none;background:none;color:black"><div
-                                class="glyphicon glyphicon-edit"></div></button>
+                    <g:if test="${session.user}">
+                        <div class="col-xs-5">
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4"
+                                    style="border:none;background:none;color:black">
+                                <div class="glyphicon glyphicon-comment"></div></button>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1"
+                                    style="border:none;background:none;color:black"><div
+                                    class="glyphicon glyphicon-envelope"></div></button>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2"
+                                    style="border:none;background:none;color:black"><div
+                                    class="glyphicon glyphicon-paperclip"></div></button>
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3"
+                                    style="border:none;background:none;color:black"><div
+                                    class="glyphicon glyphicon-edit"></div></button>
 
-                        <div class=" pull-right"><div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                                    style="border:none"><div class="glyphicon glyphicon-user"></div>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Profiles</a></li>
-                                <li><g:link controller="login" action="logout">Logout</g:link></li>
-                                <li role="separator" class="divider"></li>
-                            </ul>
-                        </div>
-                        </div></g:if>
+                            <div class=" pull-right"><div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                        style="border:none"><div class="glyphicon glyphicon-user"></div>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <g:if test="${session.user.isAdmin}">
+                            <li><g:link controller="user" action="userTable">User List</g:link></li>
+                        </g:if>
+                        <li><g:link controller="user" action="editProfile" params="[userId:session.user.id]">Profile</g:link></li>
+                        <li><g:link controller="login" action="logout">Logout</g:link></li>
+                        <li role="separator" class="divider"></li>
+                        </ul>
                     </div>
+                    </div></g:if>
+                </div>
 
                 </div>
             </div>
 
         </div>
     </div>
-   <g:layoutBody/>
+    <g:layoutBody/>
 </body>
 </html>

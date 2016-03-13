@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-7">
             <!-- Topic Panel -->
             <!-- ************************************************** -->
             <ls:trendingTopics/>
@@ -16,7 +16,7 @@
             %{--<g:render template="/topic/trendingTopics" model="${[trendingTopics:Topic.trendingTopics]}"/>--}%
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-5">
             <!-- Topic Posts Panel -->
             <!-- ************************************************ -->
             <div class="panel panel-default">
@@ -31,8 +31,10 @@
                 <g:each in="${searchResources}" var="resource">
                     <div>
                         <div class="col-xs-2">
-                            <g:include controller="user" action="userImage"
-                                       params='[username: "${resource?.createdBy?.username}"]'/>
+                            %{--<g:include controller="user" action="userImage"--}%
+                                       %{--params='[username: "${resource?.createdBy?.username}"]'/>--}%
+                            <img src="${g.createLink(controller: 'user', action: 'image', params:[id:resource?.createdBy?.id])}" width="65px" height="65px"/>
+
                         </div>
                     </div>
 

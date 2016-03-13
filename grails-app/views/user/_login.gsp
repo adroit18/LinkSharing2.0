@@ -10,7 +10,7 @@
                     url: "/login/login",
                     type: "post",
                     dataType: 'json',
-                    data: {ids: JSON.stringify(idList), option: option, id: id}
+                    data: {ids: JSON.stringify(idList), option: option, id: id},
 
                     success: function (data) {
                         console.log(data);
