@@ -88,38 +88,55 @@ class TopicController {
     }
 
 
+    def deleteTopic() {
+        Topic topicObj = Topic.get(params.topicId)
+        if (topicObj.createdBy == session.user)
+            render([message: "Creator of Topic Cannot delete Topic"] as JSON)
+        else {
+            topicObj.delete(flush: true)
+            render([message: "Topic Deleted Successfully"] as JSON)
+        }
 
-def deleteTopic() {
-    Topic topicObj = Topic.get(params.topicId)
-    if(topicObj.createdBy==session.user)
-        render([message: "Creator of Topic Cannot delete Topic"] as JSON)
-    else {
-        topicObj.delete(flush: true)
-        render([message: "Topic Deleted Successfully"] as JSON)
     }
 
-}
 
-
-def changeVisibility() {
-    Topic topic = Topic.get(params.topicId)
-    topic.visibility = params.visibility
-    if (topic.save(failOnError: true, flush: true))
-        render([message: "Visibility successfully Changed"] as JSON)
-    else
-        render([message: "Visibility Could not be Changed"] as JSON)
-
-}
-
-    def invite(long id,String emailId){
-        Topic topic=Topic.get(id);
-        if(topic)
-            emailService.sendEmail()
+    def changeVisibility() {
+        Topic topic = Topic.get(params.topicId)
+        topic.visibility = params.visibility
+        if (topic.save(failOnError: true, flush: true))
+            render([message: "Visibility successfully Changed"] as JSON)
         else
-            ([message:"Topic Not Found"] as JSON)
+            render([message: "Visibility Could not be Changed"] as JSON)
 
+    }
 
+    def invite(String topicName, String emailId) {
+        Topic topic = Topic.findByName(topicName);
+        println "................." +topic
+        if (topic) {
+            EmailDTO emailDTO = new EmailDTO(to: [emailId], subject: "${session.user} invited you to like a topic.", view: "/email/_invite", model: [topic: topic, user: session.user, serverUrl: grailsApplication.config.grails.serverURL])
+            emailService.sendMail(emailDTO)
+            redirect(controller: "login", action: "index")
+        } else
+            ([message: "Topic Not Found"] as JSON)
 
+    }
+
+    def join(long id) {
+        User invitedUser = session.user
+        Topic invitedTopic = Topic.read(id)
+        if (Subscription.countByTopicAndUser(invitedTopic, invitedUser)) {
+            Subscription newSubscription = new Subscription(topic: invitedTopic, user: invitedUser)
+            if (newSubscription.validate()) {
+                newSubscription.save()
+                flash.message = "Subscribed"
+            } else {
+                flash.error = "Couldn't save Subscription"
+            }
+        } else {
+            flash.message = "Already Subscribed"
+        }
+        redirect(controller: "user", action: "index")
     }
 
 

@@ -10,6 +10,7 @@ class UserController {
     SubscriptionService subscriptionService
     TopicService topicService
     UserService userService
+    EmailService emailService
 
 
     def index() {
@@ -22,21 +23,13 @@ class UserController {
         co.profilePic = f.bytes
         co.photoType = f.contentType
         User user = new User(co.properties)
-        if (user.save()) {
-            render 'success'
-        } else {
-            flash.message = user.errors
-            flash.error = 'User not registered'
-            render user.errors
-        }
+        if (user.save(flush: true, failOnError: true)) {
+            render(view: "/login/registerSuccess")
+        } else
+            ([message: "Failiure"] as JSON)
 
 
     }
-
-
-
-
-
 
 //
 //        String filePath = grailsApplication.config.userProfileImageFolder + userCO.username
@@ -55,11 +48,6 @@ class UserController {
 //        user.profilePic = userCO.username
 //
 
-//        if (user.save(flush: true, failOnError: true)) {
-//            render(view: "/login/registerSuccess")
-//        } else
-//            ([message: "Failiure"] as JSON)
-//
 //    }
 
 
@@ -82,22 +70,20 @@ class UserController {
 
     }
 
-  def image(Long id) {
-            User user = User.get(id)
-            byte[] image
-            if (user.profilePic) {
-                image = user.profilePic
-            } else {
-                image = assetResourceLocator.findAssetForURI('img.png').byteArray
-            }
-            response.contentType = user.photoType
-            response.contentLength = image.size()
-            OutputStream out = response.outputStream
-            out.write(image)
-            out.close()
+    def image(Long id) {
+        User user = User.get(id)
+        byte[] image
+        if (user.profilePic) {
+            image = user.profilePic
+        } else {
+            image = assetResourceLocator.findAssetForURI('img.png').byteArray
         }
-
-
+        response.contentType = user.photoType
+        response.contentLength = image.size()
+        OutputStream out = response.outputStream
+        out.write(image)
+        out.close()
+    }
 
 //        User user = User.findByUsername(params.username);
 //        println "-...........${user}"
@@ -128,7 +114,11 @@ class UserController {
 
         def userImage = request.getFile('file')
         User userObj = session["user"]
-        boolean success = userService.updateUserProfile(userCO, userObj, userImage)
+        userCO.profilePic = userImage.bytes
+        userCO.photoType = userImage.contentType
+        User user = new User(userCO.properties)
+
+        boolean success = userService.updateUserProfile(userCO, userObj)
         if (success) {
             flash.message = g.message(code: "profile.update.success")
             redirect(controller: "user", action: "editProfile")
@@ -186,6 +176,25 @@ class UserController {
         user.confirmPassword = user.password
         user.save(failOnError: true, flush: true)
         redirect(action: 'userTable')
+    }
+
+
+    def forgotPassword(String recoveryemail) {
+        User user = User.findByEmailId(recoveryemail)
+        if (user && user.isActive) {
+            String newPassword = RandomPasswordGenerator.generateRandomPassword()
+            println "heloo ${recoveryemail} and ${newPassword}"
+            EmailDTO emailDTO = new EmailDTO(to: [recoveryemail], subject: "Account Recovery", view: "/email/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
+            emailService.sendMail(emailDTO)
+//            user.password = newPassword
+//            user.confirmPassword = newPassword
+            if (user.executeUpdate("update User as U set U.password=:password where U.id=:id", [password: newPassword, id: user.id]))
+                flash.message = "Success"
+            else
+                flash.error = "Email not for a valid user"
+
+            redirect(controller: "login", action: "index")
+        }
     }
 
 

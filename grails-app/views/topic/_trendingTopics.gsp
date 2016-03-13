@@ -84,9 +84,11 @@
                 <span class="col-xs-4" style="padding-left:1px">Posts</span><br>
                 <span class="col-xs-4" style="color:blue;">
 
+                    <g:if test="${session.user}">
                     <div data-id="${trending.id}">
                         <ls:showSubscribe topicId="${trending.id}"/>
                     </div>
+                    </g:if>
                     %{--<a href="#" style="text-decoration:underline">Unsubscribe</a>--}%
                 </span>
                 %{--<span class="col-xs-4" style="color:blue;padding-left:1px">${trending.count}</span>--}%

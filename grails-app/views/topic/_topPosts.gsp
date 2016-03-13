@@ -1,7 +1,7 @@
 <%@ page import="com.tothenew.linksharing.*" %>
 
-<div class="panel panel-default " style="border:none">
-    <div class="panel-heading head" id="topPosts">
+<div class="panel panel-default " style="border:3px solid blueviolet;border-radius:8px">
+    <div class="panel-heading head" id="topPosts" style="border-bottom:3px solid blueviolet;">
         Top Posts
 
         <div class="pull-right "><form>
@@ -16,7 +16,7 @@
     </div>
 
 <g:each in="${resourceList}" var="resource">
-    <div class="panel-body bdy" margin="10px 10px 10px 10px">
+    <div class="panel-body bdy">
         <div class="row">
             <div class="col-xs-2">
                 %{--<g:include controller="user" action="userImage" params='[username: "${resource[4]}"]'/>--}%
@@ -36,9 +36,10 @@
                     <i class="fa fa-tumblr"></i>
                     <i class="fa fa-google-plus"></i>
 
-
+                    <g:if test="${Resource.get(resource[0]).canViewedBy(session.user)}">
                     <span><g:link controller="resource" action="show" params="[id:resource[0]]" style="text-decoration:underline;font-size:10px">View Post</g:link>
                     </span>
+                    </g:if>
 
                 </div>
 

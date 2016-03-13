@@ -27,7 +27,9 @@
                                 </div>
 
 <div class="col-xs-9">
-    <a href="#" class="text-left">${resource?.topic.name}</a>
+<g:link value="topic" url="[controller: 'topic', action: 'index', params: [id: resource?.topic?.id]]"
+        class="col-xs-8"
+        style="text-decoration:underline">${resource?.topic.name}</g:link>
 </div>
 </div>
 
@@ -83,7 +85,9 @@
         </div>
 
         <g:if test="${resource.whichResource().equals("Document")}">
-            <div class="col-xs-2"><a href="#">Download</a></div>
+            <g:link controller="DocumentResource" action="downloadDocument"
+                    params="[fid: resource?.id]"
+                    style="text-decoration:underline;font-size:10px">Download</g:link>
         </g:if>
 
         <g:elseif test="${resource.whichResource().equals("Link")}">

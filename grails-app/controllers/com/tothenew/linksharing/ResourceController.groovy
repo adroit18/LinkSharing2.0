@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
 
+import grails.converters.JSON
+
 class ResourceController {
 
     def index() {}
@@ -9,7 +11,7 @@ class ResourceController {
         User loggediInUser = session.user
         Resource resource = Resource.read(id)
         if (loggediInUser.canDeleteResource(resource)) {
-            resource.delete()
+            resource.delete(flush: true)
             flash.message = "Resource Deleted"
         } else {
             flash.error = "Cannot found resource"
@@ -45,13 +47,12 @@ class ResourceController {
     def show(long id) {
 
         Resource resource = Resource.get(id)
-
         if (resource.canViewedBy(session.user)) {
-
             List trendingTopics = Topic.getTrendingTopics()
             render(view: "/resource/_show", model: [resource: resource, trendingTopics: trendingTopics])
         } else {
-            flash.error = "User Cannot view Topic"
+
+            [message:"User Cannot view Topic"]as JSON
         }
     }
 

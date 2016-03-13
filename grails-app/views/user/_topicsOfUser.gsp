@@ -149,12 +149,13 @@
 
             <div class="col-xs-2">
                 %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2].username}"]'/>--}%
-                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:topic?.createdBy.id])}" width="65px" height="65px"/>
+                <img src="${g.createLink(controller: 'user', action: 'image', params: [id: topic?.createdBy.id])}"
+                     width="65px" height="65px"/>
             </div>
 
-            <div class="col-xs-10 pull-left" >
+            <div class="col-xs-10 pull-left">
 
-                <g:link value="topic" url="[controller: 'topic', action: 'index', params: [id: topic?.createdBy?.id ]]"
+                <g:link value="topic" url="[controller: 'topic', action: 'index', params: [id: topic?.createdBy?.id]]"
                         class="col-xs-8"
                         style="text-decoration:underline">
                     <label class="user-resource anchor-dec view-post"
@@ -184,19 +185,117 @@
 
 
 
-                <ls:canUpdateTopic topicId="${topic?.id}" subId="${Subscription.findByTopicAndUser(Topic.get(topic.id),session.user).id}"/>
+                <g:if test="${Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user)}">
+                    <ls:canUpdateTopic topicId="${topic?.id}"
+                                       subId="${Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user).id}"/>
+                </g:if>
+                <g:else>
+                    <ls:canUpdateTopic topicId="${topic?.id}" subId="${null}"/>
+                </g:else>
                 <br>
-                <div class="glyphicon glyphicon-envelope col-xs-4"></div>
+%{--.......................................................--}%
+
+
+        <div> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal6"
+                      style="font-size:15px;border:none;background:none;color:blue"><div
+                    class="glyphicon glyphicon-envelope"></div></button>
+
+                <div id="myModal6" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal 6 content-->
+                        <div class="modal-content" >
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Send Invitation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <g:form class="form-horizontal"  controller="topic" action="invite">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4">Email/Username:</label>
+                                        .
+                                        <div class="col-xs-8">
+                                            <input type="email" class="form-control" name="emailId" id="emailId" placeholder="Enter email">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4">Topics</label>
+
+                                        <div class="col-xs-8">
+                                            <g:select name="topicName" from="${[topic?.name]}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-4"></div>
+                                        <div class="col-xs-4">
+                                            <g:actionSubmit controller="topic" action="invite" class="form-control btn btn-default active" id="submit" value="Invite"
+                                                            style="color:black;border:solid black;border-radius:7px"/>
+                                        </div><div class="col-xs-4">
+                                        %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
+                                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
+                                    </div>
+                                    </div>
+
+                                </g:form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                %{--<div class="glyphicon glyphicon-envelope col-xs-4"></div>--}%
+
+   %{--......................................................... --}%
+
+
+
                 <br>
+
+                <span class="col-xs-7">
+                    <g:if test="${(topic?.createdBy.equals(session.user)) || (session.user.isAdmin) && (Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))}">
+
+                        <g:select name="seriousSelect-${topic?.id}"
+                                  class=" form-control dashboard-select sajaxSeriousSelect"
+                                  id="sseriousSelect-${topic?.id}" from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
+                                  value="${Subscription.findByTopicAndUser(Topic.get(topic.id), session.user).seriousness}"/>
+
+                    </g:if>
+
+                    <g:else>
+                        The Topic is Not Subscribed
+                    </g:else>
+
+                </span>
+
 
                 <g:if test="${(topic?.createdBy.equals(session.user)) || (session.user.isAdmin)}">
 
-                    <span class="col-xs-7">    <g:select name="seriousSelect-${topic?.id}"
-                                                         class=" form-control dashboard-select sajaxSeriousSelect"
-                                                         id="sseriousSelect-${topic?.id}" from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
-                                                         value="${Subscription.findByTopicAndUser(Topic.get(topic.id),session.user).seriousness}"/>
-
-                    </span>
                     <span class="col-xs-5">
                         <g:select name="visibleSelect-${topic?.id}"
                                   class="col-xs-6  form-control dashboard-select sajaxVisibleSelect"
@@ -205,8 +304,6 @@
                     </span>
 
                 </g:if>
-
-
 
             </div>
             .

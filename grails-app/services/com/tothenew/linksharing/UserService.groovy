@@ -8,21 +8,22 @@ class UserService {
 
     def grailsApplication
 
-    def updateUserProfile(UserCO userCo, User userObj, def userImage) {
+    def updateUserProfile(UserCO userCo, User userObj) {
         userObj.firstName = userCo.firstName
         userObj.lastName = userCo.lastName
         userObj.username = userCo.username
+        userObj.profilePic=userCo.profilePic
         userObj.confirmPassword = userObj.password
 
-        if (!userImage.empty) {
-            userObj.profilePic = userImage.originalFilename
-            String filePath = grailsApplication.config.userProfileImageFolder
-            File dir = new File(filePath)
-            if (!dir.exists()) {
-                dir.mkdirs()
-            }
-            userImage.transferTo(new File(filePath + userObj.photo))
-        }
+//        if (!userImage.empty) {
+//            userObj.profilePic = userImage.originalFilename
+//            String filePath = grailsApplication.config.userProfileImageFolder
+//            File dir = new File(filePath)
+//            if (!dir.exists()) {
+//                dir.mkdirs()
+//            }
+//            userImage.transferTo(new File(filePath + userObj.photo))
+//        }
         if (userObj.validate()) {
             userObj.merge(flush: true, failOnError: true)
             return true

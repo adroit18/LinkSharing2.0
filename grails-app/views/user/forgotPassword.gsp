@@ -14,16 +14,15 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-box" name="forgetPasswordForm" controller="login">
+        <g:form class="form-box" name="forgetPasswordForm" >
             <div>
 
-                <g:textField name="email" class="form-control form-register-field" placeholder="Email"/>
+                <g:textField name="recoveryemail" class="form-control form-register-field" placeholder="Email"/>
             </div><br>
-            <g:actionSubmit name="button" value="Submit" action="sendingMail" style="width: 75%; margin-left: 10%;"
+            <g:actionSubmit controller="user" name="button" value="Submit" action="forgotPassword" style="width: 75%; margin-left: 10%;"
                             class=" btn form-btn"/><br><br>
 
-            <g:actionSubmit name="button" value="Try Again !!" action="index" style="width: 75%; margin-left: 10%;"
-                            class=" btn form-btn"/>
+            <g:link controller="login" action="index">Go Back and Try Again !!</g:link>
         </g:form>
     </div>
 </div>

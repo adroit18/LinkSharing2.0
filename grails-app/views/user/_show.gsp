@@ -2,20 +2,19 @@
 <br>
 
 <div style="font-size:28px">Subscribed Users</div>
-
 <g:each in="${users}" var="user">
     <div class="panel panel-default">
-        <div class="panel-heading">${user.firstName} ${user.lastName}
+        <div class="panel-heading">${user?.firstName} ${user?.lastName}
         </div>
 
         <div class="panel-body">
 
             <div class="col-xs-4">
                 %{--<g:include controller="user" action="userImage" params='[username: "${user.username}"]'/>--}%
-                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:user.id])}" width="65px" height="65px"/>
+                <img src="${g.createLink(controller: 'user', action: 'image', params:[id:user?.id])}" width="65px" height="65px"/>
             </div>
 
-            <div class="col-xs-8">${user.firstName}<span class="text-muted"><br>@${user.username}<br>
+            <div class="col-xs-8">${user?.firstName}<span class="text-muted"><br>@${user?.username}<br>
                 <span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
                                                                                           style="padding-left:1px">Topics</span><br>
             </span>

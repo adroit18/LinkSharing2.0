@@ -86,7 +86,9 @@ class CustomTaglibTagLib {
 
             out << "<span class='col-xs-4'>"
             out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
+//            if(topic.createdBy!=session.user)
             out << "<span class='col-xs-4'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
+
             out << "</span><br>"
         }
         else {
