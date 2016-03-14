@@ -7,7 +7,7 @@ class LoginController {
 
     def index() {
         if (session.user) {
-
+        params.max
             List subscriptionList = Subscription.getSubscriptions(session.user)
             List inboxList = ReadingItem.userInbox(session.user)
             List<Topic> subscribedTopics = User.getSubscribedTopics(session.user)

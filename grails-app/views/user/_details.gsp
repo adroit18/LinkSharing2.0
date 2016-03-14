@@ -1,4 +1,4 @@
-<div class="panel panel-default" style="border:3px solid darkviolet;border-radius:8px">
+<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
     %{--<g:set value="${userDetails}" var="details">--}%
     <div class="panel-body">
         <div class="col-xs-2">
@@ -6,7 +6,7 @@
             <img src="${g.createLink(controller: 'user', action: 'image', params:[id:session.user.id])}" width="65px" height="65px"/>
         </div>
 
-        <div class="col-xs-10"><%=" Welcome " + session.user.username%><span
+        <div class="col-xs-10" style="font-style: italic"><%=" Welcome, " + session.user.username%><span
                 class="text-muted"><br><%=session.user.emailId%><br>
             <span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
                                                                                       style="padding-left:1px">Topics</span><br>

@@ -56,8 +56,8 @@
 </head>
 
 
-<div class="panel panel-default ">
-    <div class="panel-heading" id="head">Register</div>
+<div class="panel panel-default " style="padding:8px;border:10px inset yellowgreen;">
+    <div class="panel-heading" id="head" style="border-bottom:3px;border:5px double green;">Register</div>
 
 <div class="panel-body bdy" margin="10px 10px 10px 10px">
 
@@ -110,12 +110,12 @@
         <div class="form-group">
             <div class="col-xs-5"><label class="control-label">Profile Picture<sup>*</sup></label></div>
 
-            <div class="col-xs-7"><input type="file" name="file" value="Browse"/>
+            <div class="col-xs-7"><input class="form-control" type="file" name="file" value="Browse"/>
             </div></div>
 
         <div class="form-group">
             <g:submitButton controller="User" action="registrationHandler" value="Register"
-                            class="btn form-btn register-btn col-xs-6 col-xs-offset-3 "
+                            class="btn btn-success form-btn register-btn col-xs-6 col-xs-offset-3 "
                             name="submit"></g:submitButton></div>
     </g:form>
 </div>

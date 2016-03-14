@@ -24,9 +24,9 @@
         })
 </script></head>
 
-<div class="panel panel-default ">
+<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
 
-    <div class="panel-heading" class="head" id="login">Login</div>
+    <div class="panel-heading" class="head" id="login" style="border-bottom:3px;border:5px double green;">Login</div>
 
     <div class="panel-body bdy" margin="10px 10px 10px 10px">
 
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="col-xs-5">
-                    <g:actionSubmit     value="login" class="btn btn-default active"
+                    <g:actionSubmit     value="login" class="btn btn-primary active"
                                     style="width:100%"/>
                 </div>
             </div>

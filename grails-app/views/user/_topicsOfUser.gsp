@@ -1,7 +1,58 @@
+
 <script type="text/javascript">
 
 
     $(function () {
+        $(document).on("click", ".subscribe", function () {
+            var link = $(this)
+            var topicId = $(this).attr('id')
+            $.ajax({
+                url: "${createLink(controller: 'subscription',action: 'saveTopic')}",
+                type: "post",
+                dataType: 'json',
+                data: {id: topicId},
+
+                success: function (data) {
+                    data.status == true ? alert('Subscription saved Successfully') : alert('Subscription could not be saved')
+                    $(link).replaceWith(data.message)
+                },
+
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+
+            });
+
+
+        });
+
+        $(document).on("click", ".unsubscribe", function () {
+            var link = $(this)
+            var topicId = $(this).attr('id')
+            $.ajax({
+                url: "${createLink(controller: 'subscription',action: 'delete')}",
+                type: "post",
+                dataType: 'json',
+                data: {id: topicId},
+                success: function (data) {
+                    data.status == true ? alert('Subscription Deleted Successfully') : alert('Subscription Not Found')
+
+                    if ((($(link).parent("#sub")).size()) != 0) {
+                        $(link).parents(".panel-body").remove()
+                    }
+                    else
+                        $(link).replaceWith(data.message)
+
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+
+            });
+
+
+        });
+
 
 
         $('.sajaxVisibleSelect').on('change', function () {
@@ -133,12 +184,12 @@
 
 <%@ page import="com.tothenew.linksharing.*" %>
 
-<div class="panel panel-default" style="border:3px solid blueviolet;border-radius:8px">
+<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
 
-    <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Subscriptions
+    <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Subscriptions
 
         <div class="pull-right">
-            <a href="#" style="text-decoration:underline">View ALL</a>
+            %{--<a href="#" style="text-decoration:underline">View ALL</a>--}%
         </div>
 
     </div>
@@ -162,19 +213,20 @@
                            id="stopicNameLabel-${topic?.id}">${topic?.name}</label>
                 </g:link>
 
-                <input type="text" style="display: none" id="stopicNameTxtBox-${topic?.id}"
-                       value="${topic?.name}"/>
+                <input type="text" style="display: none"  class="form-control" id="stopicNameTxtBox-${topic?.id}"
+                       value="${topic?.name}"/><br>
                 <button type="button" id="sbtnCancelEditTopic-${topic?.id}"
-                        class="scnclTopicEdit btn btn-default pull-right"
-                        style="display: none">Cancel</button>
+                        class="scnclTopicEdit btn btn-primary pull-right"
+                        style="display: none;padding: 1px;">Cancel</button>
+
                 <button type="button" id="sbtnSaveEditTopic-${topic?.id}"
-                        class="ssaveTopicEdit btn btn-default pull-right"
-                        style="display: none">Save</button>
+                        class="ssaveTopicEdit btn btn-success pull-right"
+                        style="display: none;padding: 1px ">Save</button>
             </br></br>
                 <span class="col-xs-6 text-muted">@${topic?.createdBy?.username}</span>
                 <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
                 <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
-                <span class="col-xs-6" style="color:blue;"><ls:showSubscribe topicId="${topic?.id}"/>
+                <span class="col-xs-6" style="color:blue;" id="sub"><ls:showSubscribe topicId="${topic?.id}"/>
                 </span>
 
                 <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount topicId="${topic?.id}"
@@ -278,12 +330,12 @@
                 <br>
 
                 <span class="col-xs-7">
-                    <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin) && (Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))}">
+                    <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin) && ((Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))!=null)}">
 
                         <g:select name="seriousSelect-${topic?.id}"
                                   class=" form-control dashboard-select sajaxSeriousSelect"
                                   id="sseriousSelect-${topic?.id}" from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
-                                  value="${Subscription.findByTopicAndUser(Topic.get(topic.id), session.user).seriousness}"/>
+                                  value="${Subscription.findByTopicAndUser(Topic.get(topic.id), session.user)?.seriousness}"/>
 
                     </g:if>
 
@@ -308,7 +360,8 @@
             </div>
             .
             <br>
-            <hr style="border-width:3px;padding:0px;border-color:blue">
+            <hr style="border-width:3px;padding:0px;border-color:green">
+            <hr style="border-width:3px;padding:0px;border-color:green">
 
         </div>
     </g:each>

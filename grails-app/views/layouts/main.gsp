@@ -61,9 +61,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-body" style="border:3px solid blueviolet;border-radius:8px">
+                <div class="panel-body" style="background-color:#fffdf8 ;border:3px dotted #000000;border-radius:8px">
                     <div class="col-xs-4">
-                        <a href="#" style="font-size:28px">Link Sharing</a>
+                        <g:link controller="login" action="index" style="font-family: 'Lucida Grande, Verdana, sans-serif';font-size:40px;text-decoration: blink">Link Sharing</g:link>
                     </div>
 
 
@@ -75,7 +75,7 @@
                                     <g:textField type="text" class="form-control" placeholder="Search" name="q"
                                                  id="srch-term"/>
                                     <div class="input-group-btn">
-                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit"
+                                        <g:submitButton name="searchsubmit" class="btn btn-info" type="submit"
                                                         value="Search"/>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                     <g:textField type="text" class="form-control" placeholder="Search" name="q"
                                                  id="srch-term"/>
                                     <div class="input-group-btn">
-                                        <g:submitButton name="searchsubmit" class="btn btn-default" type="submit"
+                                        <g:submitButton name="searchsubmit" class="btn btn-info" type="submit"
                                                         value="Search"/>
                                     </div>
                                 </div>
@@ -130,9 +130,9 @@
                                     class="glyphicon glyphicon-edit"></div></button>
 
                             <div class=" pull-right"><div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu1"
+                                <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenu1"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                                        style="border:none"><div class="glyphicon glyphicon-user"></div>
+                                        style="font-size: 18px;border:none"><div class="glyphicon glyphicon-user"></div>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

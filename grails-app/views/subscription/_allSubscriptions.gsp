@@ -6,10 +6,9 @@
 
 
     $(function () {
-
         $(document).on("click", ".subscribe", function () {
             var link = $(this)
-            var topicId = $(this).attr('data-id')
+            var topicId = $(this).attr('id')
             $.ajax({
                 url: "${createLink(controller: 'subscription',action: 'saveTopic')}",
                 type: "post",
@@ -17,9 +16,8 @@
                 data: {id: topicId},
 
                 success: function (data) {
-                    data.status==true?alert('Subscription saved Successfully'):alert('Subscription could not be saved')
-                    $(link).html(data.message);
-                    window.location.reload();
+                    data.status == true ? alert('Subscription saved Successfully') : alert('Subscription could not be saved')
+                    $(link).replaceWith(data.message)
                 },
 
                 error: function (xhr) {
@@ -32,22 +30,22 @@
         });
 
         $(document).on("click", ".unsubscribe", function () {
-
             var link = $(this)
-            var topicId = $(this).attr('data-id')
+            var topicId = $(this).attr('id')
             $.ajax({
                 url: "${createLink(controller: 'subscription',action: 'delete')}",
                 type: "post",
                 dataType: 'json',
-
                 data: {id: topicId},
-
                 success: function (data) {
+                    data.status == true ? alert('Subscription Deleted Successfully') : alert('Subscription Not Found')
 
-                    data.status==true?alert('Subscription Deleted Successfully'):alert('Subscription Not Found')
+                    if ((($(link).parent("#sub")).size()) != 0) {
+                        $(link).parents(".panel-body").remove()
+                    }
+                    else
+                        $(link).replaceWith(data.message)
 
-                    $(link).html(data.message);
-                    window.location.reload();
                 },
                 error: function (xhr) {
                     alert(xhr.responseText);
@@ -190,9 +188,9 @@
 
 <%@ page import="com.tothenew.linksharing.*" %>
 
-<div class="panel panel-default" style="border:3px solid blueviolet;border-radius:8px">
+<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
 
-    <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Subscriptions
+    <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Subscriptions
 
 
     </div>
@@ -215,19 +213,19 @@
                                id="stopicNameLabel-${subscription[0]}">${subscription[1]}</label>
                     </g:link>
 
-                    <input type="text" style="display: none" id="stopicNameTxtBox-${subscription[0]}"
+                    <input type="text" style="display: none" class="form-control" id="stopicNameTxtBox-${subscription[0]}"
                            value="${subscription[1]}"/>
                     <button type="button" id="sbtnCancelEditTopic-${subscription[0]}"
-                            class="scnclTopicEdit btn btn-default pull-right"
+                            class="scnclTopicEdit btn btn-primary pull-right"
                             style="display: none">Cancel</button>
                     <button type="button" id="sbtnSaveEditTopic-${subscription[0]}"
-                            class="ssaveTopicEdit btn btn-default pull-right"
+                            class="ssaveTopicEdit btn btn-success pull-right"
                             style="display: none">Save</button>
                 </br></br>
                     <span class="col-xs-6 text-muted">@${subscription[2]}</span>
                     <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
                     <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
-                    <span class="col-xs-6" style="color:blue;"><ls:showSubscribe topicId="${subscription[0]}"/>
+                    <span class="col-xs-6" style="color:blue;" id="sub"><ls:showSubscribe topicId="${subscription[0]}"/>
                     </span>
 
                     <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount topicId="${subscription[0]}"
@@ -324,7 +322,8 @@
                 </div>
                 .
                 <br>
-                <hr style="border-width:3px;padding:0px;border-color:blue">
+                <hr style="border-width:3px;padding:0px;border-color:green">
+                <hr style="border-width:3px;padding:0px;border-color:green">
 
             </div>
       </g:each>

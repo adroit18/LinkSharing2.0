@@ -4,6 +4,8 @@
         $(document).on("click", ".read", function () {
             var link = $(this)
             var id = $(this).attr('data-id')
+
+
             $.ajax({
                 url: "${createLink(controller: 'readingItem',action: 'changeIsRead')}",
                 type: "post",
@@ -11,9 +13,12 @@
                 data: {id: id, isRead: true},
 
                 success: function (data) {
-//                    data.status==true?alert(''):alert('Subscription could not be saved')
-                    $(link).html(data.message);
-                    window.location.reload();
+                    data.status == true ? alert('Marked as Unread') : alert('Marked as Read')
+
+                    $(link).replaceWith(data.message)
+//                    $(link).hide()
+//                    $(link).html(data.message).show()
+                  // window.location.reload();
                 },
 
                 error: function (xhr) {
@@ -38,10 +43,9 @@
 
                 success: function (data) {
 
-//                    data.status==true?alert('Subscription Deleted Successfully'):alert('Subscription Not Found')
-
-                    $(link).html(data.message);
-                    window.location.reload();
+                    data.status == true ? alert('Marked as Read') : alert('Marked as Unread')
+                    $(link).replaceWith(data.message)
+//                      window.location.reload();
                 },
                 error: function (xhr) {
                     alert(xhr.responseText);
@@ -56,8 +60,8 @@
 </head>
 
 
-<div class="panel panel-default" style="border:3px solid blueviolet;border-radius:8px">
-    <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Inbox</div>
+<div class="panel panel-default" style="padding:8px;border:10px outset yellowgreen;">
+    <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Inbox</div>
 
     <g:each in="${inboxList}" var="inbox">
         <div class="panel-body">
@@ -102,7 +106,8 @@
                 </div>
             </div>
 
-            <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:blue"></div>
+            <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:green">
+                <hr style="border-width:3px;padding:0px;border-color:green"></div>
 
         </div>
 

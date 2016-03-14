@@ -1,7 +1,7 @@
 <%@ page import="com.tothenew.linksharing.*" %>
 
-<div class="panel panel-default " style="border:3px solid blueviolet;border-radius:8px">
-    <div class="panel-heading head" id="topPosts" style="border-bottom:3px solid blueviolet;">
+<div class="panel panel-default" style="padding:8px;border:10px outset yellowgreen;">
+    <div class="panel-heading head" id="topPosts" style="border-bottom:3px;border:5px double green;">
         Top Posts
 
         %{--<div class="pull-right "><form>--}%
@@ -46,7 +46,8 @@
             </div>
 
         </div>
-    </div></br><hr style="border-width:3px;padding:0px;border-color:blue">
+    </div></br><hr style="border-width:3px;padding:0px;border-color:green">
+    <hr style="border-width:3px;padding:0px;border-color:green">
 </g:each>
 </div>
 

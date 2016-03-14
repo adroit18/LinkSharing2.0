@@ -7,12 +7,12 @@ class SubscriptionController {
     def index() {}
 
     def saveTopic(long id) {
-        println 'saveTopic ' +id
+//        println 'saveTopic ' +id
         Topic topic = Topic.get(id);
         User user = session.user;
         Subscription subscription = new Subscription(topic: topic, user: user, seriousness: Seriousness.SERIOUS);
         if (subscription.save(flush: true))
-           render ([message: "Unsubscribe", status:true] as JSON)
+           render ([message: "<span class='unsubscribe' id=${id} >Unsubscribe </span>", status:true] as JSON)
 
         else
            render ([error: "Subscription could not be saved",status: false] as JSON)
@@ -39,12 +39,12 @@ class SubscriptionController {
     }
 
     def delete(long id) {
-        println 'delete ' +id
+//        println 'delete ' +id
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {
             subscription.delete(flush: true)
            // redirect(request.getHeader('referer'));
-           render ([message: "Subscribe",status: true] as JSON)
+           render ([message:"<span class='subscribe' id=${id} >Subscribe </span>",status: true] as JSON)
         } else
            render ([error: "Subscription Not Found",status: false] as JSON)
 
@@ -65,12 +65,10 @@ class SubscriptionController {
     }
 
 
-   def viewAll(){
-       List subscriptionList = Subscription.getSubscriptions(session.user)
-       render view: '_allSubscriptions', model: [subscriptionList:subscriptionList]
-   }
-
-
+    def viewAll(){
+        List subscriptionList = Subscription.getSubscriptions(session.user)
+        render view: '_allSubscriptions', model: [subscriptionList:subscriptionList]
+    }
 
 
 

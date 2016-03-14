@@ -18,12 +18,13 @@
     %{--sadfasdfadfadfadfafafass ${details[0]}</g:each>--}%
 <g:render template="/user/details" />
 <g:render template="/subscription/subscriptions" model="[subscriptionList:subscriptionList]" />
+
 </div>
 
 <div class="col-xs-7">
-<ls:trendingTopics/>
-%{--<g:render template="/topic/trendingTopics" model="[trendingTopicsList:trendingTopicsList]"/>--}%
+    %{--<g:render template="/topic/trendingTopics" model="[trendingTopicsList:trendingTopicsList]"/>--}%
 <g:render template="/user/inbox" model="[inboxList:inboxList]"/>
+    <ls:trendingTopics/>
 </div>
 
 <g:render template="/documentResource/create" model="[subscribed: subscribedTopics]"/>

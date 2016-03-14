@@ -24,14 +24,14 @@
         <label class="pull-left col-xs-4">Topics</label>
 
         <div class="col-xs-8">
-            <g:select name="topicName" from="${Subscription.findAllByUser(session.user).topic.name}"/>
+            <g:select name="topicName" class="form-control" from="${Subscription.findAllByUser(session.user).topic.name}"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-4"></div>
         <div class="col-xs-4">
-    <g:actionSubmit controller="topic" action="invite" class="form-control btn btn-default active" id="submit" value="Invite"
-                    style="color:black;border:solid black;border-radius:7px"/>
+    <g:actionSubmit controller="topic" action="invite" class="form-control btn btn-success active" id="submit" value="Invite"
+                    style="color:white;border:solid black;border-radius:7px"/>
         </div><div class="col-xs-4">
         %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
                %{--style="color:black;border:solid black;border-radius:7px"/>--}%
@@ -41,7 +41,7 @@
     </g:form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
     </div>
     </div>
 </div>

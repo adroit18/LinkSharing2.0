@@ -10,14 +10,13 @@
         </div>
 
         <div class="modal-body">
-        <g:form enctype="multipart/form-data" class="form-horizontal" controller="documentResource"
-                action="">
+        <g:form enctype="multipart/form-data" class="form-horizontal" >
 
             <div class="form-group">
                 <label class="control-label col-xs-4">Document:</label>
 
                 <div class="col-xs-8">
-                    <input type="file" name="file" value="Browse"/>
+                    <input class="form-control" type="file" name="file" value="Browse"/>
                 </div>
             </div>
 
@@ -34,8 +33,8 @@
             <div class="col-xs-2 "></div><label class="col-xs-2">Topic:</label>
 
             <div class="col-xs-8">
-                <g:select class="btn dropdown-toggle" data-toggle="dropdown" name="topic.id"
-                          style="width:200px;" optionKey="id" optionValue="name" from="${subscribed}"/>
+                <g:select class="btn dropdown-toggle form-control" data-toggle="dropdown" name="topic.id"
+                          style="width:200px;border: 1px solid silver" optionKey="id" optionValue="name" from="${subscribed}"/>
             </div>
 <br><br><br>
             <div class="form-group">
@@ -43,14 +42,14 @@
                 <div class="col-xs-4"></div>
 
                 <div class="col-xs-4">
-                    <g:actionSubmit  controller="documentResource" action="documentSave" class="form-control btn btn-default active" value="Submit" placeholder="Share"
-                                     style="color:black;border:solid black;border-radius:7px"/>
+                    <g:actionSubmit  controller="documentResource" action="documentSave" class="form-control btn btn-success active" value="Submit" placeholder="Share"
+                                     style="color:white;border:solid black;border-radius:7px"/>
                 </div>
 
                 <div class="col-xs-4">
-                    <g:actionSubmit class="form-control btn btn-default active" controller="login"
+                    <g:actionSubmit class="form-control btn btn-primary active" controller="login"
                                     action="index" value="Cancel" placeholder="Cancel"
-                                    style="color:black;border:solid black;border-radius:7px"/>
+                                    style="color:white;border:solid black;border-radius:7px"/>
                 </div>
             </div>
 
@@ -58,7 +57,7 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
     </div>
 </div>
 </div>

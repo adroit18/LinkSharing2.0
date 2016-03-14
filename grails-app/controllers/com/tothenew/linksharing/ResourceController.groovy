@@ -22,8 +22,9 @@ class ResourceController {
     def search(ResourcesSearchCo co) {
         println "params------------- : ${co.properties}"
         if (co) {
+            List<Topic> list1=Topic.findAllByNameIlike("%${co.q}%");
             List<Resource> list = Resource.search(co).list();
-            render(view: "search", model: [searchResources: list])
+            render(view: "search", model: [searchResources: list,searchTopics:list1])
         } else {
             flash.message = "Search Parametres not Set"
         }

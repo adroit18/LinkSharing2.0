@@ -14,10 +14,10 @@ class CustomTaglibTagLib {
             def isRead = readingItem.isRead
             if (isRead) {
 //                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: false], "style": "font-size:10px") {
-                out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
+                out << "<span class='unread' data-id='${attrs.id}' style='color:blue' > Mark as Unread </span>"
             } else {
 //                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: true], "style": "font-size:10px") {
-                out << "<span class='read' data-id=${attrs.id} style='color:blue' > Mark as Read </span>"
+                out << "<span class='read' data-id='${attrs.id}' style='color:blue' > Mark as Read </span>"
 
 
             }
@@ -48,23 +48,23 @@ class CustomTaglibTagLib {
             out << ""
     }
 
-    def showSubscribe = { attrs, body ->
+    def   showSubscribe = { attrs, body ->
         User loggedInUser = session.user
 //        println "-----hello------------" + loggedInUser?.isSubscribed(attrs.topicId)
         if (session.user && loggedInUser.isSubscribed(attrs.topicId)) {
 //            out << g.link(controller: "subscription", action: "delete", id: "${attrs.topicId}") {
-            out << "<span class='unsubscribe' data-id=${attrs.topicId} >Unsubscribe </span>"
+            out << "<span class='unsubscribe' id=${attrs.topicId} >Unsubscribe </span>"
 //            }
         } else {
 //            out << g.link(controller: "subscription", action: "saveTopic", id: "${attrs.topicId}") {
-            out << "<span class='subscribe' data-id=${attrs.topicId} >Subscribe </span>"
+            out << "<span class='subscribe' id=${attrs.topicId} >Subscribe </span>"
 //            }
         }
     }
 
     def subscriptionCount = { attr, body ->
         int subscription;
-        if (attr.topicId) {
+            if (attr.topicId) {
             subscription = Subscription.countByTopic(Topic.read(attr.topicId))
         } else if (attr.user) {
             subscription = Subscription.countByUser(session.user)
@@ -82,17 +82,8 @@ class CustomTaglibTagLib {
 
     def canUpdateTopic = { attrs, body ->
         Topic topic = Topic.get(attrs.topicId)
-
-        if (session.user.isAdmin == true ) {
-
-            out << "<span class='col-xs-4'>"
-            out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
-//            if(topic.createdBy!=session.user)
-            out << "<span class='col-xs-4'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
-
-            out << "</span><br>"
-        }
-        else if(topic.createdBy.id == session.user.id ) {
+        println "00000000000000000000000000000"+session.us
+        if (session.user.isAdmin == true || topic.createdBy == session.user) {
 
             out << "<span class='col-xs-4'>"
             out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"

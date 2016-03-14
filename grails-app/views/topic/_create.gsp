@@ -27,8 +27,7 @@
                             <select class="pull-right form-control" name="visibility" id="visibility">
                                 <option>Public</option>
                                 <option>Private</option>
-                                <option>Global</option>
-                                <option>Mid</option>
+
                             </select></div>
                     </div>
 
@@ -37,13 +36,13 @@
 
                         <div class="col-xs-4">
                             <g:actionSubmit
-                                    class="form-control btn btn-default active" name="save" id="save"
-                                    value="Save" style="color:black;border:solid black;border-radius:7px"/>
+                                    class="form-control btn btn-success active" name="save" id="save"
+                                    value="Save" style="color:white;border:solid black;border-radius:7px"/>
                         </div>
 
                         <div class="col-xs-4">
-                            <button class="form-control btn btn-default active" id="cancel" id="cancel" value="Cancel"
-                                    style="color:black;border:solid black;border-radius:7px">
+                            <button class="form-control btn btn-default btn-primary" id="cancel" id="cancel" value="Cancel"
+                                    style="color:white;border:solid black;border-radius:7px">
                                 Cancel</button>
                         </div>
                     </div>
@@ -53,7 +52,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
 
             %{--<g:hasErrors bean="${topic}" field="name">--}%

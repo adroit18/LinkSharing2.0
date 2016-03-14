@@ -1,6 +1,6 @@
 <%@ page import="com.tothenew.linksharing.*" %>
-<div class="panel panel-default" style="border:3px solid blueviolet;border-radius:8px">
-    <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Recent Shares</div>
+<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
+    <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Recent Shares</div>
 
     <g:each in="${recentShares}" var="shares">
         <div class="panel-body">
@@ -40,7 +40,8 @@
 
             </div>
 
-            <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:blue"></div>
+            <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:green">
+                <hr style="border-width:3px;padding:0px;border-color:green"></div>
 
         </div>
 

@@ -57,8 +57,8 @@
                         <div class="col-xs-2 "></div><label class="col-xs-2">Topic:</label>
 
                         <div class="col-xs-8">
-                            <g:select class="btn dropdown-toggle" data-toggle="dropdown" name="topicName" id="doctopic"
-                                      style="width:200px; " from="${subscribed}"/>
+                            <g:select class="btn dropdown-toggle form-control" data-toggle="dropdown" name="topicName" id="doctopic"
+                                      style="width:200px;border: 1px solid silver" from="${subscribed}"/>
 
                         </div>
                     </div>
@@ -69,9 +69,9 @@
 
                     <div class="col-xs-4 pull-right">
                         <g:actionSubmit controller="linkResource" action="linkSave"
-                                        class="form-control btn btn-default active" value="Submit"
+                                        class="form-control btn btn-success active" value="Submit"
                                         placeholder="Share"
-                                        style="color:black;border:solid black;border-radius:7px"/>
+                                        style="color:white;border:solid black;border-radius:7px"/>
                     </div>
 
 
@@ -84,7 +84,7 @@
                 </g:form>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
