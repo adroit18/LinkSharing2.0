@@ -58,14 +58,15 @@
 <div class="panel panel-default" style="border:3px solid blueviolet;border-radius:8px">
     <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Trending Topics
         <div class="pull-right">
-            <a href="#" style="text-decoration:underline">View ALL</a></div></div>
+            <g:link controller="topic" action="viewAllTrend" style="text-decoration:underline">View ALL</g:link></div></div>
 
 
     %{--<div class="pagination">--}%
         %{--<g:paginate total="${trendingTopics}" />--}%
     %{--</div>--}%
 
-    <g:each in="${trendingTopics}" var="trending">
+    <g:each in="${trendingTopics}" var="trending" status="i">
+        <g:if test="${i<4}">
 
         <div class="panel-body">
 
@@ -104,5 +105,6 @@
             <hr style="border-width:3px;padding:0px;border-color:blue">
 
         </div>
+        </g:if>
     </g:each>
 </div>

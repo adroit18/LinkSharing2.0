@@ -138,14 +138,14 @@
     <div class="panel-heading" style="border-bottom:3px solid blueviolet;">Subscriptions
 
         <div class="pull-right">
-            <a href="#" style="text-decoration:underline">View ALL</a>
+            <g:link controller="subscription" action="viewAll" >View ALL</g:link>
         </div>
 
     </div>
 
 
-    <g:each in="${subscriptionList}" var="subscription">
-
+    <g:each in="${subscriptionList}" var="subscription" status="i">
+        <g:if test="${i<=4}">
         <div class="panel-body">
 
         <div class="col-xs-2">
@@ -249,7 +249,7 @@
         </div>
 <br>
 
-            <g:if test="${(subscription[2].equals(session.user)) || (session.user.isAdmin)}">
+            <g:if test="${(subscription[2].id==(session.user.id)) || (session.user.isAdmin)}">
 
             <span class="col-xs-7">    <g:select name="seriousSelect-${subscription[0]}"
                           class=" form-control dashboard-select sajaxSeriousSelect"
@@ -274,5 +274,6 @@
             <hr style="border-width:3px;padding:0px;border-color:blue">
 
         </div>
+        </g:if>
     </g:each>
 </div>

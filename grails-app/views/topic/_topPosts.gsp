@@ -4,14 +4,14 @@
     <div class="panel-heading head" id="topPosts" style="border-bottom:3px solid blueviolet;">
         Top Posts
 
-        <div class="pull-right "><form>
-            <select class="form-control" id="sel1" style="height:29px">
-                <option>Public</option>
-                <option>Private</option>
-                <option>Global</option>
-                <option>Mid</option>
-            </select></form>
-        </div>
+        %{--<div class="pull-right "><form>--}%
+            %{--<select class="form-control" id="sel1" style="height:29px">--}%
+                %{--<option>Public</option>--}%
+                %{--<option>Private</option>--}%
+                %{--<option>Global</option>--}%
+                %{--<option>Mid</option>--}%
+            %{--</select></form>--}%
+        %{--</div>--}%
 
     </div>
 

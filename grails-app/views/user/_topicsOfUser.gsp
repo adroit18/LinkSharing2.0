@@ -278,7 +278,7 @@
                 <br>
 
                 <span class="col-xs-7">
-                    <g:if test="${(topic?.createdBy.equals(session.user)) || (session.user.isAdmin) && (Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))}">
+                    <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin) && (Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))}">
 
                         <g:select name="seriousSelect-${topic?.id}"
                                   class=" form-control dashboard-select sajaxSeriousSelect"
@@ -294,7 +294,7 @@
                 </span>
 
 
-                <g:if test="${(topic?.createdBy.equals(session.user)) || (session.user.isAdmin)}">
+                <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin)}">
 
                     <span class="col-xs-5">
                         <g:select name="visibleSelect-${topic?.id}"

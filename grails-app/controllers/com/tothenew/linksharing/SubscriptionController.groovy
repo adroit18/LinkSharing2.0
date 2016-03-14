@@ -65,6 +65,12 @@ class SubscriptionController {
     }
 
 
+   def viewAll(){
+       List subscriptionList = Subscription.getSubscriptions(session.user)
+       render view: '_allSubscriptions', model: [subscriptionList:subscriptionList]
+   }
+
+
 
 
 

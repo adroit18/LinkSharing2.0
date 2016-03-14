@@ -1,49 +1,32 @@
-package com.tothenew.linksharing
+package linksharing
+
+import org.apache.commons.logging.Log
 
 class ApplicationFilters {
 
     def filters = {
+        loginCheck(controller: "*", action:"save|delete|invite|join|update|saveRating|changeIsRead")
+                {
+                    before = {
+                        if (session.user) {
 
-/*
-        loginCheck(controller: '*',action:"*",controllerExclude:"login") {
+                        } else {
+                            flash.error = "Please Sign in........."
+                            redirect(action: "index", controller: "login")
+                            return false
+                        }
+                    }
+                }
+        userIndexCheck(controller:"login",action:"index"){
             before = {
-               if (!session.user) {
-                    flash.error="Please Sign in........."
-                    redirect(action: 'index', controller: 'login')
-                   if(controllerName.equals('user')  && actionName.equals('index')) {
-                        // render session.user.username;
-                   }
-               } else {
-               }
-            }
-            after = { Map model ->
+                if (session.user) {
 
+                } else {
+                    flash.error = "Please Sign in........."
+                    redirect(action: "index", controller: "login")
+                    return false
+                }
             }
-            afterView = { Exception e ->
-
-            }
-        }*/
+        }
     }
 }
-
-
-class SecurityFilters {
-    def filters =
-            {
-                loginCheck(controller: '*', action: '*')
-                        {
-                            before =
-                                    {
-                                        if (!session.user && !actionName.equals('login')) {
-                                            redirect(action: 'login')
-                                            return
-                                            false
-                                        }
-                                    }
-                        }
-            }
-}
-
-
-
-

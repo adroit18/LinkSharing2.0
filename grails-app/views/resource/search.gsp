@@ -1,9 +1,64 @@
-<%@ page import="com.tothenew.linksharing.ResourceRating; com.tothenew.linksharing.Resource; com.tothenew.linksharing.Topic" %>
+<%@ page import="com.tothenew.linksharing.ReadingItem; com.tothenew.linksharing.ResourceRating; com.tothenew.linksharing.Resource; com.tothenew.linksharing.Topic" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
     <title>Search</title>
-</head>
+    <head>
+        <script>
+            $(document).on("click", ".read", function () {
+                var link = $(this)
+                var id = $(this).attr('data-id')
+                $.ajax({
+                    url: "${createLink(controller: 'readingItem',action: 'changeIsRead')}",
+                    type: "post",
+                    dataType: 'json',
+                    data: {id: id, isRead: true},
+
+                    success: function (data) {
+//                    data.status==true?alert(''):alert('Subscription could not be saved')
+                        $(link).html(data.message);
+                        window.location.reload();
+                    },
+
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+
+                });
+
+
+            });
+
+            $(document).on("click", ".unread", function () {
+
+                var link = $(this)
+                var id = $(this).attr('data-id')
+                $.ajax({
+                    url: "${createLink(controller: 'readingItem',action: 'changeIsRead')}",
+                    type: "post",
+                    dataType: 'json',
+
+                    data: {id: id, isRead: false},
+
+                    success: function (data) {
+
+//                    data.status==true?alert('Subscription Deleted Successfully'):alert('Subscription Not Found')
+
+                        $(link).html(data.message);
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+
+                });
+
+
+            });
+
+        </script>
+
+    </head>
 
 <body>
 <div class="container">
@@ -27,70 +82,87 @@
                     </div>
                 </div>
 
-            <div class="panel-body">
-                <g:each in="${searchResources}" var="resource">
-                    <div>
-                        <div class="col-xs-2">
-                            %{--<g:include controller="user" action="userImage"--}%
-                                       %{--params='[username: "${resource?.createdBy?.username}"]'/>--}%
-                            <img src="${g.createLink(controller: 'user', action: 'image', params:[id:resource?.createdBy?.id])}" width="65px" height="65px"/>
+                <div class="panel-body">
+                    <g:paginate total="${searchResources}" next="Forward" prev="Back" maxsteps="0"></g:paginate>
+                    <g:each in="${searchResources}" var="resource">
+                        <div>
+                            <div class="col-xs-2">
+                                %{--<g:include controller="user" action="userImage"--}%
+                                %{--params='[username: "${resource?.createdBy?.username}"]'/>--}%
+                                <img src="${g.createLink(controller: 'user', action: 'image', params: [id: resource?.createdBy?.id])}"
+                                     width="65px" height="65px"/>
 
-                        </div>
-                    </div>
-
-                    <div class="col-xs-10">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <span class="h5">${resource.createdBy.name}</span>
-                                <small class="text-muted">@${resource.createdBy.username}</small>
-                            </div>
-
-                            %{--<div class="col-xs-3">--}%
-                            %{--</div>--}%
-
-                            <div class="col-xs-8">
-                                <a href="#" class="text-left">${resource.topic.name}</a>
                             </div>
                         </div>
 
-                        <p>${resource.description}</p>
+                        <div class="col-xs-10">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <span class="h5">${resource.createdBy.name}</span>
+                                    <small class="text-muted">@${resource.createdBy.username}</small>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-xs-2"><i class="fa fa-facebook-official"></i>
-                                <i class="fa fa-tumblr"></i>
-                                <i class="fa fa-google-plus"></i></div>
+                                %{--<div class="col-xs-3">--}%
+                                %{--</div>--}%
 
-                            <div class="col-xs-2"><small><a href="#">Download</a></small></div>
+                                <div class="col-xs-8">
 
-                            <div class="col-xs-3"><small><a href="#">View Full Site</a></small></div>
+                                    <g:link value="topic"
+                                            url="[controller: 'topic', action: 'index', params: [id: resource?.topic?.id]]"
+                                            style="text-decoration:underline">
+                                        ${resource.topic.name}</g:link>
 
-                            <ls:markAsRead id="${resource.id}" query="${query}"/>
-                            %{--<g:set var="1" value="session.user.username">--}%
-                            %{--<g:set var="2" value="${resource.createdBy.username}">--}%
-                            %{----}%
-                            %{--</g:set>--}%
-                            %{--</g:set>--}%
-                            %{--<div class="col-xs-2"><small><a href="#">Mark as Read</a></small></div>--}%
+                                </div>
+                            </div>
 
-                            <div class="col-xs-2"><small><a href="#">View Post</a></small></div>
+                            <p>${resource.description}</p>
+
+                            <div class="row">
+                                <div class="col-xs-2"><i class="fa fa-facebook-official"></i>
+                                    <i class="fa fa-tumblr"></i>
+                                    <i class="fa fa-google-plus"></i></div>
+
+                                <div class="col-xs-5">
+                                    <g:if test="${resource?.whichResource().equals("Document")}">
+                                        <g:link controller="DocumentResource" action="downloadDocument"
+                                                params="[fid: resource?.id]"
+                                                style="text-decoration:underline;font-size:10px">Download</g:link>
+                                    </g:if>
+
+                                    <g:elseif test="${resource?.whichResource().equals("Link")}">
+                                        <a href="${resource.url}"
+                                           style="text-decoration:underline;font-size:10px">View full site</a>
+                                    </g:elseif>
+                                </div>
+                                %{--<% ReadingItem readingItem = ReadingItem.findByResourceAndUser(resource,session.user)--}%
+%{--//                                def ide = readingItem.id--}%
+                                %{--%>--}%
+                                %{--${readingItem.properties}--}%
+
+                                %{--<ls:markAsRead id="${ReadingItem.findByResource(resource).id}" query="${query}"/>--}%
+
+                                <div class="col-xs-2"><g:link controller="resource" action="show"
+                                                              params="[id: resource?.id]"
+                                                              style="text-decoration:underline;font-size:10px">View Post</g:link>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:blue"></div>
-                </g:each>
+                        <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:blue"></div>
+                    </g:each>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Row 2 -->
-%{--<div class="row">--}%
-<div class="col-xs-6">
-    <!-- Subscription Panel-->
+    <!-- Row 2 -->
+    %{--<div class="row">--}%
+    <div class="col-xs-6">
+        <!-- Subscription Panel-->
 
-    <!-- ************************************************************ -->
-    %{--<g:render template="/topic/topPosts" model="${[topPosts:ResourceRating.getTopPosts()]}"/>--}%
-</div>
-%{--</div>--}%
+        <!-- ************************************************************ -->
+        %{--<g:render template="/topic/topPosts" model="${[topPosts:ResourceRating.getTopPosts()]}"/>--}%
+    </div>
+    %{--</div>--}%
 </div>
 
 
@@ -99,8 +171,6 @@
 <g:render template="/topic/create"/>
 <g:render template="/topic/email"/>
 <g:render template="/linkResource/create" model="[subscribed: subscribedTopics]"/>
-
-
 
 </body>
 </html>

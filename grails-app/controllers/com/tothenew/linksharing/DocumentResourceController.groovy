@@ -23,6 +23,9 @@ class DocumentResourceController {
                 println ",......................${documentResourceCO.properties}"
                 boolean result = documentResource.saveDocumenResource(documentResourceCO, user, docFile)
                 if (result) {
+//                    Resource resource=Resource.get(documentResource.id)
+//                    ReadingItem readingItem=new ReadingItem(user: documentResource.createdBy,resource: resource,isRead: true)
+//                    readingItem.save(flush: true,failOnError: true)
                     ([message: "Resource Successfully Created"] as JSON)
                     redirect(controller: 'login', action: 'index')
                 } else {

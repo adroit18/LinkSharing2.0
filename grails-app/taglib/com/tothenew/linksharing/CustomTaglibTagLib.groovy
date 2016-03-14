@@ -82,7 +82,17 @@ class CustomTaglibTagLib {
 
     def canUpdateTopic = { attrs, body ->
         Topic topic = Topic.get(attrs.topicId)
-        if (session.user.isAdmin == true || topic.createdBy == session.user) {
+
+        if (session.user.isAdmin == true ) {
+
+            out << "<span class='col-xs-4'>"
+            out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
+//            if(topic.createdBy!=session.user)
+            out << "<span class='col-xs-4'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
+
+            out << "</span><br>"
+        }
+        else if(topic.createdBy.id == session.user.id ) {
 
             out << "<span class='col-xs-4'>"
             out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"

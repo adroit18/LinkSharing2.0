@@ -139,5 +139,9 @@ class TopicController {
         redirect(controller: "user", action: "index")
     }
 
+    def viewAllTrend(){
+        List<TopicVO> trendingTopics = Topic.getTrendingTopics();
+        render view:'_allTrendingTopics',model: [trendingTopics:trendingTopics]
+    }
 
 }
