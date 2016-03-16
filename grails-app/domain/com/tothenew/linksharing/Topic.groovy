@@ -41,11 +41,11 @@ class Topic {
         list.each {
             vos << new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4])
         }
-        if(vos.size()>4)
-        return vos[0..4];
+        if (vos.size() > 4)
+            return vos[0..4];
         else
             return vos
-       // println vos[0..4]
+        // println vos[0..4]
     }
 
 
@@ -62,7 +62,6 @@ class Topic {
     }
 
 
-
     String toString() {
         return name
     }
@@ -71,13 +70,13 @@ class Topic {
         return Subscription.findAllByTopic(this)*.user
     }
 
-    boolean isPublic()
-    {
-        return this.visibility==Link_Visibility.PUBLIC
+    boolean isPublic() {
+        return this.visibility == Link_Visibility.PUBLIC
     }
-    boolean canViewedBy(User user)
-    {
-        return (user?.isAdmin || this.isPublic() || Subscription?.countByUserAndTopic(user,this))
+
+    boolean canViewedBy(User user) {
+        return (user?.isAdmin || this.isPublic() || Subscription?.countByUserAndTopic(user, this))
     }
+
 
 }

@@ -14,6 +14,7 @@ class UserController {
 
 
     def index() {
+        render "user dahsboard"
     }
 
     def registrationHandler(UserCO co) {
@@ -26,7 +27,7 @@ class UserController {
         if (user.save(flush: true, failOnError: true)) {
             render(view: "/login/registerSuccess")
         } else
-            ([message: "Failiure"] as JSON)
+           render ([message: "Failiure"] as JSON)
 
 
     }
@@ -143,20 +144,31 @@ class UserController {
     }
 
 
-    def userTable(String active) {
-        println '------------------' + active
-        if (active.equals("Show All Users")) {
-            List list = User.list(sort: 'id', order: 'asc')
-            render(view: 'allUsers', model: [userList: list])
+    def userTable(String q,String active) {
+//        println '------------------' + active
+        List <User> list = User.list();
+        if(q && !q.equals(""))
+        {
+            list = User.createCriteria().list(){
+                or {
+                    ilike("username","%${q}%")
+                    ilike("firstName","%${q}%")
+                }
+            }
+        }
+
+        else if (active.equals("Show All Users")) {
+           list = User.list(sort: 'id', order: 'asc')
+
         } else if (active.equals("Show All Active Users")) {
             boolean flag = true;
-            List list = User.findAllByIsActive(flag)
-            render(view: 'allUsers', model: [userList: list])
+             list = User.findAllByIsActive(flag)
+
         } else {
             boolean flag = false;
-            List list = User.findAllByIsActive(flag)
-            render(view: 'allUsers', model: [userList: list])
+            list = User.findAllByIsActive(flag)
         }
+        render(view: 'allUsers', model: [userList: list])
 
     }
 
@@ -189,13 +201,45 @@ class UserController {
 //            user.password = newPassword
 //            user.confirmPassword = newPassword
             if (user.executeUpdate("update User as U set U.password=:password where U.id=:id", [password: newPassword, id: user.id]))
-                flash.message = "Success"
+                ([message : "Success"]) as JSON
             else
-                flash.error = "Email not for a valid user"
+                ([error : "Email not for a valid user"]) as JSON
 
             redirect(controller: "login", action: "index")
         }
     }
+
+
+//
+//    def loadUserTable(String q,String sortBy)
+//    {
+//        else if(sortBy)
+//        {
+//            if(sortBy.equalsIgnoreCase("activated")){
+//                userList = User.findAllByIsActive(true);
+//            }
+//            else if(sortBy.equalsIgnoreCase("deactivated")){
+//                userList = User.findAllByIsActive(false);
+//            }
+//        }
+////        render(template:"/user/userTable",model:[users:userList])
+////    }
+////
+////9
+////    def usershow() {
+//        List<User> userList = User.list(params)
+//        render(view: "userShow", model: [users: userList,userCount:userList.size()])
+//    }
+//
+
+
+
+
+
+
+
+
+
 
 
     def profile(ResourcesSearchCo resourcesSearchCo) {

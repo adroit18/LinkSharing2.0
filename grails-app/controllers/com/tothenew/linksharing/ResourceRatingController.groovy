@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
 
+import grails.converters.JSON
+
 class ResourceRatingController {
 
     def index() {}
@@ -19,7 +21,7 @@ class ResourceRatingController {
                 newResourceRating.save()
             }
             else {
-                flash.error = "Cannot save Resource Rating"
+                ([error : "Cannot save Resource Rating"]) as JSON
             }
         }
         redirect(controller:"login", action:"index")

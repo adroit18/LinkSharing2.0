@@ -1,5 +1,5 @@
-
 import com.tothenew.linksharing.*
+
 //import Link_Visibility
 //import Seriousness
 
@@ -19,14 +19,13 @@ class BootStrap {
         createResourceRatings();
 
 
-
     }
 
     List<User> createUsers() {
 
         List<User> users = []
         if (User.count() == 0) {
-            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothtenew.com", isAdmin: true,isActive: true)
+            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothtenew.com", isAdmin: true, isActive: true)
             if (admin.save(flush: true, failOnError: true)) {
                 users.add(admin)
                 log.error "User ${admin} saved successfully"
@@ -35,7 +34,7 @@ class BootStrap {
             }
 
             //  normal user made
-            User normal = new User(firstName: "Waquar", lastName: "Azam",  username: "Waquar Azam",password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false,isActive: false)
+            User normal = new User(firstName: "Waquar", lastName: "Azam", username: "Waquar Azam", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false)
             if (normal.save(flush: true, failOnError: true)) {
                 users.add(normal)
             } else {
@@ -47,7 +46,7 @@ class BootStrap {
 
     void createTopics() {
         User.getAll().each {
-            if (it?.topics?.size() != 0) {
+            if (it?.topics?.size() < 1) {
                 (1..5).each { index ->
                     Topic topic = new Topic(name: "name${index}${it}${it}", createdBy: it, visibility: Link_Visibility.PRIVATE)
                     if (topic.save())
@@ -65,7 +64,7 @@ class BootStrap {
         Topic.getAll().each { topic ->
             User topicCreator = topic.createdBy
             (1..2).each {
-                DocumentResource documentResource = DocumentResource.findOrCreateWhere(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
+                    DocumentResource documentResource = DocumentResource.findOrCreateWhere(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
                 if (documentResource.save()) {
                     topic.resources?.add(documentResource)
                     log.info('document resource added to Topic')
@@ -75,7 +74,7 @@ class BootStrap {
                 }
             }
             (1..2).each {
-                LinkResource linkResource =LinkResource.findOrCreateWhere(url: 'https://www.google.com', description: topic.name, createdBy: topicCreator, topic: topic)
+                LinkResource linkResource = LinkResource.findOrCreateWhere(url: 'https://www.google.com', description: topic.name, createdBy: topicCreator, topic: topic)
                 if (linkResource.save()) {
                     topic.resources?.add(linkResource)
                     log.info('link resource added to topic')
@@ -86,7 +85,6 @@ class BootStrap {
         }
 
     }
-
 
 
     void subscribeTopics() {
@@ -116,13 +114,9 @@ class BootStrap {
                 if (readingItem.save()) {
                     log.info("reading item created for ${it.user} and ${resource}")
                 }
-          }
+            }
         }
     }
-
-
-
-
 
 
     void createResourceRatings() {
@@ -132,13 +126,11 @@ class BootStrap {
                 rating = new ResourceRating(user: it.user, resource: it.resource, score: 1)
                 if (rating.save()) {
                     log.info("created resource rating for user ${it.user} and resource ${it.resource}")
-                }
-                else
+                } else
                     log.error("unable to create resource rating for user ${it.user} and resource ${it.resource}")
             }
         }
     }
-
 
 /*
      void createReadingItems() {

@@ -75,6 +75,7 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
         compile "org.grails.plugins:console:1.5.7"
         compile "org.grails.plugins:mail:1.0.7"
+        compile "org.grails.plugins:remote-pagination:0.4.8"
 
     }
 

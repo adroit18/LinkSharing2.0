@@ -21,7 +21,8 @@ class LinkResourceController {
             forward (controller:"login", action:"index")
             ([message: "Resource saved Successfully"] as JSON)
         }}
-        else  ([message: "WRONG Details"] as JSON)
+        else
+            render ([message: "WRONG Details"] as JSON)
 
     }
 

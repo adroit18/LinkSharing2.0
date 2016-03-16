@@ -79,6 +79,7 @@ class User {
 
 
     static List getSubscribedTopics(User user1) {
+
         List list = User.createCriteria().list {
             projections {
                 createAlias('subscriptions', 's');

@@ -144,7 +144,6 @@
     </div>
 
 
-    <div id="myscurf">
         <g:each in="${subscriptionList}" var="subscription" status="i">
             <g:if test="${i <= 4}">
                 <div class="panel-body">
@@ -168,11 +167,11 @@
                         <input type="text" style="display: none" id="stopicNameTxtBox-${subscription[0]}"
                                value="${subscription[1]}"/>
                         <button type="button" id="sbtnCancelEditTopic-${subscription[0]}"
-                                class="scnclTopicEdit btn btn-default pull-right"
-                                style="display: none">Cancel</button>
+                                class="scnclTopicEdit btn btn-primary pull-right"
+                                style="display: none;padding: 1px;">Cancel</button>
                         <button type="button" id="sbtnSaveEditTopic-${subscription[0]}"
-                                class="ssaveTopicEdit btn btn-default pull-right"
-                                style="display: none">Save</button>
+                                class="ssaveTopicEdit btn btn-success pull-right"
+                                style="display: none;padding: 1px;">Save</button>
                     </br></br>
                         <span class="col-xs-6 text-muted">@${subscription[2]}</span>
                         <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
@@ -292,7 +291,5 @@
                 </div>
             </g:if>
         </g:each>
-    </div>
-    <g:paginate controller="login" action="index" total="100" max="10"/>
 
 </div>

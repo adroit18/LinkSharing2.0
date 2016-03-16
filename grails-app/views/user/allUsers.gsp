@@ -9,16 +9,22 @@
 
 <div class="container-fluid">
 <div class="row">
-    <div class="col-xs-4">
+
         <g:form controller="user" action="userTable">
-            <label><h3>What users do u Want to see</h3></label>
-        </div>
     <div class="col-xs-4">
-            <g:select from="['Show All Users','Show All Active Users','Show Only In-Active Users']" id="active" name="active" value="None Selected">
-            </g:select>
-   </div>
+        <label class="pull-left"><h3>What users do u Want to see</h3></label>
+</div> <div class="col-xs-4">
+            <g:select from="['Show All Users','Show All Active Users','Show Only In-Active Users']" id="active" name="active" class="btn-primary" value="None Selected">
+            </g:select></div>
             <div class="col-xs-4">
-            <g:actionSubmit controller="user" action="userTable" value="Go"/>
+        <input type="text" name="q" class="form-control" id="q" placeholder="Or Search by Name..">
+</div>
+   </div>
+             <div class="col-xs-5"></div>
+            <div class="col-xs-4 center-block">
+            <g:actionSubmit class=" btn btn-success" controller="user" action="userTable" value="Go"/>
+        </div>
+
         </g:form>
         <br><br>
 

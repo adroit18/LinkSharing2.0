@@ -9,7 +9,7 @@ class ResourceController {
     def delete(long id) {
 
         User loggediInUser = session.user
-        Resource resource = Resource.read(id)
+        Resource resource = Resource.load(id)
         if (loggediInUser.canDeleteResource(resource)) {
             resource.delete(flush: true)
             flash.message = "Resource Deleted"
@@ -19,41 +19,42 @@ class ResourceController {
         redirect(controller: "login", action: "index")
     }
 
-    def search(ResourcesSearchCo co) {
-        println "params------------- : ${co.properties}"
+        def search(ResourcesSearchCo co) {
+
+        params.max = params.max ? params.max : 5
+        params.offset = params.offset ? params.offset : 0
+
         if (co) {
-            List<Topic> list1=Topic.findAllByNameIlike("%${co.q}%");
-            List<Resource> list = Resource.search(co).list();
-            render(view: "search", model: [searchResources: list,searchTopics:list1])
+            List list1 = Resource.createCriteria().list(params) {
+                projections {
+                    property('id')
+                    createAlias('topic', 't')
+                }
+                ilike('t.name', "%${co.q}%")
+
+            }
+            List<Resource> list = Resource.search(co).list(params);
+
+            Integer a=list.totalCount
+            Integer  b=list1.totalCount
+            render(view: "/Search/search", model: [size:a+b,searchResources: list, resourceTopics: list1, queryString: co.q])
         } else {
             flash.message = "Search Parametres not Set"
         }
 
 
     }
-//    def search(ResourcesSearchCo co)
-//    {
-////        if(co.q)
-////        {
-//            co.visibility = Link_Visibility.PUBLIC
-//            List<Resource> resources = Resource.search(co).list([max:5]);
-//            render(view:"search",model:[searchResources:resources])
-////        }
-////        else
-////            flash.message = "No input in query"
-//    }
-//
 
 
     def show(long id) {
 
         Resource resource = Resource.get(id)
         if (resource.canViewedBy(session.user)) {
-            List trendingTopics = Topic.getTrendingTopics()
+            List<TopicVO> trendingTopics = Topic.getTrendingTopics()
             render(view: "/resource/_show", model: [resource: resource, trendingTopics: trendingTopics])
         } else {
 
-            [message:"User Cannot view Topic"]as JSON
+            [message: "User Cannot view Topic"] as JSON
         }
     }
 

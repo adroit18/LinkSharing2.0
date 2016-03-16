@@ -28,13 +28,13 @@ class SubscriptionController {
         if (subscription && Seriousness.toenum(seriousness)) {
             subscription.seriousness = Seriousness.toenum(seriousness)
             if (subscription.save(flush: true)) {
-                ([message: "Success"] as JSON)
+                render ([message: "Success"] as JSON)
             } else {
-                ([message: "Error"] as JSON)
+                render ([message: "Error"] as JSON)
 
             }
         } else {
-            ([message: "Subscription or Seriousness Not Found"] as JSON)
+            render ([message: "Subscription or Seriousness Not Found"] as JSON)
         }
     }
 

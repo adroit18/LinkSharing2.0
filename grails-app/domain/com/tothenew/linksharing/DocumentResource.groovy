@@ -24,6 +24,7 @@ class DocumentResource extends Resource {
     }
 
     boolean saveDocumenResource(DocumentResourceCO documentResourceCO, User user, def file) {
+        println "askdmsa"
 
         if (file.getContentType() == contentType) {
             String filePath = grailsApplication.config.uploadDocumentFolder + documentResourceCO.topic.getId()

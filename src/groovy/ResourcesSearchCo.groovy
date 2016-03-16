@@ -11,6 +11,8 @@ class ResourcesSearchCo extends searchCO {
     String q
     long topic_id
     String visibility;
+    Integer max
+    Integer offset
 
     Link_Visibility getLink_Visibility() {
 

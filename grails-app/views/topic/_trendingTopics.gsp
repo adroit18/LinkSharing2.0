@@ -71,7 +71,7 @@
 %{--<div class="pagination">--}%
 %{--<g:paginate total="${trendingTopics}" />--}%
 %{--</div>--}%
-<div id="loadingDiv" style="display:none"><img src="/images/img.gif"/> </div>
+<div  ><img src="/images/img.gif"/> </div>
     <g:each in="${trendingTopics}" var="trending" status="i">
         <g:if test="${i < 4}">
 
