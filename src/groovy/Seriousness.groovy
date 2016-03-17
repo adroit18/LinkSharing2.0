@@ -1,7 +1,11 @@
 package com.tothenew.linksharing
+
+import grails.validation.Validateable
+
 /**
  * Created by deepak on 12/2/16.
  */
+@Validateable
 enum Seriousness {
     SERIOUS,
     VERY_SERIOUS,

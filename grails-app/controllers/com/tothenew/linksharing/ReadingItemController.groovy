@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class ReadingItemController {
 
-    def index() {}
+//    def index() {}
 
     def changeIsRead(long id, boolean isRead) {
         ReadingItem readingItem = ReadingItem.get(id)

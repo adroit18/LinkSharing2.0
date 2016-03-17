@@ -1,11 +1,8 @@
 package com.tothenew.linksharing
 
-//import grails.validation.Validateable
+import grails.validation.Validateable
 
-/**
- * Created by deepak on 24/2/16.
- */
-
+@Validateable
 class ResourcesSearchCo extends searchCO {
     long id
     String q

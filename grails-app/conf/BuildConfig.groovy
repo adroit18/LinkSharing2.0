@@ -76,8 +76,29 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:console:1.5.7"
         compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:remote-pagination:0.4.8"
+        compile "org.grails.plugins:codenarc:0.25.1"
+
 
     }
+
+    codenarc {
+
+        ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+
+        reports = {
+
+            HtmlReport('html') {                  // Report type is 'html'
+
+                outputFile = 'target/CodeNarcReport.html'
+
+                title = 'My Test Code Narc Report'
+
+            }
+
+        }
+
+    }
+
 
 
 

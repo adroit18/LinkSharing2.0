@@ -3,10 +3,10 @@ package com.tothenew.linksharing
 import grails.converters.JSON
 
 class LinkResourceController {
-
-    def index() {
-
-    }
+//
+//    def index() {
+//
+//    }
 
     def linkSave() {
         LinkResource linkResource = new LinkResource(url: params.link, description: params.description, topic: Topic.findByName(params.topicName), createdBy: session.user)

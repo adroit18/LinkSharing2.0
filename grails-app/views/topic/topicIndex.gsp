@@ -9,7 +9,7 @@
 <div class="col-xs-1"></div>
 
 %{--<div class="col-xs-4">--}%
-    <g:render template="/user/show" model= "[users:users,topicName:topicName]"/>
+    <g:render template="/user/show" model= "[users:users,topicName:topicName,resourceList:resourceList]"/>
 %{--</div>--}%
 
 <div class="col-xs-6">

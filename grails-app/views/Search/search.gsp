@@ -94,7 +94,10 @@
                 %{--<g:paginate total="${size}" controller="resource" action="search" next="Forward" prev="Back"--}%
                 %{--max="10" params="[q: queryString]"></g:paginate>--}%
                 %{--${size}--}%
-
+                <div class="pagination center-block">
+                    <util:remotePaginate update="m" total="${size/2}" controller="resource" action="search" next="Forward"
+                                         prev="Back"
+                                         max="5" params="[q: queryString]"/>
                 </div>
 
                 %{--<....................................>--}%

@@ -133,7 +133,7 @@
 
 <%@ page import="com.tothenew.linksharing.*" %>
 
-    <div class="panel panel-default" style="padding:8px;border:10px outset yellowgreen;">
+<div class="panel panel-default" style="padding:8px;border:10px outset yellowgreen;">
 
     <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Subscriptions
 
@@ -144,152 +144,151 @@
     </div>
 
 
-        <g:each in="${subscriptionList}" var="subscription" status="i">
-            <g:if test="${i <= 4}">
-                <div class="panel-body">
+    <g:each in="${subscriptionList}" var="subscription" status="i">
+        <g:if test="${i <= 4}">
+            <div class="panel-body">
 
-                    <div class="col-xs-2">
-                        %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2].username}"]'/>--}%
-                        <img src="${g.createLink(controller: 'user', action: 'image', params: [id: subscription[2].id])}"
-                             width="65px" height="65px"/>
-                    </div>
+                <div class="col-xs-2">
+                    %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2].username}"]'/>--}%
+                    <img src="${g.createLink(controller: 'user', action: 'image', params: [id: subscription[2].id])}"
+                         width="65px" height="65px"/>
+                </div>
 
-                    <div class="col-xs-10 pull-left">
+                <div class="col-xs-10 pull-left">
 
-                        <g:link value="topic"
-                                url="[controller: 'topic', action: 'index', params: [id: subscription[0]]]"
-                                class="col-xs-8"
-                                style="text-decoration:underline">
-                            <label class="user-resource anchor-dec view-post"
-                                   id="stopicNameLabel-${subscription[0]}">${subscription[1]}</label>
-                        </g:link>
+                    <g:link value="topic"
+                            url="[controller: 'topic', action: 'index', params: [id: subscription[0]]]"
+                            class="col-xs-8"
+                            style="text-decoration:underline">
+                        <label class="user-resource anchor-dec view-post"
+                               id="stopicNameLabel-${subscription[0]}">${subscription[1]}</label>
+                    </g:link>
 
-                        <input type="text" style="display: none" id="stopicNameTxtBox-${subscription[0]}"
-                               value="${subscription[1]}"/>
-                        <button type="button" id="sbtnCancelEditTopic-${subscription[0]}"
-                                class="scnclTopicEdit btn btn-primary pull-right"
-                                style="display: none;padding: 1px;">Cancel</button>
-                        <button type="button" id="sbtnSaveEditTopic-${subscription[0]}"
-                                class="ssaveTopicEdit btn btn-success pull-right"
-                                style="display: none;padding: 1px;">Save</button>
-                    </br></br>
-                        <span class="col-xs-6 text-muted">@${subscription[2]}</span>
-                        <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
-                        <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
-                        <span class="col-xs-6" style="color:blue;" id="sub"><ls:showSubscribe topicId="${subscription[0]}"/>
-                        </span>
+                    <input type="text" style="display: none" id="stopicNameTxtBox-${subscription[0]}"
+                           value="${subscription[1]}"/>
+                    <button type="button" id="sbtnCancelEditTopic-${subscription[0]}"
+                            class="scnclTopicEdit btn btn-primary pull-right"
+                            style="display: none;padding: 1px;">Cancel</button>
+                    <button type="button" id="sbtnSaveEditTopic-${subscription[0]}"
+                            class="ssaveTopicEdit btn btn-success pull-right"
+                            style="display: none;padding: 1px;">Save</button>
+                </br></br>
+                    <span class="col-xs-6 text-muted">@${subscription[2]}</span>
+                    <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
+                    <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
+                    <span class="col-xs-6" style="color:blue;" id="sub"><ls:showSubscribe topicId="${subscription[0]}"/>
+                    </span>
 
-                        <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount
-                                topicId="${subscription[0]}"
-                                user="${subscription[2]}"/></span>
-                        <span class="col-xs-2" style="color:blue;padding-left:1px"><ls:resourceCount
-                                topicId="${subscription[0]}"/></span>
-                        <br>
+                    <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount
+                            topicId="${subscription[0]}"
+                            user="${subscription[2]}"/></span>
+                    <span class="col-xs-2" style="color:blue;padding-left:1px"><ls:resourceCount
+                            topicId="${subscription[0]}"/></span>
+                    <br>
 
 
 
-                        <ls:canUpdateTopic topicId="${subscription[0]}" subId="${subscription[3]}"/>
-                        <br>
+                    <ls:canUpdateTopic topicId="${subscription[0]}" subId="${subscription[3]}"/>
+                    <br>
 
-                        <div><button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                     data-target="#myModal5"
-                                     style="font-size:15px;border:none;background:none;color:blue"><div
-                                    class="glyphicon glyphicon-envelope"></div></button>
-                            %{--.....................................................--}%
+                    <div><button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                                 data-target="#myModal5"
+                                 style="font-size:15px;border:none;background:none;color:blue"><div
+                                class="glyphicon glyphicon-envelope"></div></button>
+                        %{--.....................................................--}%
 
-                            <!-- 5 Modal -->
-                            <div id="myModal5" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Send Invitation</h4>
-                                        </div>
+                        <!-- 5 Modal -->
+                        <div id="myModal5" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Send Invitation</h4>
+                                    </div>
 
-                                        <div class="modal-body">
-                                            <g:form class="form-horizontal" controller="topic" action="invite">
+                                    <div class="modal-body">
+                                        <g:form class="form-horizontal" controller="topic" action="invite">
 
-                                                <div class="form-group">
-                                                    <label class="control-label col-xs-4">Email/Username:</label>
-                                                    .
-                                                    <div class="col-xs-8">
-                                                        <input type="email" class="form-control" name="emailId"
-                                                               id="emailId" placeholder="Enter email">
-                                                    </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-4">Email/Username:</label>
+                                                .
+                                                <div class="col-xs-8">
+                                                    <input type="email" class="form-control" name="emailId"
+                                                           id="emailId" placeholder="Enter email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4">Topics</label>
+
+                                                <div class="col-xs-8">
+                                                    <g:select name="topicName" from="${[subscription[1]]}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-xs-4"></div>
+
+                                                <div class="col-xs-4">
+                                                    <g:actionSubmit controller="topic" action="invite"
+                                                                    class="form-control btn btn-default active"
+                                                                    id="submit" value="Invite"
+                                                                    style="color:black;border:solid black;border-radius:7px"/>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label class="col-xs-4">Topics</label>
-
-                                                    <div class="col-xs-8">
-                                                        <g:select name="topicName" from="${[subscription[1]]}"/>
-                                                    </div>
+                                                <div class="col-xs-4">
+                                                    %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
+                                                    %{--style="color:black;border:solid black;border-radius:7px"/>--}%
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group">
-                                                    <div class="col-xs-4"></div>
+                                        </g:form>
+                                    </div>
 
-                                                    <div class="col-xs-4">
-                                                        <g:actionSubmit controller="topic" action="invite"
-                                                                        class="form-control btn btn-default active"
-                                                                        id="submit" value="Invite"
-                                                                        style="color:black;border:solid black;border-radius:7px"/>
-                                                    </div>
-
-                                                    <div class="col-xs-4">
-                                                        %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
-                                                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
-                                                    </div>
-                                                </div>
-
-                                            </g:form>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-                            %{--.........................................................--}%
-
                         </div>
-                        <br>
 
-                        <g:if test="${(subscription[2].username == (session.user.username)) || (session.user.isAdmin)}">
 
-                            <span class="col-xs-7"><g:select name="seriousSelect-${subscription[0]}"
-                                                             class=" form-control dashboard-select sajaxSeriousSelect"
-                                                             id="sseriousSelect-${subscription[0]}"
-                                                             from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
-                                                             value="${Subscription.get(subscription[3]).seriousness}"/>
 
-                            </span>
-                            <span class="col-xs-5">
-                                <g:select name="visibleSelect-${subscription[0]}"
-                                          class="col-xs-6  form-control dashboard-select sajaxVisibleSelect"
-                                          id="svisibleSelect-${subscription[0]}" from="${['PUBLIC', 'PRIVATE']}"
-                                          value="${Topic.get(subscription[0]).visibility}"/>
-                            </span>
 
-                        </g:if>
+
+                        %{--.........................................................--}%
 
                     </div>
-                    .
                     <br>
-                    <hr style="border-width:3px;padding:0px;border-color:green">
-                    <hr style="border-width:3px;padding:0px;border-color:green">
 
+                    <g:if test="${(subscription[2].username == (session.user.username)) || (session.user.isAdmin)}">
+
+                        <span class="col-xs-7"><g:select name="seriousSelect-${subscription[0]}"
+                                                         class=" form-control dashboard-select sajaxSeriousSelect"
+                                                         id="sseriousSelect-${subscription[0]}"
+                                                         from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
+                                                         value="${Subscription.get(subscription[3]).seriousness}"/>
+
+                        </span>
+                        <span class="col-xs-5">
+                            <g:select name="visibleSelect-${subscription[0]}"
+                                      class="col-xs-6  form-control dashboard-select sajaxVisibleSelect"
+                                      id="svisibleSelect-${subscription[0]}" from="${['PUBLIC', 'PRIVATE']}"
+                                      value="${Topic.get(subscription[0]).visibility}"/>
+                        </span>
+
+                    </g:if>
 
                 </div>
-            </g:if>
-        </g:each>
+                .
+                <br>
+                <hr style="border-width:3px;padding:0px;border-color:green">
+                <hr style="border-width:3px;padding:0px;border-color:green">
+
+            </div>
+        </g:if>
+    </g:each>
 
 </div>

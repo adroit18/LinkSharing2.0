@@ -1,7 +1,9 @@
 package com.tothenew.linksharing
-/**
- * Created by deepak on 12/3/16.
- */
+
+import grails.validation.Validateable
+
+
+@Validateable
 class TopicSearchCO {
     long id
     String visibility

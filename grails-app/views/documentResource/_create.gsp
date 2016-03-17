@@ -1,3 +1,27 @@
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+<script>
+
+    $(function () {
+        $("#documentForm").validate({
+            rules: {
+                file: "required",
+                description: "required"
+            },
+            messages: {
+                file: "Please enter a proper filepath",
+                description: "Please Describe the resource !!"
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+    });
+
+
+</script>
+
 <!--  3 Modal -->
 <div id="myModal3" class="modal fade" role="dialog" xmlns="http://www.w3.org/1999/html">
     <div class="modal-dialog">
@@ -10,7 +34,7 @@
         </div>
 
         <div class="modal-body">
-        <g:form enctype="multipart/form-data" class="form-horizontal" >
+        <g:form enctype="multipart/form-data" id="documentForm" name="documentForm" class="documentForm form-horizontal" controller="documentResource" action="documentSave" >
 
             <div class="form-group">
                 <label class="control-label col-xs-4">Document:</label>
@@ -47,9 +71,9 @@
                 </div>
 
                 <div class="col-xs-4">
-                    <g:actionSubmit class="form-control btn btn-primary active" controller="login"
-                                    action="index" value="Cancel" placeholder="Cancel"
-                                    style="color:white;border:solid black;border-radius:7px"/>
+                    %{--<g:actionSubmit class="form-control btn btn-primary active" controller="login"--}%
+                                    %{--action="index" value="Cancel" placeholder="Cancel"--}%
+                                    %{--style="color:white;border:solid black;border-radius:7px"/>--}%
                 </div>
             </div>
 

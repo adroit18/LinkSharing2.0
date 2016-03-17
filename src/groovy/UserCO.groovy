@@ -2,9 +2,6 @@ package com.tothenew.linksharing
 
 import grails.validation.Validateable
 
-/**
- * Created by deepak on 8/3/16.
- */
 @Validateable
 class UserCO {
 

@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class ResourceController {
 
-    def index() {}
+//    def index() {}
 
     def delete(long id) {
 
@@ -57,6 +57,20 @@ class ResourceController {
             [message: "User Cannot view Topic"] as JSON
         }
     }
+
+
+    def edit(String newName,long id){
+       Resource res=Resource.get(id)
+
+       if(res.executeUpdate("update Resource as R set R.description=:description where R.id=:id", [description:newName, id: id])){
+       redirect(controller: 'login',action: 'index');
+       }
+        else {
+           render("/404")
+       }
+
+    }
+
 
 }
 

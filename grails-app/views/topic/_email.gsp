@@ -1,3 +1,31 @@
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+<script>
+
+    $(function () {
+        $("#inviteForm").validate({
+            rules: {
+                emailId: {
+                        unique: true,
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                emailId:"Enter appropriate Email address"
+
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+    });
+</script>
+
+
+
+
 <%@ page import="com.tothenew.linksharing.*" %>
 
 <!-- 1 Modal -->
@@ -10,7 +38,7 @@
                 <h4 class="modal-title">Send Invitation</h4>
             </div>
             <div class="modal-body">
-<g:form class="form-horizontal"  controller="topic" action="invite">
+<g:form class="form-horizontal"  controller="topic" action="invite" name="inviteForm">
 
     <div class="form-group">
         <label class="control-label col-xs-4">Email/Username:</label>

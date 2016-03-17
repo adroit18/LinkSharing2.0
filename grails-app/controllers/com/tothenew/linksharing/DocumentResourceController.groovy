@@ -4,11 +4,11 @@ import grails.converters.JSON;
 
 class DocumentResourceController {
 
-    def index() {}
+//    def index() {}
 
 
     def documentSave(DocumentResourceCO documentResourceCO) {
-render "kjlk"
+
         if (documentResourceCO == null) {
             ([message: "Empty Resource"] as JSON)
         } else {
@@ -17,7 +17,7 @@ render "kjlk"
             def docFile = request.getFile("file")
             if (docFile.empty) {
                 ([message: "File Cannot Be Empty"] as JSON)
-                println "sdadadassssssssssssssssssssssssssssssssss"
+
 
             } else {
                 DocumentResource documentResource = new DocumentResource();

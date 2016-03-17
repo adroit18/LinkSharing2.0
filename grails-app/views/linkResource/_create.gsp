@@ -21,7 +21,6 @@
 
 
 </script>
-</head>
 
 
 <!--  2 Modal -->

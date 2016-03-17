@@ -12,10 +12,10 @@ class UserController {
     UserService userService
     EmailService emailService
 
-
-    def index() {
-        render "user dahsboard"
-    }
+//
+//    def index() {
+//
+//    }
 
     def registrationHandler(UserCO co) {
         def f = request.getFile('file')
@@ -27,7 +27,7 @@ class UserController {
         if (user.save(flush: true, failOnError: true)) {
             render(view: "/login/registerSuccess")
         } else
-           render ([message: "Failiure"] as JSON)
+            render([message: "Failiure"] as JSON)
 
 
     }
@@ -71,6 +71,18 @@ class UserController {
 
     }
 
+    def isExisting(String recoveryemail) {
+        int num = 0;
+        num = User.countByEmailId(recoveryemail)
+        if (num == 1)
+            render true
+        else
+            render false
+
+    }
+
+
+
     def image(Long id) {
         User user = User.get(id)
         byte[] image
@@ -85,17 +97,6 @@ class UserController {
         out.write(image)
         out.close()
     }
-
-//        User user = User.findByUsername(params.username);
-//        println "-...........${user}"
-//
-//        if (user?.profilePic) {
-//            render ls.userImage([username: params.username])
-//        } else {
-//            render asset.image(src: 'img.png', width: '64px', height: '64px')
-//
-//        }
-//    }
 
 
     def showForgotPassword() {
@@ -144,31 +145,32 @@ class UserController {
     }
 
 
-    def userTable(String q,String active) {
-//        println '------------------' + active
-        List <User> list = User.list();
-        if(q && !q.equals(""))
-        {
-            list = User.createCriteria().list(){
+    def userTable(String q, String active) {
+
+        params.max = params.max ? params.max : 5
+        params.offset = params.offset ? params.offset : 0
+        List<User> list = User.list(params);
+
+        if (q && !q.equals("")) {
+            list = User.createCriteria().list([sort: "id", order: "asc"]) {
                 or {
-                    ilike("username","%${q}%")
-                    ilike("firstName","%${q}%")
+                    ilike("username", "%${q}%")
+                    ilike("firstName", "%${q}%")
                 }
             }
-        }
-
-        else if (active.equals("Show All Users")) {
-           list = User.list(sort: 'id', order: 'asc')
+        } else if (active.equals("Show All Users")) {
+            list = User.getAll([sort: "id", order: "asc"])
 
         } else if (active.equals("Show All Active Users")) {
             boolean flag = true;
-             list = User.findAllByIsActive(flag)
+            list = User.findAllByIsActive(flag, [sort: "id", order: "asc"])
 
         } else {
-            boolean flag = false;
-            list = User.findAllByIsActive(flag)
+            boolean flag = true;
+            list = User.findAllByIsActive(flag,[sort: "id", order: "asc"])
         }
-        render(view: 'allUsers', model: [userList: list])
+        int a = 100
+        render(view: 'allUsers', model: [userList: list, size: a])
 
     }
 
@@ -201,51 +203,19 @@ class UserController {
 //            user.password = newPassword
 //            user.confirmPassword = newPassword
             if (user.executeUpdate("update User as U set U.password=:password where U.id=:id", [password: newPassword, id: user.id]))
-                ([message : "Success"]) as JSON
+                ([message: "Success"]) as JSON
             else
-                ([error : "Email not for a valid user"]) as JSON
+                ([error: "Email not for a valid user"]) as JSON
 
             redirect(controller: "login", action: "index")
         }
     }
 
 
+//    def profile(ResourcesSearchCo resourcesSearchCo) {
 //
-//    def loadUserTable(String q,String sortBy)
-//    {
-//        else if(sortBy)
-//        {
-//            if(sortBy.equalsIgnoreCase("activated")){
-//                userList = User.findAllByIsActive(true);
-//            }
-//            else if(sortBy.equalsIgnoreCase("deactivated")){
-//                userList = User.findAllByIsActive(false);
-//            }
-//        }
-////        render(template:"/user/userTable",model:[users:userList])
-////    }
-////
-////9
-////    def usershow() {
-//        List<User> userList = User.list(params)
-//        render(view: "userShow", model: [users: userList,userCount:userList.size()])
+//
 //    }
-//
-
-
-
-
-
-
-
-
-
-
-
-    def profile(ResourcesSearchCo resourcesSearchCo) {
-
-
-    }
 
     def topics(TopicSearchCO co) {
         def list = topicService.searchTopic(co)

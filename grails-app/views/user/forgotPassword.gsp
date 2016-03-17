@@ -3,6 +3,35 @@
 <head>
     <meta name="layout" content="main"/>
 
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+    <script>
+
+        $(function () {
+            $("#forgetPasswordForm").validate({
+                rules: {
+                    recoveryemail: {
+                        unique: true,
+                        required: true,
+                        email: true,
+                        remote: "${createLink(controller: 'user',action: 'isExisting')}"
+                    }
+                },
+                messages: {
+                    recoveryemail: {
+                        required:"Enter appropriate Email address",
+                        remote: jQuery.validator.format("Email ID no recognized !!")
+                    }
+
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
+
 </head>
 
 <body>
@@ -29,4 +58,5 @@
 </div>
 <div class="col-xs-4"></div>
 </body>
+
 </html>

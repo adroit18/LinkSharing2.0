@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class SubscriptionController {
 
-    def index() {}
+//    def index() {}
 
     def saveTopic(long id) {
 //        println 'saveTopic ' +id

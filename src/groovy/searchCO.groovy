@@ -1,7 +1,8 @@
 package com.tothenew.linksharing
-/**
- * Created by deepak on 24/2/16.
- */
+
+import grails.validation.Validateable
+
+@Validateable
 class searchCO {
     String q
     Integer max

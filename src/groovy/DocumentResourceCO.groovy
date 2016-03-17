@@ -3,6 +3,10 @@
  */
 
 package com.tothenew.linksharing
+
+import grails.validation.Validateable
+
+@Validateable
 class DocumentResourceCO {
     String filePath
     String description

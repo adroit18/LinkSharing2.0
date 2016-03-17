@@ -11,7 +11,8 @@ class TopicController {
 
     def index() {
         Topic topic = Topic.get(params.id)
-        render(view: 'topicIndex', model: [users: topic.getSubscribedUsers(), topicName: topic.name])
+        def list=topic?.resources
+        render(view: 'topicIndex', model: [users: topic.getSubscribedUsers(), topicName: topic.name, resourceList:list])
     }
 
 //ResourcesSearchCo co,

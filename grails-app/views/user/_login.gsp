@@ -1,4 +1,26 @@
-<head><script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+<script>
+
+        $(function () {
+            $("#loginForm").validate({
+                rules: {
+                    username: "required",
+                    password: "required",
+                },
+                messages: {
+                    username: "Please enter Username",
+                    password: "Please enter appropriate password !!",
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
+        });
+
+
+
     $('#my-alert').text(message)
         $("document").ready(function() {
             $('#loginButton').click(function () {
@@ -22,17 +44,16 @@
                 });
             }
         })
-</script></head>
-
+</script>
 <div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
 
     <div class="panel-heading" class="head" id="login" style="border-bottom:3px;border:5px double green;">Login</div>
 
     <div class="panel-body bdy" margin="10px 10px 10px 10px">
 
-        <g:form controller="login" action="login" role="form" class="form-horizontal">
+        <g:form name="loginForm" id="loginForm" controller="login" action="login" role="form" class="form-horizontal">
             <div class="form-group">
-                <div class="col-xs-4"><label class="control-label">Email/Username<sup>*</sup></label></div>
+                <div class="col-xs-4"><label class="control-label">Username<sup>*</sup></label></div>
 
                 <div class="col-xs-8"><input type="text" class="form-control" name="username"/></div>
             </div>
@@ -60,7 +81,7 @@
             <div class="form-group">
                 <div class="col-xs-2"></div>
 
-                <p id="my-alert">${message}</p>
+                <p id="my-alert" style="color: red;font-size: medium">${message}</p>
 
             </div>
 
