@@ -19,22 +19,6 @@
 
 %{--..........................................fb...............................--}%
 <head>
-    %{--<meta property="og:url" content="http://localhost:8080/"/>--}%
-    %{--<meta property="og:type" content="website"/>--}%
-    %{--<meta property="og:title" content="Link Sharing"/>--}%
-    %{--<meta property="og:description" content="Inbox Item"/>--}%
-    %{--<meta property="og:image" content="http://localhost:8080/img.png"/>--}%
-
-    <!-- Load Facebook SDK for JavaScript -->
-
-    %{--<script>(function(d, s, id) {--}%
-    %{--var js, fjs = d.getElementsByTagName(s)[0];--}%
-    %{--if (d.getElementById(id)) return;--}%
-    %{--js = d.createElement(s); js.id = id;--}%
-    %{--js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=454549484736344";--}%
-    %{--fjs.parentNode.insertBefore(js, fjs);--}%
-    %{--}(document, 'script', 'facebook-jssdk'));</script>--}%
-
 
     <div id="fb-root"></div>
 
@@ -184,6 +168,9 @@
                     %{--</div>--}%
 
                     <i class="fa fa-tumblr"></i>
+
+                    <div class="fb-share-button" data-href="${request.getRequestURL().toString()}" data-layout="button_count"></div>
+
 
 
                     <input type="button"
