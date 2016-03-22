@@ -4,11 +4,11 @@ import grails.test.spock.IntegrationSpec
 
 class ReadingItemIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "change is read"() {
 

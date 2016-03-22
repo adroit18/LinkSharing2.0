@@ -52,6 +52,18 @@
     }
 
     </style>
+
+    <script>
+        $(document).ready(function(){
+            $("#srch-term").keypress(function () {
+                $("#pag").load("/resource/search", {"q": $("#srch-term").val(),"flag":1});
+            });
+        });
+
+    </script>
+
+
+
     <g:layoutHead/>
 </head>
 

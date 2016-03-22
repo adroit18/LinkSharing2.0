@@ -1,7 +1,7 @@
 package com.tothenew.linksharing
-//import groovy.transform.EqualsAndHashCode
-//
-//@EqualsAndHashCode
+import groovy.transform.EqualsAndHashCode
+
+@EqualsAndHashCode
 class DocumentResource extends Resource {
 
     def grailsApplication
@@ -41,6 +41,7 @@ class DocumentResource extends Resource {
             if (documentResource.validate()) {
                 documentResource.save(flush: true, failOnError: true)
                 def subscriptions = documentResource.topic.subscriptions
+
                 for (Subscription subscriptionObj : subscriptions) {
                     ReadingItem readingItem = new ReadingItem()
                     readingItem.user = subscriptionObj.user

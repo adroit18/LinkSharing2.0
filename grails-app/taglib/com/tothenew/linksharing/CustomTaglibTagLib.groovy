@@ -10,7 +10,7 @@ class CustomTaglibTagLib {
         ReadingItem readingItem = ReadingItem.findById((attrs.id))
         flash.query = attrs.query
         if (user && readingItem) {
-            def id = readingItem.id
+//            def id = readingItem.id
             def isRead = readingItem.isRead
             if (isRead) {
 //                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: id, isRead: false], "style": "font-size:10px") {
@@ -82,12 +82,10 @@ class CustomTaglibTagLib {
 
     def canUpdateTopic = { attrs, body ->
         Topic topic = Topic.get(attrs.topicId)
-        println "00000000000000000000000000000"+session.us
-        if (session.user.isAdmin == true || topic.createdBy == session.user) {
+       if (session.user.isAdmin == true || topic.createdBy == session.user) {
 
             out << "<span class='col-xs-4'>"
             out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
-//            if(topic.createdBy!=session.user)
             out << "<span class='col-xs-4'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
 
             out << "</span><br>"
@@ -98,21 +96,10 @@ class CustomTaglibTagLib {
             out<< "${Subscription.get(attrs.subId).seriousness}"
             out << "</div>"
         }
-
-        //  flash.message=attrs.topicId;
-//        class="seditTopicInline"
-//        id="sedit-${sub?.topic?.id}" style="width: 22px; cursor: pointer;"
-
     }
 
     def showSeriousness = { attrs, body ->
-        Topic topic = Topic.get(attrs.topicId)
-
         out << g.select(name: 'seriousness', from: ['SERIOUS', 'VERY SERIOUS', 'CASUAL'], value: "${}")
-        if (session.user.isAdmin == true || topic.createdBy == session.user) {
-
-        }
-
     }
 
 

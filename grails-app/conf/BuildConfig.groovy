@@ -13,6 +13,7 @@ grails.project.fork = [
 
     // configure settings for the test-app JVM, uses the daemon by default
     test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+//    test:false,
     // configure settings for the run-app JVM
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -51,6 +52,7 @@ grails.project.dependency.resolution = {
         runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+
     }
 
     plugins {
@@ -77,6 +79,9 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:remote-pagination:0.4.8"
         compile "org.grails.plugins:codenarc:0.25.1"
+
+        test ":code-coverage:2.0.3-3"
+        compile "org.grails.plugins:spring-security-core:2.0.0"
 
 
     }

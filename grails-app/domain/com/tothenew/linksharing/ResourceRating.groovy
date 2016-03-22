@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 class ResourceRating {
 
     Resource resource;
@@ -33,6 +35,10 @@ class ResourceRating {
 
         return resources;
 
+    }
+
+    String toString() {
+        return resource?.description
     }
 
 

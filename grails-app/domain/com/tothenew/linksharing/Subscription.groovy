@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 class Subscription {
     Topic topic;
     User user;
@@ -38,7 +40,9 @@ class Subscription {
 return subscription;
     }
 
-
+    String toString() {
+        return topic?.name
+    }
 }
 
 

@@ -9,12 +9,12 @@ import spock.lang.Specification
 @TestFor(TopicService)
 class TopicServiceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "test something"() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
+//
+//    void "test something"() {
+//    }
 }

@@ -32,15 +32,15 @@ class UserService {
     }
 
     def updatePassword(UserCO userCo, User userObj) {
-        try {
+//        try {
             if ((userCo.password == (userCo.confirmPassword)) && userCo.password.length() > 7 ) {
                 userObj.executeUpdate("update User as U set U.password=:password where U.id=:id", [password: userCo.password, id: userObj.id])
                 return true
             }
             return false
-        } catch (Exception e) {
-            return false
-        }
+//        } catch (Exception e) {
+//            return false
+//        }
     }
 }
 

@@ -32,26 +32,6 @@ class UserController {
 
     }
 
-//
-//        String filePath = grailsApplication.config.userProfileImageFolder + userCO.username
-//        File dir = new File(filePath)
-//        if (!dir.exists()) {
-//            dir.mkdirs()
-//        }//userCO.photo
-//
-//        def userImage = request.getFile('file')
-//        if (!userImage.empty) {
-//            userCO.photo = userImage.originalFilename
-//            userImage.transferTo(new File("${grailsApplication.config.userProfileImageFolder}${userCO.username}"))
-//        }
-//
-//        User user = new User(userCO.properties)
-//        user.profilePic = userCO.username
-//
-
-//    }
-
-
     def isUsernameValid(String username) {
         int numUser = 0
         numUser = User.countByUsername(username)
@@ -80,7 +60,6 @@ class UserController {
             render false
 
     }
-
 
 
     def image(Long id) {
@@ -118,7 +97,7 @@ class UserController {
         User userObj = session["user"]
         userCO.profilePic = userImage.bytes
         userCO.photoType = userImage.contentType
-        User user = new User(userCO.properties)
+        //      User user = new User(userCO.properties)
 
         boolean success = userService.updateUserProfile(userCO, userObj)
         if (success) {
@@ -147,30 +126,35 @@ class UserController {
 
     def userTable(String q, String active) {
 
-        params.max = params.max ? params.max : 5
+        params.max = params.max ? params.max : 2
         params.offset = params.offset ? params.offset : 0
-        List<User> list = User.list(params);
-
+        params.sort="id";
+        params.order="asc"
+        List list = [];
+        Integer a = 0;
         if (q && !q.equals("")) {
-            list = User.createCriteria().list([sort: "id", order: "asc"]) {
+            list = User.createCriteria().list(params) {
                 or {
                     ilike("username", "%${q}%")
                     ilike("firstName", "%${q}%")
                 }
             }
+            a += list.totalCount;
         } else if (active.equals("Show All Users")) {
-            list = User.getAll([sort: "id", order: "asc"])
+            list = User.list(params)
+            a += User.count();
 
         } else if (active.equals("Show All Active Users")) {
             boolean flag = true;
-            list = User.findAllByIsActive(flag, [sort: "id", order: "asc"])
+            list = User.findAllByIsActive(flag,params)
+            a += User.countByIsActive(flag)
 
         } else {
-            boolean flag = true;
-            list = User.findAllByIsActive(flag,[sort: "id", order: "asc"])
+            boolean flag = false;
+            list = User.findAllByIsActive(flag,params)
+            a += User.countByIsActive(flag)
         }
-        int a = 100
-        render(view: 'allUsers', model: [userList: list, size: a])
+        params.flag == null?render(view: 'allUsers', model: [userList: list, size: a, queryString1: q, queryString2: active]):render(template: 'userlist', model: [userList: list])
 
     }
 
@@ -210,7 +194,6 @@ class UserController {
             redirect(controller: "login", action: "index")
         }
     }
-
 
 //    def profile(ResourcesSearchCo resourcesSearchCo) {
 //

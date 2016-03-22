@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 class Topic {
     String name;
     User createdBy;
@@ -50,7 +52,7 @@ class Topic {
 
 
     List getSubscribedUser(long id) {
-        List list = Subscription.createCriteria().list {
+        List list1 = Subscription.createCriteria().list {
             projections {
                 createAlias('topic', 't')
                 createAlias('user', 'u')
@@ -59,6 +61,7 @@ class Topic {
             eq('t.id', id)
 
         }
+        list1
     }
 
 

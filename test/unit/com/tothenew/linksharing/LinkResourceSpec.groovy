@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.*
+
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -11,11 +11,11 @@ import spock.lang.Specification
 @TestFor(LinkResource)
 class LinkResourceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "test something"() {
         setup: "user created Resource"

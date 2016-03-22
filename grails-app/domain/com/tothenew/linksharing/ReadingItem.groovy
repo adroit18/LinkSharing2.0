@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 class ReadingItem {
 
     Resource resource;
@@ -33,6 +35,11 @@ class ReadingItem {
         }
         return list
     }
+
+    String toString() {
+        return resource?.description
+    }
+
 
 
 }

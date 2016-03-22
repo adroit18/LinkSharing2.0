@@ -5,6 +5,7 @@
 
 
         $('.sajaxVisibleSelect').on('change', function () {
+            var link = this.id
             var visibility = $("#" + this.id + " option:selected").val();
             $.ajax({
                 url: "${g.createLink(controller:'topic',action:'changeVisibility')}",
@@ -13,15 +14,18 @@
                 },
                 type: 'POST',
                 success: function (data) {
-                    alert(data.message)
+//                    alert("#" + this.id + "Success")
+                    $("#" + link + "Success").show().delay(1000).fadeOut().text(data.message);
                 },
                 error: function (xhr) {
-                    alert(xhr.responseText);
+                    $("#" + link + "Error").show().delay(1000).fadeOut().text(data.message);
                 }
             });
         });
 
         $('.sajaxSeriousSelect').on('change', function () {
+            var link = this.id
+
             var seriousness = $("#" + this.id + " option:selected").val();
             $.ajax({
                 url: "${g.createLink(controller:'subscription',action:'changeSeriousness')}",
@@ -30,10 +34,11 @@
                 },
                 type: 'POST',
                 success: function (data) {
-                    alert(data.message)
+
+                    $("#" + link + "Success").show().delay(1000).fadeOut().text(data.message);
                 },
                 error: function (xhr) {
-                    alert(xhr.responseText);
+                    $("#" + link + "Error").show().delay(1000).fadeOut().text(data.message);
                 }
             });
         });
@@ -54,6 +59,8 @@
 
         $(".ssaveTopicEdit").on('click', function () {
 
+            var link = this.id
+            alert(link)
             var topicDivId = (this.id).substr(18);
 
             var topicName = $("#stopicNameTxtBox-" + topicDivId).val();
@@ -70,10 +77,11 @@
                 },
                 type: 'POST',
                 success: function (data) {
-                    alert(data.message)
+
+                    $("#" + link + "Success").show().delay(1000).fadeOut().text(data.message);
                 },
                 error: function (xhr) {
-                    alert(xhr.responseText);
+                    $("#" + link + "Error").show().delay(1000).fadeOut().text(data.message);
                 },
                 complete: function () {
 
@@ -99,6 +107,7 @@
 
 
         $('.sdeleteTopic').on('click', function () {
+            var link = this.id
             console.log("del clicked-" + this.id)
             $.ajax({
                 url: "${g.createLink(controller:'topic',action:'deleteTopic')}",
@@ -111,11 +120,15 @@
 
                 },
                 success: function (data) {
-                    alert(data.message)
-                    window.location.reload();
+
+                    $("#" + link + "Success").show().delay(1500).fadeOut().text(data.message);
+                    if (data.message == "Topic Deleted Successfully")
+                        $("#" + link).parents(".panel-body").remove();
+
+
                 },
                 error: function (xhr) {
-                    alert(xhr.responseText);
+                    $("#" + link + "Error").show().delay(1500).fadeOut().text(data.message);
                 }
             });
         });
@@ -133,6 +146,7 @@
 
 <%@ page import="com.tothenew.linksharing.*" %>
 
+
 <div class="panel panel-default" style="padding:8px;border:10px outset yellowgreen;">
 
     <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Subscriptions
@@ -146,6 +160,12 @@
 
     <g:each in="${subscriptionList}" var="subscription" status="i">
         <g:if test="${i <= 4}">
+            <div id="sdel-${subscription[0]}Success" title="Dialog Title"
+                 style="display:none;color: #00aa00;font-size: 15px"></div>
+
+            <div id="sdel-${subscription[0]}Error" title="Dialog Title"
+                 style="display:none;color: red;font-size: 15px"></div>
+
             <div class="panel-body">
 
                 <div class="col-xs-2">
@@ -172,6 +192,15 @@
                     <button type="button" id="sbtnSaveEditTopic-${subscription[0]}"
                             class="ssaveTopicEdit btn btn-success pull-right"
                             style="display: none;padding: 1px;">Save</button>
+
+                    <div id="sbtnSaveEditTopic-${subscription[0]}Success" title="Dialog Title"
+                         style="display:none;color: #00aa00;font-size: 15px"></div>
+
+                    <div id="sbtnSaveEditTopic-${subscription[0]}Error" title="Dialog Title"
+                         style="display:none;color: red;font-size: 15px"></div>
+
+
+
                 </br></br>
                     <span class="col-xs-6 text-muted">@${subscription[2]}</span>
                     <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
@@ -189,6 +218,8 @@
 
 
                     <ls:canUpdateTopic topicId="${subscription[0]}" subId="${subscription[3]}"/>
+
+
                     <br>
 
                     <div><button type="button" class="btn btn-info btn-lg" data-toggle="modal"
@@ -271,12 +302,26 @@
                                                          from="${['SERIOUS', 'VERY_SERIOUS', 'CASUAL']}"
                                                          value="${Subscription.get(subscription[3]).seriousness}"/>
 
+                            <div id="sseriousSelect-${subscription[0]}Success" title="Dialog Title"
+                                 style="display:none;color: #00aa00;font-size: 15px"></div>
+
+                            <div id="sseriousSelect-${subscription[0]}Error" title="Dialog Title"
+                                 style="display:none;color: red;font-size: 15px"></div>
+
                         </span>
+
                         <span class="col-xs-5">
                             <g:select name="visibleSelect-${subscription[0]}"
                                       class="col-xs-6  form-control dashboard-select sajaxVisibleSelect"
                                       id="svisibleSelect-${subscription[0]}" from="${['PUBLIC', 'PRIVATE']}"
                                       value="${Topic.get(subscription[0]).visibility}"/>
+
+                            <div id="svisibleSelect-${subscription[0]}Success" title="Dialog Title"
+                                 style="display:none;color: #00aa00;font-size: 15px"></div>
+
+                            <div id="svisibleSelect-${subscription[0]}Error" title="Dialog Title"
+                                 style="display:none;color: red;font-size: 15px"></div>
+
                         </span>
 
                     </g:if>

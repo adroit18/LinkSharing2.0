@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.EmailDTO
+
 import grails.transaction.Transactional
 
 @Transactional
@@ -18,4 +18,4 @@ class EmailService {
                 body(view:emailDTO.view,model:emailDTO.model)
         }
     }
-}
+};

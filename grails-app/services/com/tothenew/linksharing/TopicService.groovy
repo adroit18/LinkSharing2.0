@@ -5,8 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class TopicService {
 
-    def serviceMethod() {
-    }
+//    def serviceMethod() {
+//    }
 
     def searchTopic(TopicSearchCO co){
 

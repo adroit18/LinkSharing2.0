@@ -8,20 +8,13 @@ import spock.lang.Specification
  */
 @TestFor(UserController)
 class UserControllerSpec extends Specification {
+//
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "index"() {
-        when:
-        controller.index()
-
-        then:
-        response.contentAsString=='User dashboard'
-    }
 
     void "register should render success when user is saved"(){
         setup:

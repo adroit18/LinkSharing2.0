@@ -18,11 +18,11 @@ class LinkResourceController {
                 readingItem.resource = linkResource
                 readingItem.save(flush: true, failOnError: true)
 
-            forward (controller:"login", action:"index")
-            ([message: "Resource saved Successfully"] as JSON)
+            //forward (controller:"login", action:"index")
+            render ([message: "Resource saved Successfully"] as JSON)
         }}
         else
-            render ([message: "WRONG Details"] as JSON)
+            render ([error: "Wrong Details"] as JSON)
 
     }
 

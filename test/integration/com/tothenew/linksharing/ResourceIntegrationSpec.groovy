@@ -4,11 +4,11 @@ import grails.test.spock.IntegrationSpec
 
 class ResourceIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "get rating info"() {
         setup:

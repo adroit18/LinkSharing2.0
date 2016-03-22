@@ -11,17 +11,14 @@ import spock.lang.Specification
 @TestFor(SubscriptionController)
 class SubscriptionControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "delete response success when successful"() {
         setup:
-        Subscription subscription = new Subscription()
-
-        and:
         Subscription.metaClass.static.get = { long id ->
             return null
         }

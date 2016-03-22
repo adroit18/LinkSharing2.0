@@ -8,11 +8,11 @@ import spock.lang.Specification
 @Mock([Topic])
 class TopicControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "show public topic"() {
         given:

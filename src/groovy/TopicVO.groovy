@@ -1,5 +1,4 @@
 package com.tothenew.linksharing;
-import com.tothenew.linksharing.*
 import grails.validation.Validateable
 
 /**

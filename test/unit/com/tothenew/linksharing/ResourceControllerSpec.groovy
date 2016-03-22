@@ -1,9 +1,9 @@
-package linksharing
+package com.tothenew.linksharing
 
-import com.tothenew.linksharing.*;
+//import com.tothenew.linksharing.*;
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import spock.lang.IgnoreRest
+//import spock.lang.IgnoreRest
 import spock.lang.Specification
 
 /**
@@ -13,11 +13,11 @@ import spock.lang.Specification
 @TestFor(ResourceController)
 class ResourceControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "delete successful"() {
         setup:

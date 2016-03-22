@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 class User {
 
     String emailId;

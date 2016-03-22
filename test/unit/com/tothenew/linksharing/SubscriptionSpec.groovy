@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.*
+
 
 //import Link_Visibility
 //import Seriousness
@@ -14,11 +14,11 @@ import spock.lang.Specification
 
 class SubscriptionSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
 
     void "test something"() {

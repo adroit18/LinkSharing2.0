@@ -19,7 +19,7 @@ class ResourceController {
         redirect(controller: "login", action: "index")
     }
 
-        def search(ResourcesSearchCo co) {
+    def search(ResourcesSearchCo co) {
 
         params.max = params.max ? params.max : 5
         params.offset = params.offset ? params.offset : 0
@@ -35,9 +35,16 @@ class ResourceController {
             }
             List<Resource> list = Resource.search(co).list(params);
 
-            Integer a=list.totalCount
-            Integer  b=list1.totalCount
-            render(view: "/Search/search", model: [size:a+b,searchResources: list, resourceTopics: list1, queryString: co.q])
+            Integer a = list.totalCount
+            Integer b = list1.totalCount
+
+//            println "1-----------" + params.flag
+            if (params.flag == null)
+                render(view: "/Search/search", model: [size: a + b, searchResources: list, resourceTopics: list1, queryString: co.q])
+            else
+                render(view: "/Search/_searchResults", model: [size: a + b, searchResources: list, resourceTopics: list1, queryString: co.q])
+
+
         } else {
             flash.message = "Search Parametres not Set"
         }
@@ -51,7 +58,7 @@ class ResourceController {
         Resource resource = Resource.get(id)
         if (resource.canViewedBy(session.user)) {
             List<TopicVO> trendingTopics = Topic.getTrendingTopics()
-            render(view: "/resource/_show", model: [resource: resource, trendingTopics: trendingTopics])
+            render(view: "/resource/_show", model: [id: id, resource: resource, trendingTopics: trendingTopics])
         } else {
 
             [message: "User Cannot view Topic"] as JSON
@@ -59,15 +66,14 @@ class ResourceController {
     }
 
 
-    def edit(String newName,long id){
-       Resource res=Resource.get(id)
+    def edit(String newName, long id) {
+        Resource res = Resource.get(id)
 
-       if(res.executeUpdate("update Resource as R set R.description=:description where R.id=:id", [description:newName, id: id])){
-       redirect(controller: 'login',action: 'index');
-       }
-        else {
-           render("/404")
-       }
+        if (res.executeUpdate("update Resource as R set R.description=:description where R.id=:id", [description: newName, id: id])) {
+            redirect(controller: 'login', action: 'index');
+        } else {
+            render("/404")
+        }
 
     }
 

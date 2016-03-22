@@ -13,11 +13,11 @@ import spock.lang.Unroll
 @TestFor(LoginController)
 class LoginControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+//    def setup() {
+//    }
+//
+//    def cleanup() {
+//    }
 
     void "Login index forward"() {
         setup:

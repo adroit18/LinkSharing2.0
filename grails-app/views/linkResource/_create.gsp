@@ -30,6 +30,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div id="dialogSuccessLink" title="Dialog Title"
+                     style="display:none;color: #00aa00;font-size: 25px"></div>
+
+                <div id="dialogErrorLink" title="Dialog Title" style="display:none;color: red;font-size: 25px"></div>
                 <h4 class="modal-title">Share Link</h4>
             </div>
 
@@ -40,7 +45,7 @@
                         <label class="control-label col-xs-4">Link:</label>
 
                         <div class="col-xs-8">
-                            <input type="url" class="form-control" name="link" placeholder="Enter Link">
+                            <input type="url" class="form-control" id="link" name="link" placeholder="Enter Link">
                         </div>
                     </div>
 
@@ -48,7 +53,7 @@
                         <label class="control-label col-xs-4">Description:</label>
 
                         <div class="col-xs-8">
-                            <textarea placeholder="Description" name="description"></textarea>
+                            <textarea placeholder="Description" name="description" id="descriptionLink"></textarea>
                         </div>
                     </div>
 
@@ -56,7 +61,8 @@
                         <div class="col-xs-2 "></div><label class="col-xs-2">Topic:</label>
 
                         <div class="col-xs-8">
-                            <g:select class="btn dropdown-toggle form-control" data-toggle="dropdown" name="topicName" id="doctopic"
+                            <g:select class="btn dropdown-toggle form-control" data-toggle="dropdown" name="topicName"
+                                      id="linkTopic"
                                       style="width:200px;border: 1px solid silver" from="${subscribed}"/>
 
                         </div>
@@ -64,22 +70,22 @@
 
 
                     <div class="form-group">
-                    <div class="col-xs-4"></div>
+                        <div class="col-xs-4"></div>
 
-                    <div class="col-xs-4 pull-right">
-                        <g:actionSubmit controller="linkResource" action="linkSave"
-                                        class="form-control btn btn-success active" value="Submit"
-                                        placeholder="Share"
-                                        style="color:white;border:solid black;border-radius:7px"/>
-                    </div>
+                        <div class="col-xs-4 pull-right">
+                            <g:actionSubmit controller="linkResource" action="linkSave" id="linkSaveButton"
+                                            class="form-control btn btn-success active" value="Submit"
+                                            placeholder="Share"
+                                            style="color:white;border:solid black;border-radius:7px"/>
+                        </div>
 
 
-                    %{--<div class="col-xs-4">--}%
+                        %{--<div class="col-xs-4">--}%
                         %{--<g:actionSubmit class="form-control btn btn-default active" controller="login"--}%
-                                        %{--action="index" value="Cancel" placeholder="Cancel"--}%
-                                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
-                    %{--</div>--}%
-                </div>
+                        %{--action="index" value="Cancel" placeholder="Cancel"--}%
+                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
+                        %{--</div>--}%
+                    </div>
                 </g:form>
 
                 <div class="modal-footer">
@@ -87,8 +93,39 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+
+    $('#linkSaveButton').on('click', function () {
+                if ($("#linkform").valid()) {
+                   event.preventDefault()
+                    $.ajax({
+                        url: "${g.createLink(controller:'linkResource',action: 'linkSave')}",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            link: $('#link').val(),
+                            description: $('#descriptionLink').val(),
+                            topicName: $('#linkTopic').val()
+                        },
+                        success: function (data) {
+
+                            $("#dialogSuccessLink").show().delay(1000).fadeOut().text(data.message);
+                        },
+                        error: function (xhr) {
+
+                            $("#dialogErrorLink").show().delay(1500).fadeOut().text(data.error);
+                        }
+
+                    })
+                }
+            }
+    );
 
 
+</script>
 
 
 

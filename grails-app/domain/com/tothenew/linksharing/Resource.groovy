@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 abstract class Resource {
     String description;
     User createdBy;
@@ -47,7 +49,7 @@ abstract class Resource {
 
 
     static List recentShares() {
-        List recentSharesList, recentSharesList1;
+        List recentSharesList
         recentSharesList = Resource.createCriteria().list(max: 5, offset: 0, sort: 'lastUpdated', order: 'desc') {
             projections {
                 //createAlias('readingItems','r')
@@ -79,6 +81,10 @@ abstract class Resource {
         Topic resourceTopic = this.topic
         return resourceTopic.canViewedBy(user)
     }
+    String toString() {
+        return description
+    }
+
 
 
 }

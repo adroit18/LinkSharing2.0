@@ -42,17 +42,17 @@ class TopicController {
             User createdBy = session.user;
             topic = new Topic(name: name, createdBy: createdBy, visibility: Link_Visibility.toenum(visibility))
             if (topic.save(failOnError: true)) {
-               ([message: "Topic saved Successfully"] as JSON)
+              render ([message: "Topic saved Successfully"] as JSON)
 
             } else
-              ([message: "Topic could not be saved"] as JSON)
+             render ([message: "Topic could not be saved"] as JSON)
 
         } else
-           ([message: "none"] as JSON)
+            render ([message: "none"] as JSON)
 
         //render flash.message
         //render  view:"../index";
-        redirect(controller: "login", action: "index", model: [topic: topic])
+//        redirect(controller: "login", action: "index", model: [topic: topic])
         //  <g:renderErrors bean="${topic}"/>
     }
 
@@ -105,7 +105,7 @@ class TopicController {
         Topic topic = Topic.get(params.topicId)
         topic.visibility = params.visibility
         if (topic.save(failOnError: true, flush: true))
-            render([message: "Visibility successfully Changed"] as JSON)
+           render ([message: "Visibility successfully Changed"] as JSON)
         else
             render([message: "Visibility Could not be Changed"] as JSON)
 
@@ -117,7 +117,9 @@ class TopicController {
         if (topic) {
             EmailDTO emailDTO = new EmailDTO(to: [emailId], subject: "${session.user} invited you to like a topic.", view: "/email/_invite", model: [topic: topic, user: session.user, serverUrl: grailsApplication.config.grails.serverURL])
             emailService.sendMail(emailDTO)
-            redirect(controller: "login", action: "index")
+//            redirect(controller: "login", action: "index")
+            render ([message:"success"])as JSON
+
         } else
            render ([message: "Topic Not Found"] as JSON)
 

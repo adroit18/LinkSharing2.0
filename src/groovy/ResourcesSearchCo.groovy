@@ -1,8 +1,8 @@
 package com.tothenew.linksharing
 
-import grails.validation.Validateable
-
-@Validateable
+//import grails.validation.Validateable
+//
+//@Validateable
 class ResourcesSearchCo extends searchCO {
     long id
     String q
@@ -13,7 +13,7 @@ class ResourcesSearchCo extends searchCO {
 
     Link_Visibility getLink_Visibility() {
 
-        Link_Visibility.toenum(this.visibility)
+        Link_Visibility?.toenum(this?.visibility)
     }
 
     void getUser() {

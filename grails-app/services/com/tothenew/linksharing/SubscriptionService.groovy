@@ -5,13 +5,13 @@ import grails.transaction.Transactional
 @Transactional
 class SubscriptionService {
 
-    def serviceMethod() {
-
-    }
+//    def serviceMethod() {
+//
+//    }
 
     def searchSubscription(TopicSearchCO co){
         if (co) {
-          return  Subscription.findByUser(co.getUser())
+            return  Subscription.findByUser(co.getUser())
         }
 
 
@@ -23,7 +23,6 @@ class SubscriptionService {
 
 
 
-    }
-
+}
 
 
