@@ -1,8 +1,12 @@
 package com.tothenew.linksharing
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
-@EqualsAndHashCode
-class User {
+@EqualsAndHashCode(includes = 'username')
+@ToString(includes = 'username', includeNames = true, includePackage = false)
+
+
+class User implements Serializable{
 
     String emailId;
     String firstName;
@@ -18,6 +22,41 @@ class User {
 
     Date lastUpdated;
     Date dateCreated;
+
+
+    private static final long serialVersionUID = 1
+
+    transient springSecurityService
+
+
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
+
+
+    User(String username, String password) {
+        this()
+        this.username = username
+        this.password = password
+    }
+
+    Set<SecRole> getAuthorities() {
+        SecUserSecRole.findAllByUser(this)*.secRole
+    }
+
+    def beforeInsert() {
+        encodePassword()
+    }
+
+    def beforeUpdate() {
+        if (isDirty('password')) {
+            encodePassword()
+        }
+    }
+
+    protected void encodePassword() {
+        password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+    }
 
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource, ratingItems: ResourceRating]
@@ -79,7 +118,6 @@ class User {
     }
 
 
-
     static List getSubscribedTopics(User user1) {
 
         List list = User.createCriteria().list {
@@ -94,32 +132,27 @@ class User {
 
     }
 
-    boolean canDeleteResource(Resource resource)
-    {
-        if((resource.createdBy.id==this.id)|| this.isAdmin)
-        {
+    boolean canDeleteResource(Resource resource) {
+        if ((resource.createdBy.id == this.id) || this.isAdmin) {
             return true
-        }
-        else {
+        } else {
             return false
         }
     }
 
-    static int getScore(Resource resource,User user){
+    static int getScore(Resource resource, User user) {
 
-        ResourceRating resourceRating= ResourceRating.findByUserAndResource(user,resource)
-        int score=1
-        if(resourceRating){
-            score=resourceRating.score
+        ResourceRating resourceRating = ResourceRating.findByUserAndResource(user, resource)
+        int score = 1
+        if (resourceRating) {
+            score = resourceRating.score
         }
         return score
     }
 
-    boolean isSubscribed(long topicId)
-    {
-        return(Subscription.findByUserAndTopic(this,Topic.read(topicId)))
+    boolean isSubscribed(long topicId) {
+        return (Subscription.findByUserAndTopic(this, Topic.read(topicId)))
     }
-
 
 
 }

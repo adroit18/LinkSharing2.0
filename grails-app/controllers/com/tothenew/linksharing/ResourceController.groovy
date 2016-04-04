@@ -1,11 +1,12 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class ResourceController {
 
-//    def index() {}
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def delete(long id) {
 
         User loggediInUser = session.user
@@ -19,6 +20,7 @@ class ResourceController {
         redirect(controller: "login", action: "index")
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def search(ResourcesSearchCo co) {
 
         params.max = params.max ? params.max : 5
@@ -52,7 +54,7 @@ class ResourceController {
 
     }
 
-
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(long id) {
 
         Resource resource = Resource.get(id)
@@ -66,6 +68,7 @@ class ResourceController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def edit(String newName, long id) {
         Resource res = Resource.get(id)
 

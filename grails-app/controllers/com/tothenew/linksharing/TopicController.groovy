@@ -1,6 +1,7 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 //import Link_Visibility
 
@@ -9,22 +10,19 @@ class TopicController {
     EmailService emailService;
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def index() {
         Topic topic = Topic.get(params.id)
         def list=topic?.resources
         render(view: 'topicIndex', model: [users: topic.getSubscribedUsers(), topicName: topic.name, resourceList:list])
     }
 
-//ResourcesSearchCo co,
-
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def show(ResourcesSearchCo co) {
         Topic topic = Topic.read(co.topic_id);
         if (!topic) {
            render ([error: "Topic Not Found"] as JSON)
-            // println("a gya gay gayg a")
-            //  forward(controller: "user", action: "index");
         } else if (topic && topic.visibility == Link_Visibility.PUBLIC) {
-            //println "asdf,nfd";
             render ([message: "Success"] as JSON)
         } else if (topic && topic.visibility == Link_Visibility.PRIVATE) {
             if (topic.subscriptions.user.findAll { it.username == session.user }) {
@@ -36,6 +34,7 @@ class TopicController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def save(String name, String visibility) {
         Topic topic
         if (name && visibility) {
@@ -49,13 +48,10 @@ class TopicController {
 
         } else
             render ([message: "none"] as JSON)
-
-        //render flash.message
-        //render  view:"../index";
-//        redirect(controller: "login", action: "index", model: [topic: topic])
-        //  <g:renderErrors bean="${topic}"/>
     }
 
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def topicDelete(long id) {
         Topic topic = Topic.get(id);
         if (topic?.delete(flush: true))
@@ -64,21 +60,8 @@ class TopicController {
              ([message: "Error Occured"])
     }
 
-//    def editTopic(long id, String changed,String visibility,String seriousness)
-//    {
-//        println "dknfksjndfjnsdfnskjfnjks--------------------------------------"
-//        println changed+'------------'+visibility+'========='+seriousness
-//        Topic topic = Topic.get(id)
-//        topic.executeUpdate("update Topic as T set T.name=:name where T.id=:id", [name: changed, id: id])
-//        topic.executeUpdate("update Topic as T set T.visibility=:visibility where T.id=:id", [visibility:Link_Visibility.toenum(visibility), id: id])
-//
-//       def subscription= Subscription.findByTopic(topic)
-//        subscription.executeUpdate("update Subscription as S set S.seriousness=:seriousness where S.id=:id", [seriousness:Seriousness.toenum(seriousness), id: ${subscription.id}])
-//
-//
-//    }
 
-
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def editTopic() {
         Topic topic = Topic.get(params.topicId)
         topic.name = params.topicName
@@ -89,6 +72,7 @@ class TopicController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def deleteTopic() {
         Topic topicObj = Topic.get(params.topicId)
         if (topicObj.createdBy == session.user)
@@ -101,6 +85,7 @@ class TopicController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def changeVisibility() {
         Topic topic = Topic.get(params.topicId)
         topic.visibility = params.visibility
@@ -111,10 +96,11 @@ class TopicController {
 
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def invite(String topicName, String emailId) {
         Topic topic = Topic.findByName(topicName);
-        println "................." +topic
-        if (topic) {
+
+        if (topic) { println "................." +topic
             EmailDTO emailDTO = new EmailDTO(to: [emailId], subject: "${session.user} invited you to like a topic.", view: "/email/_invite", model: [topic: topic, user: session.user, serverUrl: grailsApplication.config.grails.serverURL])
             emailService.sendMail(emailDTO)
 //            redirect(controller: "login", action: "index")
@@ -125,6 +111,7 @@ class TopicController {
 
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def join(long id) {
         User invitedUser = session.user
         Topic invitedTopic = Topic.read(id)
@@ -142,6 +129,7 @@ class TopicController {
         redirect(controller: "user", action: "index")
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def viewAllTrend(){
         List<TopicVO> trendingTopics = Topic.getTrendingTopics();
         render view:'_allTrendingTopics',model: [trendingTopics:trendingTopics]

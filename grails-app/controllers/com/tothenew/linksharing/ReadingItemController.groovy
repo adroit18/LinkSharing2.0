@@ -1,11 +1,14 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class ReadingItemController {
 
 //    def index() {}
 
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def changeIsRead(long id, boolean isRead) {
         ReadingItem readingItem = ReadingItem.get(id)
         String newMessage = (isRead == true) ? "<span class='unread' data-id='${id}' style='color:blue' > Mark as Unread </span>" : "<span class='read' data-id='${id}' style='color:blue' > Mark as Read </span>";

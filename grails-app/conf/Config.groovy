@@ -8,7 +8,7 @@ grails.config.locations = ["file:${userHome}/.grails/${appName}-config.groovy"]
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.project.groupId = "com.Intellgrape.link_sharing"  // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = "com.tothenew.linksharing"  // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
@@ -23,7 +23,7 @@ grails.mime.types = [ // the first one is the default format
                       json         : ['application/json', 'text/json'],
                       multipartForm: 'multipart/form-data',
                       rss          : 'application/rss+xml',
-                          text         : 'text/plain',
+                      text         : 'text/plain',
                       hal          : ['application/hal+json', 'application/hal+xml'],
                       xml          : ['text/xml', 'application/xml']
 ]
@@ -116,9 +116,9 @@ log4j.main = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 
-             info 'grails.app'
-             debug 'grails.app'
-             all "com.intellgrape.link_sharing.controllers.UtilController"
+    info 'grails.app'
+    debug 'grails.app'
+    all "com.intellgrape.link_sharing.controllers.UtilController"
 
 
 }
@@ -127,12 +127,43 @@ grails {
     mail {
         host = "smtp.gmail.com"
         port = 465
-        username = "consummatelydone@gmail.com"
-        password = "speed@bullet"
-        props = ["mail.smtp.auth":"true",
-                 "mail.smtp.socketFactory.port":"465",
-                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                 "mail.smtp.socketFactory.fallback":"false"]
+        username = "linksharingapplication@gmail.com"
+        password = "64135271"
+        props = ["mail.smtp.auth"                  : "true",
+                 "mail.smtp.socketFactory.port"    : "465",
+                 "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback": "false"]
 
     }
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.tothenew.linksharing.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.tothenew.linksharing.SecUserSecRole'
+grails.plugin.springsecurity.authority.className = 'com.tothenew.linksharing.SecRole'
+
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+//
+'/login'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/**'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+
+'/user/registrationHandler': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+
+//        '/login/*'       : ['IS_AUTHENTICATED_REMEMBERED'],
+//        '/login/index'   : ['ROLE_USER'],
+//        '/login/*'        : ['ROLE_USER', 'IS_AUTHENTICATED_FULLY'],
+//'/**'                  : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/'                         : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+//'/index'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+//'/index.gsp'           : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/assets/**'                : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/**/js/**'                 : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/**/css/**'                : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/**/images/**'             : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/**/favicon.ico'           : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+'/user/image/'              : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+//'/linkResource/**'     : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+//'/plugins/dbconsole/**': ['IS_AUTHENTICATED_ANONYMOUSLY']
+
+]
+

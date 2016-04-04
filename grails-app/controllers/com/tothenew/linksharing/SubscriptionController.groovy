@@ -1,11 +1,13 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class SubscriptionController {
 
 //    def index() {}
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def saveTopic(long id) {
 //        println 'saveTopic ' +id
         Topic topic = Topic.get(id);
@@ -23,6 +25,7 @@ class SubscriptionController {
 
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def update(long id, String seriousness) {
         Subscription subscription = Subscription.get(id)
         if (subscription && Seriousness.toenum(seriousness)) {
@@ -38,6 +41,7 @@ class SubscriptionController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def delete(long id) {
 //        println 'delete ' +id
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
@@ -52,6 +56,7 @@ class SubscriptionController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def changeSeriousness() {
         Topic topic = Topic.load(params.topicId)
         User user = session.getAttribute("user")
@@ -65,6 +70,7 @@ class SubscriptionController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def viewAll(){
         List subscriptionList = Subscription.getSubscriptions(session.user)
         render view: '_allSubscriptions', model: [subscriptionList:subscriptionList]

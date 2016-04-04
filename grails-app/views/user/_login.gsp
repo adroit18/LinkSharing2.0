@@ -180,17 +180,17 @@
 
     <div class="panel-body bdy" margin="10px 10px 10px 10px">
 
-        <g:form name="loginForm" id="loginForm" controller="login" action="login" role="form" class="form-horizontal">
+        <g:form name="loginForm" id="loginForm" url="/j_spring_security_check" role="form" class="form-horizontal">
             <div class="form-group">
                 <div class="col-xs-4"><label class="control-label">Username<sup>*</sup></label></div>
 
-                <div class="col-xs-8"><input type="text" class="form-control" name="username"/></div>
+                <div class="col-xs-8"><input type="text" class="form-control" name="j_username"/></div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-4"><label class="control-label">Password<sup>*</sup></label></div>
 
-                <div class="col-xs-8"><input type="password" class="form-control" name="password"/></div>
+                <div class="col-xs-8"><input type="password" class="form-control" name="j_password"/></div>
 
             </div>
 

@@ -9,4 +9,8 @@ class UtilController {
     {
         render view: 'error'
     }
+
+    def test(User user) {
+        render user
+    }
 }

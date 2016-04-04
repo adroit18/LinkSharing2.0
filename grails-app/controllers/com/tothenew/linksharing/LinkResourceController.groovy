@@ -1,13 +1,14 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
+
+//import grails.plugin.springsecurity.annotation.Secured
 
 class LinkResourceController {
-//
-//    def index() {
-//
-//    }
 
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def linkSave() {
         LinkResource linkResource = new LinkResource(url: params.link, description: params.description, topic: Topic.findByName(params.topicName), createdBy: session.user)
         if (linkResource.save(flush: true, failOnError: true)) {
@@ -18,11 +19,11 @@ class LinkResourceController {
                 readingItem.resource = linkResource
                 readingItem.save(flush: true, failOnError: true)
 
-            //forward (controller:"login", action:"index")
-            render ([message: "Resource saved Successfully"] as JSON)
-        }}
-        else
-            render ([error: "Wrong Details"] as JSON)
+                //forward (controller:"login", action:"index")
+                render([message: "Resource saved Successfully"] as JSON)
+            }
+        } else
+            render([error: "Wrong Details"] as JSON)
 
     }
 

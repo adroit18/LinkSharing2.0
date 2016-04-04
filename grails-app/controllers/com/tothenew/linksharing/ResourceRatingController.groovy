@@ -1,12 +1,12 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 
 class ResourceRatingController {
 
-//    def index() {}
-
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def saveRating(long id) {
         User user = session.user
         Resource resource = Resource.read(id)

@@ -1,5 +1,8 @@
 import com.tothenew.linksharing.*
 
+import static com.tothenew.linksharing.SecUserSecRole.create
+
+
 //import Link_Visibility
 //import Seriousness
 
@@ -23,25 +26,34 @@ class BootStrap {
 
     List<User> createUsers() {
 
+        def adminRole = new SecRole(authority: 'ROLE_ADMIN').save(flush: true)
+        def userRole = new SecRole(authority: 'ROLE_USER').save(flush: true)
+
         List<User> users = []
         if (User.count() == 0) {
-            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothtenew.com", isAdmin: true, isActive: true)
+
+            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothenew.com", isAdmin: true, isActive: true)
             if (admin.save(flush: true, failOnError: true)) {
                 users.add(admin)
                 log.error "User ${admin} saved successfully"
             } else {
                 log.error "Error saving user : ${admin.errors.allErrors}"
             }
+           create(admin,adminRole,true)
 
-            //  normal user made
-            User normal = new User(firstName: "Waquar", lastName: "Azam", username: "Waquar Azam", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false)
+          User normal = new User(firstName: "Waquar", lastName: "Azam", username: "Waquar Azam", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false)
             if (normal.save(flush: true, failOnError: true)) {
                 users.add(normal)
             } else {
                 log.error "Error saving user : ${normal.errors.allErrors}"
             }
+            create(normal,userRole,true)
+
+
+
             users;
         }
+
     }
 
     void createTopics() {

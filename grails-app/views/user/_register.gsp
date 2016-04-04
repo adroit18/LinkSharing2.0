@@ -54,7 +54,7 @@
 
     <div class="panel-body bdy" margin="10px 10px 10px 10px">
 
-        <g:form class="form-horizontal" controller="User" action="registrationHandler" id="registrationForm"
+        <g:form class="form-horizontal" controller="user" action="registrationHandler" id="registrationForm"
                 name="registrationForm" enctype="multipart/form-data">
 
             <div class="form-group">
@@ -107,9 +107,9 @@
                 </div></div>
 
             <div class="form-group">
-                <g:submitButton controller="User" action="registrationHandler" value="Register"
+                <g:submitButton controller="user" action="registrationHandler" value="Register"
                                 class="btn btn-success form-btn register-btn col-xs-6 col-xs-offset-3 "
-                                name="submit"></g:submitButton></div>
+                                name="submit"/></div>
         </g:form>
     </div>
 </div>

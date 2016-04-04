@@ -1,12 +1,14 @@
 package com.tothenew.linksharing
 
-import grails.converters.JSON;
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured;
 
 class DocumentResourceController {
 
 //    def index() {}
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def documentSave(DocumentResourceCO documentResourceCO) {
 
         if (documentResourceCO == null) {
@@ -36,6 +38,8 @@ class DocumentResourceController {
 
     }
 
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def downloadDocument() {
         Resource document = Resource.get(params.fid)
         //  println "-----------------+++++++++${document}"

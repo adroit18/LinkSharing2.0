@@ -1,11 +1,18 @@
 package com.tothenew.linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
+
+//import grails.plugin.springsecurity.annotation.Secured
 
 class LoginController {
 
+    def springSecurityService
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
+        def user = springSecurityService.currentUser
+        session.user=user
         if (session.user) {
             List subscriptionList = Subscription.getSubscriptions(session.user)
             List inboxList = ReadingItem.userInbox(session.user)
@@ -25,15 +32,29 @@ class LoginController {
         }
     }
 
-    def login(String username, String password) {
-        User user = User.findByUsernameAndPassword(username, password);
 
-        // ResourceRating resourceRating = new ResourceRating()
-        // render resourceRating.getTopPosts();
+    def logout() {
+        session.invalidate()
+        g:
+        createLink(controller: "grails.plugin.springsecurity.LogoutController", action: "index")
+
+        ([message: "User Logged Out"] as JSON)
+        forward(controller: 'login', action: 'index')
+
+
+    }
+
+
+    def loginHandler() {
+//        User user = User.findByUsernameAndPassword(username, password);
+
+
+        def user = springSecurityService.currentUser
         if (user) {
             if (user.isActive == true) {
                 session.user = user;
                 forward(controller: 'login', action: 'index');
+
             } else {
                 render(view: 'index', model: [message: "Your Account is Not Active"])
                 // session.user = user;
@@ -45,15 +66,6 @@ class LoginController {
 //             flash.error
 
         }
-    }
-
-
-    def logout() {
-        session.invalidate()
-        ([message: "User Logged Out"] as JSON)
-        forward(controller: 'login', action: 'index')
-
-
     }
 
 

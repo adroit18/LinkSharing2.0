@@ -1,5 +1,6 @@
 <%@ page import="com.tothenew.linksharing.Resource" %>
 
+
 %{--........................gmail...............................--}%
 <script>
     window.___gcfg = {
@@ -16,6 +17,11 @@
 
 
 %{--................................gmail ends..................................--}%
+
+
+
+
+
 
 %{--..........................................fb...............................--}%
 <head>
@@ -169,24 +175,25 @@
 
                     <i class="fa fa-tumblr"></i>
 
-                    <div class="fb-share-button" data-href="${request.getRequestURL().toString()}" data-layout="button_count"></div>
+                    <div class="fb-share-button" data-href="${request.getRequestURL().toString()}"
+                         data-layout="button_count"></div>
 
 
 
                     <input type="button"
-                            class="g-interactivepost"
-                            data-contenturl="${inbox[2]}"
-                            data-contentdeeplinkid="/pages"
-                            data-clientid="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com"
-                            data-cookiepolicy="single_host_origin"
-                            data-prefilltext="Want to Say Something..."
-                            data-calltoactionlabel="CREATE"
-                            data-calltoactionurl="${inbox[2]}"
-                            data-calltoactiondeeplinkid="/pages/create"
+                           class="g-interactivepost"
+                           data-contenturl="${inbox[2]}"
+                           data-contentdeeplinkid="/pages"
+                           data-clientid="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com"
+                           data-cookiepolicy="single_host_origin"
+                           data-prefilltext="Want to Say Something..."
+                           data-calltoactionlabel="CREATE"
+                           data-calltoactionurl="${inbox[2]}"
+                           data-calltoactiondeeplinkid="/pages/create"
 
-                            value="Share on Google +">
+                           value="Share on Google +">
 
-                    </input>
+                </input>
 
                 </div>
 
