@@ -18,6 +18,20 @@ abstract class Resource {
         description(type: 'text')
     }
 
+   // static searchable = true
+//
+//    def afterInsert() {
+//        Resource.withNewSession {
+//            for (Subscription subscriptionObj : subscriptions) {
+//                ReadingItem readingItem = new ReadingItem()
+//                readingItem.user = subscriptionObj.user
+//                readingItem.resource = documentResource
+//                readingItem.save(flush: true, failOnError: true)
+//
+//            }
+//        }
+//    }
+
     static constraints = {
     }
 

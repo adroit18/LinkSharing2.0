@@ -5,25 +5,20 @@ import grails.plugin.springsecurity.annotation.Secured;
 
 class DocumentResourceController {
 
-//    def index() {}
 
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def documentSave(DocumentResourceCO documentResourceCO) {
-
         if (documentResourceCO == null) {
             ([message: "Empty Resource"] as JSON)
         } else {
-
             User user = session.user
             def docFile = request.getFile("file")
             if (docFile.empty) {
                 ([message: "File Cannot Be Empty"] as JSON)
-
-
-            } else {
+            }
+            else {
                 DocumentResource documentResource = new DocumentResource();
-                println ",................ssssss......${documentResourceCO.properties}"
                 boolean result = documentResource.saveDocumenResource(documentResourceCO, user, docFile)
                 if (result) {
                     ([message: "Resource Successfully Created"] as JSON)
@@ -34,6 +29,7 @@ class DocumentResourceController {
                 }
 
             }
+
         }
 
     }
@@ -65,6 +61,8 @@ class DocumentResourceController {
             fileInputStream.close()
         }
     }
+
+
 }
 
 

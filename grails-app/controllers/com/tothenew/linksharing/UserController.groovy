@@ -28,7 +28,7 @@ class UserController {
     def isUsernameValid(String username) {
         int numUser = 0
         numUser = User.countByUsername(username)
-        if (numUser >= 1)
+        if (numUser >= 1 || username.startsWith("facebook_")||username.startsWith("google_"))
             render false
         else
             render true
@@ -90,10 +90,8 @@ class UserController {
         User userObj = session["user"]
         boolean success = userService.updateUserProfile(userCO, userObj)
         if (success) {
-            flash.message = g.message(code: "profile.update.success")
             redirect(controller: "user", action: "editProfile")
         } else {
-            flash.error = g.message(code: "error.in.updation")
             redirect(controller: "user", action: "editProfile")
         }
 
@@ -116,7 +114,7 @@ class UserController {
 
     @Secured(['ROLE_ADMIN'])
     def userTable(String q, String active, params) {
-           List ret= userService.userTable(q, active, params)
+        List ret = userService.userTable(q, active, params)
         params.flag == null ? render(view: 'allUsers', model: [userList: ret[0], size: ret[1], queryString1: q, queryString2: active]) : render(template: 'userlist', model: [userList: ret[0]])
 
     }
@@ -148,6 +146,27 @@ class UserController {
             redirect(controller: "login", action: "index")
 
     }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+    def completeProfile() {
+        int ide = 10;
+
+        User user1 = User.get(session.user.id);
+        List list = ["Student", "Professor", "IT Professional", "Others"]
+
+        for (int i = 0; i < list.size(); i++) {
+            println "============================" + list[i]
+            if (list[i].equals(params.completedProfession)) {
+                ide = i;
+                break;
+            }
+        }
+
+        user1.profession = ide + 1
+        user1.save(flush: true, failOnError: true)
+        redirect(controller: "login", action: "index")
+    }
+
 
 //    def profile(ResourcesSearchCo resourcesSearchCo) {
 //

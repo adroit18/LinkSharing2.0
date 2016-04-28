@@ -4,14 +4,6 @@
     <div class="panel-heading head" id="topPosts" style="border-bottom:3px;border:5px double green;">
         Top Posts
 
-        %{--<div class="pull-right "><form>--}%
-            %{--<select class="form-control" id="sel1" style="height:29px">--}%
-                %{--<option>Public</option>--}%
-                %{--<option>Private</option>--}%
-                %{--<option>Global</option>--}%
-                %{--<option>Mid</option>--}%
-            %{--</select></form>--}%
-        %{--</div>--}%
 
     </div>
 
@@ -32,9 +24,6 @@
                         ${resource[2]}
                     </p>
 
-                    <i class="fa fa-facebook-official"></i>
-                    <i class="fa fa-tumblr"></i>
-                    <i class="fa fa-google-plus"></i>
 
                     <g:if test="${Resource.get(resource[0]).canViewedBy(session.user)}">
                     <span><g:link controller="resource" action="show" params="[id:resource[0]]" style="text-decoration:underline;font-size:10px">View Post</g:link>

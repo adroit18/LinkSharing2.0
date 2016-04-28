@@ -31,25 +31,44 @@ class BootStrap {
 
         List<User> users = []
         if (User.count() == 0) {
-
-            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothenew.com", isAdmin: true, isActive: true)
+            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothenew.com", isAdmin: true, isActive: true, profession: 3)
             if (admin.save(flush: true, failOnError: true)) {
                 users.add(admin)
                 log.error "User ${admin} saved successfully"
             } else {
                 log.error "Error saving user : ${admin.errors.allErrors}"
             }
-           create(admin,adminRole,true)
+            create(admin, adminRole, true)
 
-          User normal = new User(firstName: "Waquar", lastName: "Azam", username: "Waquar Azam", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false)
-            if (normal.save(flush: true, failOnError: true)) {
-                users.add(normal)
+            User normal1 = new User(firstName: "Waquar", lastName: "Azam", username: "furious", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false, profession: 1)
+            User normal2 = new User(firstName: "Ram", lastName: "Lakhan", username: "in", password: "test@1234", emailId: "normal2@tothtenew.com", isAdmin: false, isActive: true, profession: 2)
+            User normal3 = new User(firstName: "Shyam", lastName: "Tarak", username: "whole", password: "test@1234", emailId: "normal3@tothtenew.com", isAdmin: false, isActive: true, profession: 4)
+            User normal4 = new User(firstName: "Harman", lastName: "Bewaja", username: "labled", password: "test@1234", emailId: "normal4@tothtenew.com", isAdmin: false, isActive: true, profession: 5)
+            User normal5 = new User(firstName: "Rap", lastName: "Rak", username: "somehow", password: "test@1234", emailId: "normal5@tothtenew.com", isAdmin: false, isActive: true, profession: 6)
+            User normal6 = new User(firstName: "Ralph", lastName: "Gaur", username: "tough", password: "test@1234", emailId: "normal6@tothtenew.com", isAdmin: false, isActive: true, profession: 7)
+            User normal7 = new User(firstName: "Paul", lastName: "Keval", username: "kama", password: "test@1234", emailId: "normal7@tothtenew.com", isAdmin: false, isActive: true, profession: 8)
+            User normal8 = new User(firstName: "Karan", lastName: "Gaja", username: "kll", password: "test@1234", emailId: "normal8@tothtenew.com", isAdmin: false, isActive: true, profession: 9)
+            User normal9 = new User(firstName: "Lack", lastName: "Laka", username: "ops", password: "test@1234", emailId: "normal9@tothtenew.com", isAdmin: false, isActive: true, profession: 10)
+            normal2.save(); normal3.save(); normal4.save(); normal5.save(); normal6.save()
+            normal7.save(); normal8.save(); normal9.save();
+            if (normal1.save(flush: true, failOnError: true)) {
+                users.add(normal1);users.add(normal2)
+                users.add(normal3);users.add(normal4)
+                users.add(normal5);users.add(normal6)
+                users.add(normal7);users.add(normal8)
+                users.add(normal9)
             } else {
                 log.error "Error saving user : ${normal.errors.allErrors}"
             }
-            create(normal,userRole,true)
-
-
+            create(normal1, userRole, true)
+            create(normal2, userRole, true)
+            create(normal3, userRole, true)
+            create(normal4, userRole, true)
+            create(normal5, userRole, true)
+            create(normal6, userRole, true)
+            create(normal7, userRole, true)
+            create(normal8, userRole, true)
+            create(normal9, userRole, true)
 
             users;
         }
@@ -59,8 +78,8 @@ class BootStrap {
     void createTopics() {
         User.getAll().each {
             if (it?.topics?.size() < 1) {
-                (1..5).each { index ->
-                    Topic topic = new Topic(name: "name${index}${it}${it}", createdBy: it, visibility: Link_Visibility.PRIVATE)
+                (1..2).each { index ->
+                    Topic topic = new Topic(name: "name${it.profession}${it}${it}", createdBy: it, visibility: Link_Visibility.PRIVATE, concernedArea: it.profession)
                     if (topic.save())
                         log.info("Created Topic ${topic}");
                     else
@@ -76,7 +95,7 @@ class BootStrap {
         Topic.getAll().each { topic ->
             User topicCreator = topic.createdBy
             (1..2).each {
-                    DocumentResource documentResource = DocumentResource.findOrCreateWhere(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
+                DocumentResource documentResource = DocumentResource.findOrCreateWhere(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
                 if (documentResource.save()) {
                     topic.resources?.add(documentResource)
                     log.info('document resource added to Topic')
@@ -143,49 +162,6 @@ class BootStrap {
             }
         }
     }
-
-/*
-     void createReadingItems() {
-         List<User> users = User.getAll()
-         users.each { user ->
-             Set subscribedTopics = user.topics
-             subscribedTopics.each { subscribedTopic ->
-                 Set resources = subscribedTopic.resources
-                 resources.each { resource ->
-                     if (resource.createdBy != user) {
-                         ReadingItem readingItem = ReadingItem.findOrCreateWhere(user: user, resource: resource)
-                         if (readingItem.save()) {
-                             log.info("reading item created for ${user} and ${resource}")
-                         } else {
-                             log.error(readingItem.errors)
-                         }
-                     } else {
-                         log.info("${resource.createdBy} == ${user}")
-                     }
-
-                 }
-             }
-         }
-     }
-
-
-    void createResourceRatings() {
-        Set readingItems = ReadingItem.findAllByIsRead(false)
-        readingItems.each { readingItem ->
-            User user = readingItem.user
-            Resource resource = readingItem.resource
-            ResourceRating resourceRating = new ResourceRating(user: user, resource: resource, score: 4)
-            if (resourceRating.save()) {
-                log.info("created resource rating for user ${user} and resource ${resource}")
-            } else {
-                log.error("unable to create resource rating for user ${user} and resource ${resource}")
-            }
-        }
-
-    }
-
-*/
-
 
     def destroy = {
 

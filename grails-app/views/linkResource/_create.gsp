@@ -1,27 +1,28 @@
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<head>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
-<script>
+    <script>
 
-    $(function () {
-        $("#linkform").validate({
-            rules: {
-                link: "required",
-                description: "required",
-            },
-            messages: {
-                link: "Please enter a proper link",
-                description: "Please Describe the resource !!",
-            },
-            submitHandler: function (form) {
-                form.submit();
-            }
+        $(function () {
+            $("#linkform").validate({
+                rules: {
+                    link: "required",
+                    description: "required",
+                },
+                messages: {
+                    link: "Please enter a proper link",
+                    description: "Please Describe the resource !!",
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
         });
 
-    });
 
-
-</script>
-
+    </script>
+</head>
 
 <!--  2 Modal -->
 <div id="myModal2" class="modal fade" role="dialog">
@@ -32,9 +33,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                 <div id="dialogSuccessLink" title="Dialog Title"
-                     style="display:none;color: #00aa00;font-size: 25px"></div>
+                     style="display:none;color: #00aa00;font-size: 25px">Success</div>
 
-                <div id="dialogErrorLink" title="Dialog Title" style="display:none;color: red;font-size: 25px"></div>
+                <div id="dialogErrorLink" title="Dialog Title"
+                     style="display:none;color: red;font-size: 25px">Error</div>
                 <h4 class="modal-title">Share Link</h4>
             </div>
 
@@ -73,18 +75,12 @@
                         <div class="col-xs-4"></div>
 
                         <div class="col-xs-4 pull-right">
-                            <g:actionSubmit controller="linkResource" action="linkSave" id="linkSaveButton"
-                                            class="form-control btn btn-success active" value="Submit"
-                                            placeholder="Share"
-                                            style="color:white;border:solid black;border-radius:7px"/>
+                            <input type="button" id="linkSaveButton"
+                                   class="form-control btn btn-success active" value="Submit"
+                                   placeholder="Share"
+                                   style="color:white;border:solid black;border-radius:7px"/>
                         </div>
 
-
-                        %{--<div class="col-xs-4">--}%
-                        %{--<g:actionSubmit class="form-control btn btn-default active" controller="login"--}%
-                        %{--action="index" value="Cancel" placeholder="Cancel"--}%
-                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
-                        %{--</div>--}%
                     </div>
                 </g:form>
 
@@ -98,11 +94,11 @@
 
 <script type="application/javascript">
 
-    $('#linkSaveButton').on('click', function () {
+    $('#linkSaveButton').click(function () {
                 if ($("#linkform").valid()) {
-                   event.preventDefault()
+                    event.preventDefault()
                     $.ajax({
-                        url: "${g.createLink(controller:'linkResource',action: 'linkSave')}",
+                        url: "${createLink(controller:'linkResource',action: 'linkSave')}",
                         type: 'post',
                         dataType: 'json',
                         data: {
@@ -111,12 +107,10 @@
                             topicName: $('#linkTopic').val()
                         },
                         success: function (data) {
-
-                            $("#dialogSuccessLink").show().delay(1000).fadeOut().text(data.message);
+                            $("#dialogSuccessLink").show().delay(1000).fadeOut();
                         },
                         error: function (xhr) {
-
-                            $("#dialogErrorLink").show().delay(1500).fadeOut().text(data.error);
+                            $("#dialogErrorLink").show().delay(1500).fadeOut();
                         }
 
                     })

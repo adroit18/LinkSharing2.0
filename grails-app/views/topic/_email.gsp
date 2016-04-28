@@ -91,7 +91,7 @@
 
 <script type="application/javascript">
 
-    $('.submitInvitation').on('click', function () {
+    $('.submitInvitation').click( function () {
         alert($('#topicNameInvite').val());
         $.ajax({
             url: "${g.createLink(controller:'topic',action: 'invite')}",

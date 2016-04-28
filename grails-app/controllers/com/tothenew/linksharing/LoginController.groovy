@@ -12,7 +12,7 @@ class LoginController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         def user = springSecurityService.currentUser
-        session.user=user
+        session.user = user
         if (session.user) {
             List subscriptionList = Subscription.getSubscriptions(session.user)
             List inboxList = ReadingItem.userInbox(session.user)
@@ -34,20 +34,15 @@ class LoginController {
 
 
     def logout() {
+
         session.invalidate()
-        g:
-        createLink(controller: "grails.plugin.springsecurity.LogoutController", action: "index")
 
         ([message: "User Logged Out"] as JSON)
         forward(controller: 'login', action: 'index')
-
-
     }
 
 
     def loginHandler() {
-//        User user = User.findByUsernameAndPassword(username, password);
-
 
         def user = springSecurityService.currentUser
         if (user) {

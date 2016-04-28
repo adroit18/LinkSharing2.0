@@ -24,10 +24,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <style>
-        
-        body{
-            background : url("/images/bw.jpg");
-        }
+
+    body {
+        background: url("/images/bw.jpg");
+    }
 
     a {
         text-decoration: underline;
@@ -51,12 +51,31 @@
         outline: none;
     }
 
+    .badge1 {
+        position: relative;
+    }
+
+    .badge1[data-badge]:after {
+        content: attr(data-badge);
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: .7em;
+        background: green;
+        color: white;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        line-height: 18px;
+        border-radius: 50%;
+        box-shadow: 0 0 1px #333;
+    }
     </style>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#srch-term").keypress(function () {
-                $("#pag").load("/resource/search", {"q": $("#srch-term").val(),"flag":1});
+                $("#pag").load("/resource/search", {"q": $("#srch-term").val(), "flag": 1});
             });
         });
 
@@ -64,7 +83,13 @@
 
 
 
+
+
+
+
     <g:layoutHead/>
+    <webcam:head/>
+
 </head>
 
 <body>
@@ -75,7 +100,8 @@
             <div class="panel panel-default">
                 <div class="panel-body" style="background-color:#fffdf8 ;border:3px dotted #000000;border-radius:8px">
                     <div class="col-xs-4">
-                        <g:link controller="login" action="index" style="font-family: 'Lucida Grande, Verdana, sans-serif';font-size:40px;text-decoration: blink">Link Sharing</g:link>
+                        <g:link controller="login" action="index"
+                                style="font-family: 'Lucida Grande, Verdana, sans-serif';font-size:40px;text-decoration: blink">Link Sharing</g:link>
                     </div>
 
 
@@ -151,8 +177,15 @@
                         <g:if test="${session.user.isAdmin}">
                             <li><g:link controller="user" action="userTable">User List</g:link></li>
                         </g:if>
-                        <li><g:link controller="user" action="editProfile" params="[userId:session.user.id]">Profile</g:link></li>
-                        <li><g:link controller="login" action="logout">Logout</g:link></li>
+                        <li><g:link controller="user" action="editProfile"
+                                    params="[userId: session.user.id]">Profile</g:link></li>
+                        <li>
+                            <a href="/j_spring_security_logout">
+                                %{--<g:link controller="login" action="logout">--}%
+                                LogOut
+                                %{--</g:link>--}%
+                            </a>
+                        </li>
                         <li role="separator" class="divider"></li>
                         </ul>
                     </div>

@@ -24,9 +24,7 @@
 
                 <p>${shares[1]}</p>
 
-                <div class="col-xs-2"><i class="fa fa-facebook-official"></i>
-                    <i class="fa fa-tumblr"></i>
-                    <i class="fa fa-google-plus"></i></div>
+
             %{--<g:link controller="fileManager" action="downloadFile">Download</g:link>--}%
             %{--<div class="col-xs-2"><g:link controller="DocumentResource" action="downloadDocument" params="[fid:shares[6]]" style="text-decoration:underline;font-size:10px">Download</g:link></div>--}%
             %{--<div class="col-xs-3"><a href="#" style="text-decoration:underline;font-size:10px">View full site</a></div>--}%

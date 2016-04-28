@@ -1,4 +1,23 @@
 <%@ page import="com.tothenew.linksharing.Resource" %>
+<style type="text/css">
+#customBtn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 80px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+}
+#customBtn:hover {
+    border: medium outset cyan;
+    cursor: pointer;
+}
+</style>
+
+
+
 
 
 %{--........................gmail...............................--}%
@@ -85,7 +104,8 @@
 
 
     <script>
-        $(document).on("click", ".read", function () {
+        $(document).delegate( ".read","click", function () {
+
             var link = $(this)
             var id = $(this).attr('data-id')
 
@@ -114,7 +134,7 @@
 
         });
 
-        $(document).on("click", ".unread", function () {
+        $(document).delegate( ".unread","click", function () {
 
             var link = $(this)
             var id = $(this).attr('data-id')
@@ -165,22 +185,21 @@
 
                 <p>${inbox[1]}</p>
 
-                <div class="col-xs-2">
-                    <input type="button" id="share_button" value="share"/>
-
+                <span class="col-xs-3">
                     %{--<div class="fb-share-button" id="share_button"--}%
                     %{--data-href="http://localhost:8080/"--}%
                     %{--data-layout="button_count">--}%
                     %{--</div>--}%
 
-                    <i class="fa fa-tumblr"></i>
+                    %{--<i class="fa fa-tumblr"></i>--}%
 
-                    <div class="fb-share-button" data-href="${request.getRequestURL().toString()}"
-                         data-layout="button_count"></div>
-
+                    <p class="fb-share-button" data-href="${request.getRequestURL().toString()}"
+                         data-layout="button_count"></p>
+<br>
 
 
                     <input type="button"
+                        id="customBtn"
                            class="g-interactivepost"
                            data-contenturl="${inbox[2]}"
                            data-contentdeeplinkid="/pages"
@@ -190,15 +209,16 @@
                            data-calltoactionlabel="CREATE"
                            data-calltoactionurl="${inbox[2]}"
                            data-calltoactiondeeplinkid="/pages/create"
+                        value="Google+"
 
-                           value="Share on Google +">
+                           >
 
                 </input>
 
-                </div>
+                </span>
 
 
-                <div class="col-xs-5">
+                <div class="col-xs-4">
                     <g:if test="${Resource.get(inbox[4]).whichResource().equals("Document")}">
                         <g:link controller="DocumentResource" action="downloadDocument"
                                 params="[fid: inbox[4]]"

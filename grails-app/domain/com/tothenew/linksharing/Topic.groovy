@@ -1,4 +1,5 @@
 package com.tothenew.linksharing
+
 import groovy.transform.EqualsAndHashCode
 
 @EqualsAndHashCode
@@ -6,6 +7,7 @@ class Topic {
     String name;
     User createdBy;
     Link_Visibility visibility;
+    int concernedArea=10;
     Date lastUpdated;
     Date dateCreated;
     static transients = ['subscribedUsers']
@@ -14,15 +16,18 @@ class Topic {
     static constraints = {
         name(blank: false, unique: 'createdBy');
         visibility(inlist: Link_Visibility.values() as List);
+        concernedArea(nullable: true)
     }
     static mapping = {
         sort name: 'asc'
     }
+    static searchable = true
 
     def afterInsert() {
         Topic.withNewSession {
             Subscription subscription = new Subscription(topic: this, user: this.createdBy, seriousness: Seriousness.VERY_SERIOUS)
             subscription.save()
+
         }
     }
 

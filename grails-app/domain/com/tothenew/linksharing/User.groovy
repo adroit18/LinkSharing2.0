@@ -16,10 +16,12 @@ class User implements Serializable{
     Boolean isActive;
     Boolean isAdmin;
     byte[] profilePic;
+    //added for recommendation channel
+    int profession;
+
     static transients = ['name', 'subscribedTopics']
     transient confirmPassword;
     transient photoType
-
     Date lastUpdated;
     Date dateCreated;
 
@@ -73,6 +75,7 @@ class User implements Serializable{
         isActive(nullable: true);
         isAdmin(nullable: true);
         profilePic(nullable: true);
+        profession(nullable: true)
 
         confirmPassword(bindable: true, nullable: true, blank: true, validator: { String val, User obj ->
             boolean result = false

@@ -46,6 +46,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        //mavenRepo 'https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo/'
+
+
     }
 
     dependencies {
@@ -53,6 +56,10 @@ grails.project.dependency.resolution = {
         runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+        compile 'com.google.apis:google-api-services-oauth2:v1-rev111-1.21.0'
+        compile 'org.elasticsearch:elasticsearch:1.7.2'
+        compile 'org.apache.lucene:lucene-expressions:4.10.2'
+
 
     }
 
@@ -81,11 +88,11 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:remote-pagination:0.4.8"
         compile "org.grails.plugins:codenarc:0.25.1"
-
         test ":code-coverage:2.0.3-3"
+
+        compile "org.grails.plugins:web-snaps:0.1"
+//        runtime "org.grails.plugins:elasticsearch:0.0.4.6"
         compile "org.grails.plugins:spring-security-core:2.0.0"
-
-
 
 
     }
@@ -97,7 +104,8 @@ grails.project.dependency.resolution = {
                 outputFile = 'target/CodeNarcReport.html'
                 title = 'My Test Code Narc Report'
             }
-W        }
+
+        }
     }
 
 

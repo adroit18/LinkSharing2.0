@@ -4,7 +4,7 @@
     $(function () {
 
 
-        $('.sajaxVisibleSelect').on('change', function () {
+        $('.sajaxVisibleSelect').change( function () {
             var link = this.id
             var visibility = $("#" + this.id + " option:selected").val();
             $.ajax({
@@ -23,7 +23,7 @@
             });
         });
 
-        $('.sajaxSeriousSelect').on('change', function () {
+        $('.sajaxSeriousSelect').change( function () {
             var link = this.id
 
             var seriousness = $("#" + this.id + " option:selected").val();
@@ -43,7 +43,7 @@
             });
         });
 
-        $('.seditTopicInline').on('click', function () {
+        $('.seditTopicInline').click( function () {
 
             var editTopicDivId = (this.id).substr(6);
 
@@ -57,7 +57,7 @@
             }
         });
 
-        $(".ssaveTopicEdit").on('click', function () {
+        $(".ssaveTopicEdit").click( function () {
 
             var link = this.id
             alert(link)
@@ -92,7 +92,7 @@
             });
         });
 
-        $(".scnclTopicEdit").on('click', function () {
+        $(".scnclTopicEdit").click( function () {
 
             var topicDivId = (this.id).substr(20);
 
@@ -106,7 +106,7 @@
         });
 
 
-        $('.sdeleteTopic').on('click', function () {
+        $('.sdeleteTopic').click( function () {
             var link = this.id
             console.log("del clicked-" + this.id)
             $.ajax({
@@ -115,10 +115,7 @@
                     topicId: (this.id).substr(5)
                 },
                 type: 'POST',
-                success: function () {
-                    $(".stopicDiv-" + (this.id).substr(5)).hide(500)
 
-                },
                 success: function (data) {
 
                     $("#" + link + "Success").show().delay(1500).fadeOut().text(data.message);

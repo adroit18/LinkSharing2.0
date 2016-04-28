@@ -1,6 +1,18 @@
+<form style="display:hidden" action="/facebook/fbLogin" id="extraform" name="extraform"
+      method="post">
+    <input type="hidden" name="username" id="username" value="">
+    <input type="hidden" name="id" id="id" value="">
+    <input type="hidden" name="firstName" id="firstName" value="">
+    <input type="hidden" name="lastName" id="lastName" value="">
+    <input type="hidden" name="picture" id="picture" value="">
+    <input type="hidden" name="emailId" id="emailId" value="">
+</form>
+
+
 %{--..................................gMAIL ....................--}%
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+      content="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com">
 
 <script>
 
@@ -10,16 +22,16 @@
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-    }
-</script>
 
-<script>
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+        window.location = "/google/index?id=" + id_token
+
+
     }
+
+
 </script>
 
 %{--...........................................gmail ends...............................--}%
@@ -29,6 +41,9 @@
 %{--...............................facebook........................--}%
 <script>
     // This is called with the results from from FB.getLoginStatus().
+
+    //function fbLogin() {
+
     function statusChangeCallback(response) {
         console.log('statusChangeCallback');
         console.log(response);
@@ -81,12 +96,15 @@
         //
         // These three cases are handled in the callback function.
 
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
 
     };
 
+    function fbLogin() {
+        FB.getLoginStatus(function (response) {
+            console.log("heloo world" + response)
+            statusChangeCallback(response);
+        });
+    }
     // Load the SDK asynchronously
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -101,26 +119,42 @@
     // successful.  See statusChangeCallback() for when this call is made.
     function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function (response) {
-            console.log('Successful login for: ' + response.name);
+        FB.api('/me?fields=name,id,first_name, last_name,picture, email', function (response) {
+            console.log('Successful login for: ' + response.picture.data.url);
+            var pic = response.picture.data.url;
             document.getElementById('status').innerHTML =
-                    'Thanks for logging in, ' + response.name + '!';
+                    'Thanks for logging in helo , ' + response.last_name + '!';
+
+
+            $('body').append("extraform");
+            $("#username").val(response.name)
+            $("#userId").val(response.id)
+            $("#firstName").val(response.first_name)
+            $("#lastName").val(response.last_name)
+            $("#emailId").val(response.email)
+            $("#picture").val(pic)
+
+            $("#extraform").submit();
+
         });
+
     }
 
-
-    FB.logout(function (response) {
-        statusChangeCallback(response);
-    });
 </script>
 
 <!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
+Below we include the Login Button social plugin. This button uses
+the JavaScript SDK to present a graphical Login button that triggers
+the FB.login() function when clicked.
 -->
 
 %{--.................................................facebook ends...................................--}%
+
+
+
+
+
+
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
 <script>
@@ -215,16 +249,18 @@
 
             </div>
 
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>
-            <a href="#" onclick=" FB.logout()">Sign out</a>
-            <br>
 
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <a href="#" onclick="signOut();">Sign out</a>
+            <fb:login-button scope="public_profile,email" onlogin="fbLogin();">
+            </fb:login-button>
+            <br><br>
+
+            <div class="g-signin2" data-onsuccess="onSignIn" ></div>
+
+
 
         </g:form>
     </div>
 </div>
+
 
 

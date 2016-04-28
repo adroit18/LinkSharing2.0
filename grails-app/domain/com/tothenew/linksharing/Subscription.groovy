@@ -40,6 +40,7 @@ class Subscription {
 return subscription;
     }
 
+
     String toString() {
         return topic?.name
     }

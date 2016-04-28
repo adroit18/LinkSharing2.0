@@ -1,6 +1,6 @@
 <head>
     <script>
-        $(document).on("click", ".subscribe", function () {
+        $(".subscribe").click(  function () {
             var link = $(this)
             var topicId = $(this).attr('id')
             $.ajax({
@@ -23,7 +23,7 @@
 
         });
 
-        $(document).on("click", ".unsubscribe", function () {
+        $(".unsubscribe").click(  function () {
             var link = $(this)
             var topicId = $(this).attr('id')
             $.ajax({

@@ -1,27 +1,28 @@
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<head>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
-<script>
+    <script>
 
-    $(function () {
-        $("#createTopic").validate({
-            rules: {
-                nameCreateTopic: "required",
+        $(function () {
+            $("#createTopic").validate({
+                rules: {
+                    nameCreateTopic: "required",
 
-            },
-            messages: {
-                nameCreateTopic: "Please enter a proper Topic Name",
+                },
+                messages: {
+                    nameCreateTopic: "Please enter a proper Topic Name",
 
-            },
-            submitHandler: function (form) {
-                form.submit();
-            }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
         });
 
-    });
 
-
-</script>
-
+    </script>
+</head>
 
 <div id="myModal4" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -96,10 +97,11 @@
 
 <script type="application/javascript">
 
-    $('#submitCreateTopic').on('click', function () {
+    $('#submitCreateTopic').click(function () {
         if ($("#createTopic").valid()) {
+            event.preventDefault()
             $.ajax({
-                url: "${g.createLink(controller:'topic',action: 'save')}",
+                url: "${createLink(controller:'topic',action: 'save')}",
                 type: 'post',
                 dataType: 'json',
                 data: {
