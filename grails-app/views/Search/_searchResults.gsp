@@ -4,11 +4,20 @@
 
 <span style="font-size: medium;color:rebeccapurple;font-style: italic">Topics You may be interested in..........</span>
 <%@ page import="com.tothenew.linksharing.*" %>
+
+<g:each in="${resourceTopics}" var="id" status="i">
+<div class="panel-heading panel-title">
+
+    <g:link value="topic"
+            url="[controller: 'topic', action: 'index', params: [id: Resource.get(id).topic?.id]]"
+            style="text-decoration:none">
+       ${i+1}. ${Resource.get(id).topic.name}</g:link>
+
+</div>
+
+
 <div class="panel-body" id="m">
 %{--<g:paginate total="${searchResources}" next="Forward" prev="Back" maxsteps="0"></g:paginate>--}%
-
-
-    <g:each in="${resourceTopics}" var="id">
 
         <div class="col-xs-2">
             %{--<g:include controller="user" action="userImage"--}%
@@ -30,11 +39,6 @@
                 %{--</div>--}%
 
                 <div class="col-xs-8">
-
-                    <g:link value="topic"
-                            url="[controller: 'topic', action: 'index', params: [id: Resource.get(id).topic?.id]]"
-                            style="text-decoration:underline">
-                        ${Resource.get(id).topic.name}</g:link>
 
                 </div>
             </div>
@@ -72,12 +76,12 @@
             </div>
         </div>
 
-        <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:green">
-            <hr style="border-width:3px;padding:0px;border-color:green"></div>
-
-    </g:each>
+        <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:darkgrey">
+        </div>
 
 </div>
+
+</g:each>
 
 
 
@@ -85,9 +89,21 @@
 
 <span style="font-size: medium;color:rebeccapurple;font-style: italic">Resources You May be Interested in ........</span>
 
+<g:each in="${searchResources}" var="resource" status="i">
+
+<div class="panel-heading panel-title">
+
+    <g:link value="topic"
+            url="[controller: 'topic', action: 'index', params: [id: resource?.topic?.id]]"
+            style="text-decoration:none">
+    ${i+1}.    ${resource.topic.name}</g:link>
+
+
+</div>
+
+
 <div class="panel-body" id="m">
 %{--<g:paginate total="${searchResources}" next="Forward" prev="Back" maxsteps="0"></g:paginate>--}%
-    <g:each in="${searchResources}" var="resource" status="i">
 
         <div>
             <div class="col-xs-2">
@@ -111,10 +127,6 @@
 
                 <div class="col-xs-8">
 
-                    <g:link value="topic"
-                            url="[controller: 'topic', action: 'index', params: [id: resource?.topic?.id]]"
-                            style="text-decoration:underline">
-                        ${resource.topic.name}</g:link>
 
                 </div>
             </div>
@@ -152,8 +164,8 @@
             </div>
         </div>
 
-        <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:green">
-            <hr style="border-width:3px;padding:0px;border-color:green">
+        <div class="col-xs-12"><hr style="border-width:3px;padding:0px;border-color:darkgrey">
         </div>
-    </g:each>
+
 </div>
+</g:each>

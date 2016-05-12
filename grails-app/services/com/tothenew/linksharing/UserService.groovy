@@ -35,7 +35,7 @@ class UserService {
         userObj.profilePic = userCo.profilePic
         userObj.confirmPassword = userObj.password
 
-        if (userObj.validate()) {
+        if (userObj.validate(flush: true)) {
             userObj.merge(flush: true, failOnError: true)
             return true
         }
@@ -71,7 +71,7 @@ class UserService {
     }
 
 def userTable(String q,String active, def params) {
-    params.max = params.max ? params.max : 2
+    params.max = params.max ? params.max : 5
     params.offset = params.offset ? params.offset : 0
     params.sort = "id";
     params.order = "asc"

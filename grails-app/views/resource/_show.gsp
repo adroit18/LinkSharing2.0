@@ -1,14 +1,15 @@
 <%@ page import="com.tothenew.linksharing.User; com.tothenew.linksharing.Topic" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta content="main" name="layout">
+    <meta name="layout" content="index"/>
     <title>Resource Show</title>
 </head>
 
 <body>
+<div class="col-xs-3"></div>
 <div class="container">
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-xs-8">
             <!-- Name Panel -->
             <!-- ************************************************** -->
             <div class="panel panel-default">
@@ -172,11 +173,11 @@
         </div>
     </div>
 
-    <div class="col-xs-7">
-        <!-- Trending Topics Panel -->
-        <!-- ************************************************ -->
-        <ls:trendingTopics/>
-    </div>
+    %{--<div class="col-xs-7">--}%
+        %{--<!-- Trending Topics Panel -->--}%
+        %{--<!-- ************************************************ -->--}%
+        %{--<ls:trendingTopics/>--}%
+    %{--</div>--}%
 </div>
 </div>
 </body>

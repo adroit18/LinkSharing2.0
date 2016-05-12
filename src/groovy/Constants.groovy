@@ -8,5 +8,4 @@ class Constants {
                                          "Government Servant", "Politician", "Manager/Banker",
                                          "Clerk","Others"]
 
-
 }

@@ -1,9 +1,8 @@
-
 <script type="text/javascript">
 
 
     $(function () {
-        $(document).on("click", ".subscribe", function () {
+        $(document).delegate(".subscribe", "click", function () {
             var link = $(this)
             var topicId = $(this).attr('id')
             $.ajax({
@@ -13,7 +12,9 @@
                 data: {id: topicId},
 
                 success: function (data) {
-                    data.status == true ? alert('Subscription saved Successfully') : alert('Subscription could not be saved')
+
+                    data.status == true ? $("#SuccessMsg").show().delay(2000).fadeOut().text('Subscription saved Successfully')
+                            : $("#ErrorMsg").show().delay(2000).fadeOut().text('Subscription could not be saved');
                     $(link).replaceWith(data.message)
                 },
 
@@ -26,7 +27,7 @@
 
         });
 
-        $(document).on("click", ".unsubscribe", function () {
+        $(document).delegate(".unsubscribe", "click", function () {
             var link = $(this)
             var topicId = $(this).attr('id')
             $.ajax({
@@ -35,13 +36,10 @@
                 dataType: 'json',
                 data: {id: topicId},
                 success: function (data) {
-                    data.status == true ? alert('Subscription Deleted Successfully') : alert('Subscription Not Found')
 
-                    if ((($(link).parent("#sub")).size()) != 0) {
-                        $(link).parents(".panel-body").remove()
-                    }
-                    else
-                        $(link).replaceWith(data.message)
+                    data.status == true ? $("#SuccessMsg").show().delay(2000).fadeOut().text('Subscription Deleted Successfully')
+                            : $("#ErrorMsg").show().delay(2000).fadeOut().text('Subscription Not Found');
+                    $(link).replaceWith(data.message)
 
                 },
                 error: function (xhr) {
@@ -54,8 +52,7 @@
         });
 
 
-
-        $('.sajaxVisibleSelect').on('change', function () {
+        $('.sajaxVisibleSelect').click(function () {
             var visibility = $("#" + this.id + " option:selected").val();
             $.ajax({
                 url: "${g.createLink(controller:'topic',action:'changeVisibility')}",
@@ -64,7 +61,8 @@
                 },
                 type: 'POST',
                 success: function (data) {
-                    alert(data.message)
+                    data.status == true ? $("#SuccessMsg").show().delay(2000).fadeOut().text(data.message)
+                            : $("#ErrorMsg").show().delay(2000).fadeOut().text(data.message);
                 },
                 error: function (xhr) {
                     alert(xhr.responseText);
@@ -72,7 +70,7 @@
             });
         });
 
-        $('.sajaxSeriousSelect').on('change', function () {
+        $('.sajaxSeriousSelect').click(function () {
             var seriousness = $("#" + this.id + " option:selected").val();
             $.ajax({
                 url: "${g.createLink(controller:'subscription',action:'changeSeriousness')}",
@@ -81,16 +79,17 @@
                 },
                 type: 'POST',
                 success: function (data) {
-                    alert(data.message)
+                    data.status == true ? $("#SuccessMsg").show().delay(2000).fadeOut().text(data.message)
+                            : $("#ErrorMsg").show().delay(2000).fadeOut().text(data.message);
 
                 },
                 error: function (xhr) {
-                    alert(xhr.responseText);
+                   alert("Subscribe Topic First")
                 }
             });
         });
 
-        $('.seditTopicInline').on('click', function () {
+        $('.seditTopicInline').click(function () {
 
             var editTopicDivId = (this.id).substr(6);
 
@@ -104,7 +103,7 @@
             }
         });
 
-        $(".ssaveTopicEdit").on('click', function () {
+        $(".ssaveTopicEdit").click(function () {
 
             var topicDivId = (this.id).substr(18);
 
@@ -136,7 +135,7 @@
             });
         });
 
-        $(".scnclTopicEdit").on('click', function () {
+        $(".scnclTopicEdit").click(function () {
 
             var topicDivId = (this.id).substr(20);
 
@@ -150,7 +149,7 @@
         });
 
 
-        $('.sdeleteTopic').on('click', function () {
+        $(document).delegate('.sdeleteTopic', 'click', function () {
             console.log("del clicked-" + this.id)
             $.ajax({
                 url: "${g.createLink(controller:'topic',action:'deleteTopic')}",
@@ -163,8 +162,12 @@
 
                 },
                 success: function (data) {
-                    alert(data.message)
-                    window.location.reload();
+                    data.status == true ? $("#SuccessMsg").show().delay(2000).fadeOut().text(data.message)
+                            : $("#ErrorMsg").show().delay(2000).fadeOut().text(data.message);
+
+                    if (data.message == "Topic Deleted Successfully")
+                        $("#" + link).parents(".remUser").remove();
+
                 },
                 error: function (xhr) {
                     alert(xhr.responseText);
@@ -184,19 +187,16 @@
 
 <%@ page import="com.tothenew.linksharing.*" %>
 
-<div class="panel panel-default" style="padding:8px;border:10px inset yellowgreen;">
+<div class="panel">
 
-    <div class="panel-heading" style="border-bottom:3px;border:5px double green;">Subscriptions
-
-        <div class="pull-right">
-            %{--<a href="#" style="text-decoration:underline">View ALL</a>--}%
-        </div>
+    <div class="panel-heading"><h3 style="text-align:center;text-decoration-style:wavy;
+    font-style: italic">Topics By You</h3>
 
     </div>
 
     <g:each in="${topicList}" var="topic">
 
-        <div id="topicDiv-${topic?.id}" class="panel-body">
+        <div id="topicDiv-${topic?.id}" class="panel-body remUser">
 
             <div class="col-xs-2">
                 %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2].username}"]'/>--}%
@@ -213,7 +213,7 @@
                            id="stopicNameLabel-${topic?.id}">${topic?.name}</label>
                 </g:link>
 
-                <input type="text" style="display: none"  class="form-control" id="stopicNameTxtBox-${topic?.id}"
+                <input type="text" style="display: none" class="form-control" id="stopicNameTxtBox-${topic?.id}"
                        value="${topic?.name}"/><br>
                 <button type="button" id="sbtnCancelEditTopic-${topic?.id}"
                         class="scnclTopicEdit btn btn-primary pull-right"
@@ -223,6 +223,10 @@
                         class="ssaveTopicEdit btn btn-success pull-right"
                         style="display: none;padding: 1px ">Save</button>
             </br></br>
+
+
+
+
                 <span class="col-xs-6 text-muted">@${topic?.createdBy?.username}</span>
                 <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
                 <span class="col-xs-2" style="padding-left:1px">Posts</span><br>
@@ -245,69 +249,69 @@
                     <ls:canUpdateTopic topicId="${topic?.id}" subId="${null}"/>
                 </g:else>
                 <br>
-%{--.......................................................--}%
+                %{--.......................................................--}%
 
 
-        <div> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal6"
-                      style="font-size:15px;border:none;background:none;color:blue"><div
-                    class="glyphicon glyphicon-envelope"></div></button>
+                <div><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal6"
+                             style="font-size:15px;border:none;background:none;color:blue"><div
+                            class="glyphicon glyphicon-envelope"></div></button>
 
-                <div id="myModal6" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal 6 content-->
-                        <div class="modal-content" >
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Send Invitation</h4>
-                            </div>
-                            <div class="modal-body">
-                                <g:form class="form-horizontal"  controller="topic" action="invite">
+                    <div id="myModal6" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal 6 content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Send Invitation</h4>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-xs-4">Email/Username:</label>
-                                        .
-                                        <div class="col-xs-8">
-                                            <input type="email" class="form-control" name="emailId" id="emailId" placeholder="Enter email">
+                                <div class="modal-body">
+                                    <g:form class="form-horizontal" controller="topic" action="invite">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-4">Email/Username:</label>
+                                            .
+                                            <div class="col-xs-8">
+                                                <input type="email" class="form-control" name="emailId" id="emailId"
+                                                       placeholder="Enter email">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label class="col-xs-4">Topics</label>
+                                        <div class="form-group">
+                                            <label class="col-xs-4">Topics</label>
 
-                                        <div class="col-xs-8">
-                                            <g:select name="topicName" from="${[topic?.name]}"/>
+                                            <div class="col-xs-8">
+                                                <g:select name="topicName" from="${[topic?.name]}"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-4"></div>
-                                        <div class="col-xs-4">
-                                            <g:actionSubmit controller="topic" action="invite" class="form-control btn btn-default active" id="submit" value="Invite"
-                                                            style="color:black;border:solid black;border-radius:7px"/>
-                                        </div><div class="col-xs-4">
-                                        %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
-                                        %{--style="color:black;border:solid black;border-radius:7px"/>--}%
-                                    </div>
-                                    </div>
 
-                                </g:form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <div class="form-group">
+                                            <div class="col-xs-4"></div>
+
+                                            <div class="col-xs-4">
+                                                <g:actionSubmit controller="topic" action="invite"
+                                                                class="form-control btn btn-default active" id="submit"
+                                                                value="Invite"
+                                                                style="color:black;border:solid black;border-radius:7px"/>
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                %{--<g:actionSubmit  controller="user" action="userIndex" class="form-control btn btn-default active" id="submit" value="Cancel"--}%
+                                                %{--style="color:black;border:solid black;border-radius:7px"/>--}%
+                                            </div>
+                                        </div>
+
+                                    </g:form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-
-
-
-
-
-
-
-
-
-            </div>
 
 
 
@@ -323,14 +327,14 @@
 
                 %{--<div class="glyphicon glyphicon-envelope col-xs-4"></div>--}%
 
-   %{--......................................................... --}%
+                %{--......................................................... --}%
 
 
 
                 <br>
 
                 <span class="col-xs-7">
-                    <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin) && ((Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user))!=null)}">
+                    <g:if test="${(topic?.createdBy.id == (session.user.id)) || (session.user.isAdmin) && ((Subscription?.findByTopicAndUser(Topic.get(topic?.id), session.user)) != null)}">
 
                         <g:select name="seriousSelect-${topic?.id}"
                                   class=" form-control dashboard-select sajaxSeriousSelect"
@@ -346,7 +350,7 @@
                 </span>
 
 
-                <g:if test="${(topic?.createdBy.id==(session.user.id)) || (session.user.isAdmin)}">
+                <g:if test="${(topic?.createdBy.id == (session.user.id)) || (session.user.isAdmin)}">
 
                     <span class="col-xs-5">
                         <g:select name="visibleSelect-${topic?.id}"
@@ -358,11 +362,24 @@
                 </g:if>
 
             </div>
+
+            <div id="Success" title="Dialog Title"
+                 style="display:none;color: #00aa00;font-size: 15px"></div>
+
+            <div id="Error" title="Dialog Title"
+                 style="display:none;color: red;font-size: 15px"></div>
+
             .
             <br>
-            <hr style="border-width:3px;padding:0px;border-color:green">
-            <hr style="border-width:3px;padding:0px;border-color:green">
+            <hr style="border-width:3px;padding:0px;border-color:lightgrey">
+            %{--<hr style="border-width:3px;padding:0px;border-color:green">--}%
 
         </div>
     </g:each>
 </div>
+
+
+
+
+
+

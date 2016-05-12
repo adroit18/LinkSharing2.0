@@ -93,6 +93,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:web-snaps:0.1"
 //        runtime "org.grails.plugins:elasticsearch:0.0.4.6"
         compile "org.grails.plugins:spring-security-core:2.0.0"
+        compile "org.grails.plugins:google-chart:0.5.2"
 
 
     }

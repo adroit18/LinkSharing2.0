@@ -12,6 +12,9 @@
                 file: "Please enter a proper filepath",
                 description: "Please Describe the resource !!"
             },
+            errorPlacement: function (error, element) {
+                return true                                          //to prevent server call for authentication
+            },
             submitHandler: function (form) {
                 form.submit();
             }

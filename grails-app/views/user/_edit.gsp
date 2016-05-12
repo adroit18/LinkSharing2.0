@@ -8,7 +8,7 @@
                     firstName: "required",
                     lastName: "required",
                     username: {
-                        required:true,
+                        required: true,
                         remote: "${createLink(controller: 'user',action: 'isUsernameValid')}"
                     }
                 },
@@ -17,7 +17,7 @@
                     firstname: "Please enter your first name",
                     lastname: "Please enter your last name",
                     username: {
-                        required:"Username Required",
+                        required: "Username Required",
                         remote: jQuery.validator.format("Username already exists")
                     }
                 },
@@ -27,40 +27,40 @@
             });
         });
 
-            $(function () {
-                $("#changePasswordForm").validate({
-                    rules: {
-                        password: {
-                            required: true,
-                            minlength: 5
-                        },
-                        confirmPassword: {
-                            required: true,
-                            minlength: 5
-                        }
+        $(function () {
+            $("#changePasswordForm").validate({
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 5
                     },
-// Specify the validation error messages
-                    messages: {
-                        password: {
-                            required: "Please provide a password",
-                            minlength: "Your password must be at least 5 characters long"
-                        }
-                    },
-                    submitHandler: function (form) {
-                        form.submit();
+                    confirmPassword: {
+                        required: true,
+                        minlength: 5
                     }
-                });
+                },
+// Specify the validation error messages
+                messages: {
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long"
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
             });
+        });
 
-        </script>
+    </script>
 
 </head>
 
 
+<div class="panel">
 
-<div class="panel panel-default " style="padding:8px;border:10px inset yellowgreen;">
-
-    <div class="panel-heading" id="head" style="border-bottom:3px;border:5px double green;">Register</div>
+    <div class="panel-heading" id="head"><h3 style="text-align:center;text-decoration-style:wavy;
+    font-style: italic">Edit Details</h3></div>
 
     <div class="panel-body body" margin="10px 10px 10px 10px">
         <g:form controller="user" name="updateInfoForm" action="updateProfile"
@@ -69,7 +69,8 @@
                 <div class="col-xs-5"><label class="control-label">First Name<sup>*</sup></label></div>
 
                 <div class="col-xs-7 "><g:textField id="firstName" name="firstName"
-                                                   value="${session.user.firstName}" class="col-xs-7 form-control form-register-field"></g:textField>
+                                                    value="${session.user.firstName}"
+                                                    class="col-xs-7 form-control form-register-field"></g:textField>
                 </div>
             </div>
 
@@ -77,7 +78,8 @@
                 <div class="col-xs-5"><label class="control-label">Last Name<sup>*</sup></label></div>
 
                 <div class="col-xs-7"><g:textField id="lastName" name="lastName"
-                                            value="${session.user.lastName}"   class="col-xs-7 form-control form-register-field"></g:textField></div>
+                                                   value="${session.user.lastName}"
+                                                   class="col-xs-7 form-control form-register-field"></g:textField></div>
             </div>
 
 
@@ -85,7 +87,8 @@
                 <div class="col-xs-5"><label class="control-label">Username<sup>*</sup></label></div>
 
                 <div class="col-lg-7"><g:textField name="username" id="username"
-                                        value="${session.user.username}"     class="form-control form-register-field"></g:textField>
+                                                   value="${session.user.username}"
+                                                   class="form-control form-register-field"></g:textField>
                 </div></div>
 
 
@@ -97,7 +100,7 @@
 
 
             <div class="form-group">
-                <g:submitButton controller="user" action="updateProfile" value="Register"
+                <g:submitButton controller="user" action="updateProfile" value="edit details"
                                 class="btn btn-success form-btn register-btn col-xs-6 col-xs-offset-3 "
                                 name="submit"></g:submitButton></div>
         </g:form>
@@ -106,28 +109,30 @@
 </div>
 
 
-    <div class="panel panel-default " style="padding:8px;border:10px inset yellowgreen;">
+<div class="panel">
 
-        <div class="panel-heading" id="headchange" style="border-bottom:3px;border:5px double green;">Change your password here</div>
+    <div class="panel-heading" id="headchange"><h3 style="text-align:center;text-decoration-style:wavy;
+    font-style: italic">Password Change</h3></div>
 
-        <div class="panel-body body" margin="10px 10px 10px 10px">
+    <div class="panel-body body" margin="10px 10px 10px 10px">
 
-            <g:form controller="user" name="changePasswordForm" action="updatePassword" class="custom-box  reg-form">
+        <g:form controller="user" name="changePasswordForm" action="updatePassword" class="custom-box  reg-form">
 
-                <div class="col-xs-5"><label class="control-label">Password<sup>*</sup></label></div>
-                <g:passwordField name="password" class="form-control form-register-field"></g:passwordField>
-<br><br>
-                <div class="col-xs-5"><label class="control-label">Confirm Password<sup>*</sup></label></div>
-                <g:passwordField name="confirmPassword" class="form-control form-register-field"></g:passwordField>
-<br>
-                <g:submitButton value="Submit" id="check" class="btn btn-success submit-btn form-btn col-xs-5"
-                                name="submit"></g:submitButton>
+            <div class="col-xs-5"><label class="control-label">Password<sup>*</sup></label></div>
+            <g:passwordField name="password" class="form-control form-register-field"></g:passwordField>
+            <br><br>
 
-            </g:form>
-            <div id='my-alert'></div>
+            <div class="col-xs-5"><label class="control-label">Confirm Password<sup>*</sup></label></div>
+            <g:passwordField name="confirmPassword" class="form-control form-register-field"></g:passwordField>
+            <br>
+            <g:submitButton value="Submit" id="check" class="btn btn-success submit-btn form-btn col-xs-5"
+                            name="submit"></g:submitButton>
 
+        </g:form>
+        <div id='my-alert'></div>
+
+    </div>
 </div>
-        </div>
 
 
 

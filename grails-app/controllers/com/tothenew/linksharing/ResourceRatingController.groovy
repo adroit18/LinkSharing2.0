@@ -11,14 +11,19 @@ class ResourceRatingController {
         User user = session.user
         Resource resource = Resource.read(id)
         ResourceRating resourceRating = ResourceRating.findByUserAndResource(user, resource)
-        Integer score1=params.rating
+        Integer score1 = params.rating
 
         if (resourceRating) {
-//            resourceRating.score = params.rating
-            resourceRating.executeUpdate("update ResourceRating as RR set RR.score=:rating where RR.id=:ide",[rating:(score1-48),ide:id])
+            println "-===========================================" + resourceRating.id
+            println id
+            resourceRating.validate(flush: true)
+            resourceRating.executeUpdate("update ResourceRating as RR set RR.score=:rating where RR.id=:ide",
+                    [rating: (score1 - 48), ide: resourceRating.id])
+//       resourceRating.save(flush: true)
         } else {
-            ResourceRating newResourceRating = new ResourceRating(score: (score1-48), user: user, resource: resource)
-            if (newResourceRating.validate()) {
+
+            ResourceRating newResourceRating = new ResourceRating(score: (score1 - 48), user: user, resource: resource)
+            if (newResourceRating.validate(flush: true)) {
                 newResourceRating.save()
 
             } else {
@@ -26,6 +31,6 @@ class ResourceRatingController {
             }
         }
 
-        redirect(controller:"login", action:"index")
+        redirect(controller: "login", action: "index")
     }
 }

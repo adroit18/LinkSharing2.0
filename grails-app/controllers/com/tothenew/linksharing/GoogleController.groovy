@@ -71,12 +71,14 @@ class GoogleController {
                 session.user = user
 
                 if (session.user) {
-                    List subscriptionList = Subscription.getSubscriptions(session.user)
-                    List inboxList = ReadingItem.userInbox(session.user)
                     List<Topic> subscribedTopics = User.getSubscribedTopics(session.user)
+                    User userObj = session["user"]
+                    List<Topic> topicList = Topic.findAllByCreatedBy(userObj)
+                    int subsCount = Subscription.countByUser(userObj)
 
                     ([message: "Login Successfull"] as JSON)
-                    render view: '/user/userIndex', model: [subscriptionList: subscriptionList, inboxList: inboxList, subscribedTopics: subscribedTopics]
+                    render view: '/user/userIndex', model: [subscribedTopics: subscribedTopics,
+                                                            user            : userObj, topicList: topicList, subsCount: subsCount]
 
                 }
 
@@ -87,12 +89,16 @@ class GoogleController {
                 session.user = user
 
                 if (session.user) {
-                    List subscriptionList = Subscription.getSubscriptions(session.user)
-                    List inboxList = ReadingItem.userInbox(session.user)
                     List<Topic> subscribedTopics = User.getSubscribedTopics(session.user)
+                    User userObj = session["user"]
+                    List<Topic> topicList = Topic.findAllByCreatedBy(userObj)
+                    int subsCount = Subscription.countByUser(userObj)
+
 
                     ([message: "Login Successfull"] as JSON)
-                    render view: '/user/userIndex', model: [subscriptionList: subscriptionList, inboxList: inboxList, subscribedTopics: subscribedTopics]
+
+                    render view: '/user/userIndex', model: [subscribedTopics: subscribedTopics,
+                                                            user            : userObj, topicList: topicList, subsCount: subsCount]
 
                 }
 

@@ -1,4 +1,5 @@
 package com.tothenew.linksharing
+
 import groovy.transform.EqualsAndHashCode
 
 @EqualsAndHashCode
@@ -31,13 +32,24 @@ class Subscription {
                 property("t.createdBy")
                 property("id")
                 count()
-
             }
             eq("user.id", user1.id)
-
-
         }
-return subscription;
+        int l = subscription.size()
+        for (int i = 0; i < l - 1; i++) {
+            String str1 = Subscription.get(subscription[i]).seriousness
+            String str2 = Subscription.get(subscription[i + 1]).seriousness
+            int temp
+            if (str1.length() < str2.length()) {
+                println subscription[i + 1]
+                temp = subscription[i];
+                subscription[i] = subscription[i + 1]
+                subscription[i + 1] = temp
+
+            }
+        }
+
+        return subscription;
     }
 
 

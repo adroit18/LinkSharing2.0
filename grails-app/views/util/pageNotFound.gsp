@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="index"/>
     <title>404 Page Not Found</title>
 </head>
 
 <body>
 
+<div class="col-xs-4"></div>
+<div class="col-xs-7">
 <div class="row">
     <div class="col-xs-12 text-align-center">
         <div class="col-xs-2"></div> <div class="col-xs-8" style="color: red">
@@ -29,6 +31,6 @@
     </div>
     <div class="col-xs-2"></div>
 </div>
-
+</div>
 </body>
 </html>

@@ -78,10 +78,10 @@ class TopicController {
     def deleteTopic() {
         Topic topicObj = Topic.get(params.topicId)
         if (topicObj.createdBy == session.user)
-            render([message: "Creator of Topic Cannot delete Topic"] as JSON)
+            render([status:"false",message: "Creator of Topic Cannot delete Topic"] as JSON)
         else {
             topicObj.delete(flush: true)
-            render([message: "Topic Deleted Successfully"] as JSON)
+            render([status:"true",message: "Topic Deleted Successfully"] as JSON)
         }
 
     }
@@ -92,9 +92,9 @@ class TopicController {
         Topic topic = Topic.get(params.topicId)
         topic.visibility = params.visibility
         if (topic.save(failOnError: true, flush: true))
-            render([message: "Visibility successfully Changed"] as JSON)
+            render([status:"true",message: "Visibility successfully Changed"] as JSON)
         else
-            render([message: "Visibility Could not be Changed"] as JSON)
+            render([status:"false",message: "Visibility Could not be Changed"] as JSON)
 
     }
 

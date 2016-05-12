@@ -9,7 +9,7 @@
     <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 -->
-    <title>Link Sharing</title>
+    <title>Link Sharing <g:layoutTitle/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,7 +19,6 @@
     <asset:stylesheet src="glyphicons-halflings-regular.woff2"/>
     <asset:stylesheet src="glyphicons-halflings-regular.ttf"/>
     <asset:stylesheet src="glyphicons-halflings-regular.woff"/>
-
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -52,13 +51,27 @@
 
 
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lumino - Panels</title>
+
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/datepicker3.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/chart.min.js"></script>
+    <script src="/js/chart-data.js"></script>
+    <script src="/js/easypiechart.js"></script>
+    <script src="/js/easypiechart-data.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+
+
+
+
+
+
+
+
+
 
     <!--Icons-->
     <script src="/js/lumino.glyphs.js"></script>
@@ -73,22 +86,24 @@
 
 
     <webcam:head/>
-
+ <g:layoutHead/>
 </head>
 
 <body>
 
 <div class="row">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="col-xs-12 navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
 
+                <div class=" col-xs-4">
                 <g:link controller="login" action="index"
-                        style="font-style:italic;font-family: 'Lucida Grande, Verdana, sans-serif';font-size:50px;text-decoration: blink">
+                        style="font-style:italic;font-family: 'Lucida Grande, Verdana, sans-serif';font-size:350%;text-decoration: blink">
                     <span style="color: #0e0e0e">link sharing</span>
                 </g:link>
-                <span>
+                <span style="font-size: 7px">
                     Contribute to Community of knowledge</span>
+                </div>
 
 
 
@@ -126,42 +141,20 @@
 
                 <g:if test="${session.user}">
                     <div class="col-xs-5">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4"
-                                style="border:none;background:none;color:black">
+                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal4"
+                                style="border:none;background:whitesmoke;color:black">
                             <div class="glyphicon glyphicon-comment"></div></button>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1"
-                                style="border:none;background:none;color:black"><div
+                                style="border:none;background:whitesmoke;color:black"><div
                                 class="glyphicon glyphicon-envelope"></div></button>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2"
-                                style="border:none;background:none;color:black"><div
+                                style="border:none;background:whitesmoke;color:black"><div
                                 class="glyphicon glyphicon-paperclip"></div></button>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3"
-                                style="border:none;background:none;color:black"><div
+                                style="border:none;background:whitesmoke;color:black"><div
                                 class="glyphicon glyphicon-edit"></div></button>
 
-                        <div class=" pull-right"><div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenu1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                                    style="font-size: 18px;border:none"><div class="glyphicon glyphicon-user"></div>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <g:if test="${session.user.isAdmin}">
-                        <li><g:link controller="user" action="userTable">User List</g:link></li>
-                    </g:if>
-                    <li><g:link controller="user" action="editProfile"
-                                params="[userId: session.user.id]">Profile</g:link></li>
-                    <li>
-                        <a href="/j_spring_security_logout">
-                            %{--<g:link controller="login" action="logout">--}%
-                            LogOut
-                            %{--</g:link>--}%
-                        </a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    </ul>
-                </div>
-                </div></g:if>
+                                        </div></g:if>
             </div>
 
             </div>
@@ -174,75 +167,59 @@
 
 <div class="row">
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-        <div>
-            <g:if test="${session.user}">
 
-                <g:if test="${session.user.username.startsWith('facebook_')}">
-                    <%=" Welcome, " + session.user.firstName + " " + session.user.lastName%>
-                </g:if>
-                <g:elseif test="${session.user.username.startsWith('google_')}">
-                    <%=" Welcome, " + session.user.firstName + " " + session.user.lastName%>
-                </g:elseif>
-                <g:else>
-                    <%=" Welcome, " + session.user.firstName + " " + session.user.lastName%>
-                </g:else>
-            </g:if>
-            <g:else>
+        <g:form role="search" controller="User" action="searchFrnds">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="search freinds....." name="name" id="name">
+            </div>
+        </g:form>
 
-            </g:else>
-
-        </div>
 
         <ul class="nav menu">
-            <li><a href="index.html"><svg class="glyph stroked dashboard-dial"><use
+            <li><a href="/login/index"><svg class="glyph stroked dashboard-dial"><use
                     xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-            <li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use>
-            </svg> Widgets</a></li>
-            <li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use>
-            </svg> Charts</a></li>
-            <li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use>
-            </svg> Tables
+            <li><a href="/login/recentShares"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use>
+            </svg> Recent Shares</a></li>
+            <li><a href="/login/topPosts"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use>
+            </svg> Top Posts</a></li>
+            <li><g:link controller="login" action="inboxData"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use>
+            </svg> Inbox
+            </g:link></li>
+            <li><a href="/login/subscriptions"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use>
+            </svg> Subscriptions
             </a></li>
-            <li><a href="forms.html"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use>
-            </svg> Forms
-            </a></li>
-            <li class="active"><a href="panels.html"><svg class="glyph stroked app-window"><use
-                    xlink:href="#stroked-app-window"></use></svg> Alerts &amp; Panels</a></li>
-            <li><a href="icons.html"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Icons
-            </a>
-            </li>
-            <li class="parent ">
-                <a href="#">
-                    <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use
-                            xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown
-                </a>
-                <ul class="children collapse" id="sub-item-1">
-                    <li>
-                        <a class="" href="#">
-                            <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use>
-                            </svg> Sub Item 1
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use>
-                            </svg> Sub Item 2
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use>
-                            </svg> Sub Item 3
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            <li class="active"><a href="/login/trendingTopics"><svg class="glyph stroked app-window"><use
+                    xlink:href="#stroked-app-window"></use></svg> Trending Topics </a></li>
+
+
             <li role="presentation" class="divider"></li>
+
+
+            <g:if test="${session.user?.isAdmin}">
+
+                <li class="active"><a href="/user/userTable"><svg class="glyph stroked star"><use
+                    xlink:href="#stroked-star"></use></svg> Users List </a></li>
+
+            </g:if>
+
+
             <li><g:link url="/util/uiftest"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use>
             </svg> Login Page</g:link></li>
+
+            <li><g:link url="/j_spring_security_logout"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use>
+            </svg> Logout</g:link></li>
+
+            <div id="SuccessMsg" title="Dialog Title"
+                 style="display:none;color: black;font-size: 15px;background:lightcoral"></div>
+
+            <div id="ErrorMsg" title="Dialog Title"
+                 style="display:none;color: black;font-size: 15px;background: palegreen"></div>
+            %{--<g:render template="/user/updateMessage"/>--}%
         </ul>
+
 
     </div><!--/.sidebar-->
 </div>
+<g:layoutBody/>
 </body>
 </html>

@@ -24,7 +24,7 @@ class User implements Serializable{
     transient photoType
     Date lastUpdated;
     Date dateCreated;
-
+    Date lastLoginTime;
 
     private static final long serialVersionUID = 1
 
@@ -75,7 +75,8 @@ class User implements Serializable{
         isActive(nullable: true);
         isAdmin(nullable: true);
         profilePic(nullable: true);
-        profession(nullable: true)
+        profession(nullable: true);
+
 
         confirmPassword(bindable: true, nullable: true, blank: true, validator: { String val, User obj ->
             boolean result = false

@@ -13,4 +13,11 @@ class UtilController {
     def test(User user) {
         render user
     }
+
+    def uitest(){
+        render view: "/util/index"
+    }
+    def uiftest(){
+        render view: "/user/loginAndRegister"
+    }
 }

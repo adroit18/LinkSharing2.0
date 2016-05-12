@@ -1,15 +1,21 @@
 <%@ page import="com.tothenew.linksharing.Topic" %>
-<div style="font-size:28px;font-style: italic;padding:8px;border:10px inset yellowgreen;">Topic Name:"${topicName}"</div>
+
+
+<h1 style="text-align:center;text-decoration-style:wavy;
+font-style: italic">Topic Name: "${topicName}"</h1>
 <br>
 
 
-
 <div class="col-xs-7">
-    <div style="font-size: 28px;font-style: italic">Subscribed Users</div>
+
+    <h3 style="text-align:center;text-decoration-style:wavy;
+    font-style: italic">Subscribed Users</h3>
+
     <g:each in="${users}" var="user">
-        <div class="panel panel-default" style="padding:8px;border:2px dashed yellowgreen;">
+
+        <div class="panel panel-default" >
             <div class="panel-heading"
-                 style="border-bottom:3px;border:5px double green;">${user?.firstName} ${user?.lastName}
+                 style="border-bottom:3px;border:5px inset lightgrey;">${user?.firstName} ${user?.lastName}
             </div>
 
             <div class="panel-body">
@@ -37,17 +43,23 @@
 </div>
 
 <div class="col-xs-5">
-    <div style="font-size: 24px;font-style: italic">Resources List Available</div>
+
+    <h3 style="text-align:center;text-decoration-style:wavy;
+    font-style: italic">Resources Available</h3>
+
+    %{--<div style="font-size: 24px;font-style: italic">Resources List Available</div>--}%
     <g:each in="${resourceList}" var="resource">
-        <div class="panel panel-default" style="padding:8px;border:2px dashed yellowgreen;">
+
+        <div class="panel panel-default" >
             <div class="panel-heading"
-                 style="border-bottom:3px;border:5px double green;">${resource.createdBy}
+                 style="border-bottom:3px;border:5px double green;">By:- ${resource.createdBy}
             </div>
 
             <div class="panel-body">
                 <div class="col-xs-4">
                     %{--<g:include controller="user" action="userImage" params='[username: "${user.username}"]'/>--}%
-                    <img src="${g.createLink(controller: 'user', action: 'image', params: [id: resource?.createdBy?.id])}" width="65px"
+                    <img src="${g.createLink(controller: 'user', action: 'image', params: [id: resource?.createdBy?.id])}"
+                         width="65px"
                          height="65px"/>
                 </div>
 
@@ -55,28 +67,28 @@
                     ${resource?.description}<br><br>
 
 
-                        <g:if test="${resource?.whichResource().equals("Document")}">
-                            This is a Document Resource. Click on Link to Download Resource.<br>
-                            <g:link controller="DocumentResource" action="downloadDocument"
-                                    params="[fid: resource?.id]"
-                                    style="text-decoration:underline;font-size:10px">Download</g:link>
-                        </g:if>
+                    <g:if test="${resource?.whichResource().equals("Document")}">
+                        <h6>Document Resource.</h6> Click on Link to Download Resource.<br>
+                        <g:link controller="DocumentResource" action="downloadDocument"
+                                params="[fid: resource?.id]"
+                                style="text-decoration:underline;font-size:10px">Download</g:link>
+                    </g:if>
 
-                        <g:elseif test="${resource?.whichResource().equals("Link")}">
-                            This is a Link Resource. Click on Link to Resource url.<br>
-                            <a href="${resource?.url}"
-                               style="text-decoration:underline;font-size:10px">View full site</a>
-                        </g:elseif>
+                    <g:elseif test="${resource?.whichResource().equals("Link")}">
+                        <h6>Link Resource.</h6> Click on Link to Resource url.<br>
+                        <a href="${resource?.url}"
+                           style="text-decoration:underline;font-size:10px">View full site</a>
+                    </g:elseif>
 
 
-                    %{--<span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
-                                                                                              style="padding-left:1px">Posts</span><br>
-                </span>
-                    <span class="col-xs-6" style="color:blue;padding-left:1px"><ls:subscriptionCount
-                            topicId="${Topic.findByName(topicName).id}" user="${user?.id}"/></span><span
-                        class="col-xs-6"
-                        style="color:blue;padding-left:1px"><ls:resourceCount
-                            topicId="${Topic.findByName(topicName).id}"/></span>
+                %{--<span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
+                                                                                          style="padding-left:1px">Posts</span><br>
+            </span>
+                <span class="col-xs-6" style="color:blue;padding-left:1px"><ls:subscriptionCount
+                        topicId="${Topic.findByName(topicName).id}" user="${user?.id}"/></span><span
+                    class="col-xs-6"
+                    style="color:blue;padding-left:1px"><ls:resourceCount
+                        topicId="${Topic.findByName(topicName).id}"/></span>
 --}%
                 </div>
             </div>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="index"/>
     <title>500 Page Not Found</title>
 
 </head>
 
 <body>
+<div class="col-xs-4"></div>
+<div class="col-xs-7">
 <div id="nor">
 <div class="row">
     <div class="col-xs-12 CENTER-BLOCK">
@@ -33,7 +35,7 @@
 </div>
 </div>
 
-
+</div>
 </body>
 
 </html>

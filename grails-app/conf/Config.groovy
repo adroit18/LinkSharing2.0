@@ -144,27 +144,17 @@ grails.plugin.springsecurity.authority.className = 'com.tothenew.linksharing.Sec
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
-'/login'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/**'                      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/dbconsole/**'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/user/registrationHandler': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-
-//        '/login/*'       : ['IS_AUTHENTICATED_REMEMBERED'],
-//        '/login/index'   : ['ROLE_USER'],
-//        '/login/*'        : ['ROLE_USER', 'IS_AUTHENTICATED_FULLY'],
-//'/**'                  : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/'                        : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-//'/index'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-//'/index.gsp'           : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/assets/**'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/**/js/**'                : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/**/css/**'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/**/images/**'            : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/**/favicon.ico'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-'/user/image/'             : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-//'/linkResource/**'     : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-//'/plugins/dbconsole/**': ['IS_AUTHENTICATED_ANONYMOUSLY']
+        '/login'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**'                      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/dbconsole/**'            : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/user/registrationHandler': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/'                        : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/assets/**'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/js/**'                : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/css/**'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/images/**'            : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/favicon.ico'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/user/image/'             : ['IS_AUTHENTICATED_ANONYMOUSLY'],
 
 ]
 
-//elasticSearch.datastoreImpl='hibernateDatastore'

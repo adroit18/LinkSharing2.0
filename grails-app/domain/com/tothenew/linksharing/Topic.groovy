@@ -48,9 +48,9 @@ class Topic {
         list.each {
             vos << new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4])
         }
-        if (vos.size() > 4)
-            return vos[0..4];
-        else
+//        if (vos.size() > 4)
+//            return vos[0..4];
+//        else
             return vos
         // println vos[0..4]
     }

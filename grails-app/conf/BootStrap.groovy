@@ -31,7 +31,7 @@ class BootStrap {
 
         List<User> users = []
         if (User.count() == 0) {
-            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothenew.com", isAdmin: true, isActive: true, profession: 3)
+            User admin = new User(firstName: "Deepak", lastName: "Uniyal", username: "Deepak Uniyal", password: "test@1234", emailId: "deepak.uniyal@tothenew.com", isAdmin: true, isActive: true, profession: 3,lastLoginTime: new Date())
             if (admin.save(flush: true, failOnError: true)) {
                 users.add(admin)
                 log.error "User ${admin} saved successfully"
@@ -40,15 +40,15 @@ class BootStrap {
             }
             create(admin, adminRole, true)
 
-            User normal1 = new User(firstName: "Waquar", lastName: "Azam", username: "furious", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false, profession: 1)
-            User normal2 = new User(firstName: "Ram", lastName: "Lakhan", username: "in", password: "test@1234", emailId: "normal2@tothtenew.com", isAdmin: false, isActive: true, profession: 2)
-            User normal3 = new User(firstName: "Shyam", lastName: "Tarak", username: "whole", password: "test@1234", emailId: "normal3@tothtenew.com", isAdmin: false, isActive: true, profession: 4)
-            User normal4 = new User(firstName: "Harman", lastName: "Bewaja", username: "labled", password: "test@1234", emailId: "normal4@tothtenew.com", isAdmin: false, isActive: true, profession: 5)
-            User normal5 = new User(firstName: "Rap", lastName: "Rak", username: "somehow", password: "test@1234", emailId: "normal5@tothtenew.com", isAdmin: false, isActive: true, profession: 6)
-            User normal6 = new User(firstName: "Ralph", lastName: "Gaur", username: "tough", password: "test@1234", emailId: "normal6@tothtenew.com", isAdmin: false, isActive: true, profession: 7)
-            User normal7 = new User(firstName: "Paul", lastName: "Keval", username: "kama", password: "test@1234", emailId: "normal7@tothtenew.com", isAdmin: false, isActive: true, profession: 8)
-            User normal8 = new User(firstName: "Karan", lastName: "Gaja", username: "kll", password: "test@1234", emailId: "normal8@tothtenew.com", isAdmin: false, isActive: true, profession: 9)
-            User normal9 = new User(firstName: "Lack", lastName: "Laka", username: "ops", password: "test@1234", emailId: "normal9@tothtenew.com", isAdmin: false, isActive: true, profession: 10)
+            User normal1 = new User(firstName: "Waquar", lastName: "Azam", username: "furious", password: "test@1234", emailId: "waquar.azam@tothtenew.com", isAdmin: false, isActive: false, profession: 1,lastLoginTime: new Date())
+            User normal2 = new User(firstName: "Ram", lastName: "Lakhan", username: "in", password: "test@1234", emailId: "normal2@tothtenew.com", isAdmin: false, isActive: true, profession: 2,lastLoginTime: new Date())
+            User normal3 = new User(firstName: "Shyam", lastName: "Tarak", username: "whole", password: "test@1234", emailId: "normal3@tothtenew.com", isAdmin: false, isActive: true, profession: 4,lastLoginTime: new Date())
+            User normal4 = new User(firstName: "Harman", lastName: "Bewaja", username: "labled", password: "test@1234", emailId: "normal4@tothtenew.com", isAdmin: false, isActive: true, profession: 5,lastLoginTime: new Date())
+            User normal5 = new User(firstName: "Rap", lastName: "Rak", username: "somehow", password: "test@1234", emailId: "normal5@tothtenew.com", isAdmin: false, isActive: true, profession: 6,lastLoginTime: new Date())
+            User normal6 = new User(firstName: "Ralph", lastName: "Gaur", username: "tough", password: "test@1234", emailId: "normal6@tothtenew.com", isAdmin: false, isActive: true, profession: 7,lastLoginTime: new Date())
+            User normal7 = new User(firstName: "Paul", lastName: "Keval", username: "kama", password: "test@1234", emailId: "normal7@tothtenew.com", isAdmin: false, isActive: true, profession: 8,lastLoginTime: new Date())
+            User normal8 = new User(firstName: "Karan", lastName: "Gaja", username: "kll", password: "test@1234", emailId: "normal8@tothtenew.com", isAdmin: false, isActive: true, profession: 9,lastLoginTime: new Date())
+            User normal9 = new User(firstName: "Lack", lastName: "Laka", username: "ops", password: "test@1234", emailId: "normal9@tothtenew.com", isAdmin: false, isActive: true, profession: 10,lastLoginTime: new Date())
             normal2.save(); normal3.save(); normal4.save(); normal5.save(); normal6.save()
             normal7.save(); normal8.save(); normal9.save();
             if (normal1.save(flush: true, failOnError: true)) {
