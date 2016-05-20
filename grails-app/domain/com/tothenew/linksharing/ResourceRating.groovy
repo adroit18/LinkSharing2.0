@@ -20,7 +20,7 @@ class ResourceRating {
 
     static List getTopPosts() {
 
-        List<ResourceRating> resources = ResourceRating.createCriteria().list(max: 5) {
+        List<ResourceRating> resources = ResourceRating.createCriteria().list() {
             projections {
                 createAlias("resource", "r")
                 groupProperty("r.id")

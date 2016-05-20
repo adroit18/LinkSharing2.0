@@ -170,7 +170,7 @@
 
         <g:form role="search" controller="User" action="searchFrnds">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="search freinds....." name="name" id="name">
+                <input type="text" class="form-control" placeholder="search friends....." name="name" id="name">
             </div>
         </g:form>
 

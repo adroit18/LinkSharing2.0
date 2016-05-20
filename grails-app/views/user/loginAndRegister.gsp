@@ -168,7 +168,7 @@ the FB.login() function when clicked.
 <g:if test="${session.user}">
 
     <div class="col-xs-4 alert bg-success" role="alert">
-         You are Already LoOoooged in !!
+        You are Already LoOoooged in !!
     </div>
 
 </g:if>
@@ -257,9 +257,9 @@ the FB.login() function when clicked.
 
 
                     <div class="field-wrap">
-                        <g:submitButton controller="user" action="registrationHandler" value="Register"
-                                        class="button button-block"
-                                        name="submit"/>
+                        <input type="submit" value="Register"
+                               class="button button-block"
+                               name="submit"/>
                     </div>
 
                 </g:form>

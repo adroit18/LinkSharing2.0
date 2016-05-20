@@ -7,7 +7,7 @@ class Topic {
     String name;
     User createdBy;
     Link_Visibility visibility;
-    int concernedArea=10;
+    int concernedArea = 10;
     Date lastUpdated;
     Date dateCreated;
     static transients = ['subscribedUsers']
@@ -32,8 +32,8 @@ class Topic {
     }
 
 
-    static List<TopicVO> getTrendingTopics() {
-        List resources = Resource.createCriteria().list {
+    static List<TopicVO> getTrendingTopicsShow() {
+        List resources = Resource.createCriteria().list() {
             projections {
                 createAlias('topic', 't')
                 groupProperty('t.id')
@@ -43,7 +43,7 @@ class Topic {
                 count();
             }
         }
-        List list = resources.sort { -it[4] }
+        List  list = resources.sort { -it[4] }
         List<TopicVO> vos = []
         list.each {
             vos << new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4])
@@ -51,7 +51,44 @@ class Topic {
 //        if (vos.size() > 4)
 //            return vos[0..4];
 //        else
-            return vos
+        return vos
+        // println vos[0..4]
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    static List<TopicVO> getTrendingTopics(def params) {
+        List resources = Resource.createCriteria().list(params) {
+            projections {
+                createAlias('topic', 't')
+                groupProperty('t.id')
+                property('t.name')
+                property('t.visibility')
+                property('createdBy')
+                count();
+            }
+        }
+        List  list = resources.sort { -it[4] }
+        List<TopicVO> vos = []
+        list.each {
+            vos << new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4])
+        }
+//        if (vos.size() > 4)
+//            return vos[0..4];
+//        else
+        return vos
         // println vos[0..4]
     }
 

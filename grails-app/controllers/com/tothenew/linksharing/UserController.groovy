@@ -21,7 +21,7 @@ class UserController {
         if (reply)
             render(view: "/login/registerSuccess")
         else
-            render([message: "Failiure"] as JSON)
+            render(view: 'loginAndRegister', model: [loginMessage: 'Some Unknown Failiure Occured, Please try again.'])
 
     }
 
@@ -30,7 +30,7 @@ class UserController {
     def isUsernameValid(String username) {
         int numUser = 0
         numUser = User.countByUsername(username)
-        if (session.user.username == username)
+        if (session.user != null && session.user.username == username)
             render true
         else if (numUser >= 1 || username.startsWith("facebook_") || username.startsWith("google_"))
             render false
@@ -93,9 +93,10 @@ class UserController {
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def updateProfile(UserCO userCO) {
-        User userObj = session["user"]
+        User userObj = User.get(session.user.id)
         boolean success = userService.updateUserProfile(userCO, userObj)
         if (success) {
+            session.user = User.get(session.user.id)
             redirect(controller: "user", action: "editProfile")
         } else {
             redirect(controller: "user", action: "editProfile")
@@ -228,15 +229,20 @@ class UserController {
 
     def searchFrnds() {
         String str = params.name
-        println str
-
-        List  users = []
-        users = User.findAllByUsernameOrFirstNameOrLastNameIlike("%${str}%","%${str}%","%${str}%")
-//        usersId.each {
-//            users.add(User.get(it)) as List<User>
-//        }
-        println "..............." + users
-        render view: '/user/_showFrnds', model: [users: users]
+        List users = []
+        List usersUsername1 = User.findAllByUsernameIlike("%${str}%")
+        List usersUsername2 = User.findAllByUsernameIlike("%${str}")
+        List usersUsername3 = User.findAllByUsernameIlike("${str}%")
+        List usersFirstName1 = User.findAllByFirstNameIlike("%${str}%")
+        List usersFirstName2 = User.findAllByFirstNameIlike("%${str}")
+        List usersFirstName3 = User.findAllByFirstNameIlike("${str}%")
+        List usersLastName1 = User.findAllByLastNameIlike("%${str}%")
+        List usersLastName2 = User.findAllByLastNameIlike("%${str}")
+        List usersLastName3 = User.findAllByLastNameIlike("${str}%")
+        users = [usersUsername1, usersUsername2, usersFirstName3, usersFirstName1, usersFirstName2, usersFirstName3,
+                 usersLastName1, usersLastName2, usersLastName3]
+        users = users.flatten().unique().sort()
+        render view: '/user/_showFrnds', model: [users: users, subscribedTopics: LoginController.subscribedTopics]
     }
 
 }

@@ -144,7 +144,7 @@ grails.plugin.springsecurity.authority.className = 'com.tothenew.linksharing.Sec
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
-        '/login'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/login/*'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/**'                      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/dbconsole/**'            : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/user/registrationHandler': ['IS_AUTHENTICATED_ANONYMOUSLY'],

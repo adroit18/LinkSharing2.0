@@ -56,10 +56,9 @@ class ResourceController {
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(long id) {
-
         Resource resource = Resource.get(id)
         if (resource.canViewedBy(session.user)) {
-            List<TopicVO> trendingTopics = Topic.getTrendingTopics()
+            List<TopicVO> trendingTopics = Topic.getTrendingTopicsShow()
             render(view: "/resource/_show", model: [id: id, resource: resource, trendingTopics: trendingTopics])
         } else {
 

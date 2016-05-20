@@ -16,7 +16,8 @@ class UserService {
         co.profilePic = f.bytes
         co.photoType = f.contentType
         User user = new User(co.properties)
-        if (user.save()) {
+        user.lastLoginTime=new Date()
+        if (user.save(flush: true,failOnError: true)) {
             def userRole = SecRole.findByAuthority('ROLE_USER')
             create(user, userRole, true)
             return true
@@ -58,8 +59,8 @@ class UserService {
             String newPassword = RandomPasswordGenerator.generateRandomPassword()
             EmailDTO emailDTO = new EmailDTO(to: [recoveryemail], subject: "Account Recovery", view: "/email/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
             emailService.sendMail(emailDTO)
-            user.password=newPassword
-            if (user.save(flush: true,failOnError: true)) {
+            user.password = newPassword
+            if (user.save(flush: true, failOnError: true)) {
                 ([message: "Success"]) as JSON
                 return true
             } else {
@@ -70,41 +71,39 @@ class UserService {
 
     }
 
-def userTable(String q,String active, def params) {
-    params.max = params.max ? params.max : 5
-    params.offset = params.offset ? params.offset : 0
-    params.sort = "id";
-    params.order = "asc"
-    List list = [];
-    Integer a = 0;
+    def userTable(String q, String active, def params) {
+        params.max = params.max ? params.max : 5
+        params.offset = params.offset ? params.offset : 0
+        params.sort = "id";
+        params.order = "asc"
+        List list = [];
+        Integer a = 0;
 
-    if (q && !q.equals("")) {
-        list = User.createCriteria().list(params) {
-            or {
-                ilike("username", "%${q}%")
-                ilike("firstName", "%${q}%")
+        if (q && !q.equals("")) {
+            list = User.createCriteria().list(params) {
+                or {
+                    ilike("username", "%${q}%")
+                    ilike("firstName", "%${q}%")
+                }
             }
+            a += list.totalCount;
+        } else if (active.equals("Show All Users")) {
+            list = User.list(params)
+            a += User.count();
+
+        } else if (active.equals("Show All Active Users")) {
+            boolean flag = true;
+            list = User.findAllByIsActive(flag, params)
+            a += User.countByIsActive(flag)
+
+        } else {
+            boolean flag = false;
+            list = User.findAllByIsActive(flag, params)
+            a += User.countByIsActive(flag)
         }
-        a += list.totalCount;
-    } else if (active.equals("Show All Users")) {
-        list = User.list(params)
-        a += User.count();
 
-    } else if (active.equals("Show All Active Users")) {
-        boolean flag = true;
-        list = User.findAllByIsActive(flag, params)
-        a += User.countByIsActive(flag)
-
-    } else {
-        boolean flag = false;
-        list = User.findAllByIsActive(flag, params)
-        a += User.countByIsActive(flag)
+        return [list, a]
     }
-
-    return [list,a]
-}
-
-
 
 
 }

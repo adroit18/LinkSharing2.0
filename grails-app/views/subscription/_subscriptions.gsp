@@ -435,4 +435,3 @@
 <g:render template="/topic/create"/>
 <g:render template="/topic/email"/>
 <g:render template="/linkResource/create" model="[subscribed: subscribedTopics]"/>
-

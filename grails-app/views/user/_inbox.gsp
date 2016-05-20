@@ -129,7 +129,6 @@
                 url: "${createLink(controller: 'readingItem',action: 'changeIsRead')}",
                 type: "post",
                 dataType: 'json',
-
                 data: {id: id, isRead: false},
 
                 success: function (data) {
@@ -215,18 +214,18 @@
                         <p class="fb-share-button" data-href="${request.getRequestURL().toString()}"
                            data-layout="button_count"></p>
                         <br>
-
+                        ............................${inbox[0]}
 
                         <input type="button"
                                id="customBtn"
                                class="g-interactivepost"
-                               data-contenturl="${inbox[2]}"
+                               data-contenturl="${inbox[2]?:inbox[1]}"
                                data-contentdeeplinkid="/pages"
                                data-clientid="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com"
                                data-cookiepolicy="single_host_origin"
                                data-prefilltext="Want to Say Something..."
                                data-calltoactionlabel="CREATE"
-                               data-calltoactionurl="${inbox[2]}"
+                               data-calltoactionurl="${inbox[2]?:inbox[1]}"
                                data-calltoactiondeeplinkid="/pages/create"
                                value="Google+">
 

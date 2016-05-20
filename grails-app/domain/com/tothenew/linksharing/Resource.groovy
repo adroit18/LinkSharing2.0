@@ -1,4 +1,5 @@
 package com.tothenew.linksharing
+
 import groovy.transform.EqualsAndHashCode
 
 @EqualsAndHashCode
@@ -18,7 +19,7 @@ abstract class Resource {
         description(type: 'text')
     }
 
-   // static searchable = true
+    // static searchable = true
 //
 //    def afterInsert() {
 //        Resource.withNewSession {
@@ -64,7 +65,7 @@ abstract class Resource {
 
     static List recentShares() {
         List recentSharesList
-        recentSharesList = Resource.createCriteria().list(max: 5, offset: 0, sort: 'lastUpdated', order: 'desc') {
+        recentSharesList = Resource.createCriteria().list(sort: 'lastUpdated', order: 'desc') {
             projections {
                 //createAlias('readingItems','r')
                 property('url')
@@ -95,10 +96,10 @@ abstract class Resource {
         Topic resourceTopic = this.topic
         return resourceTopic.canViewedBy(user)
     }
+
     String toString() {
         return description
     }
-
 
 
 }

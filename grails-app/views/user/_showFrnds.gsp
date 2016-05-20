@@ -108,4 +108,16 @@
     </div>
 </div>
 
+<g:render template="/documentResource/create" model="[subscribed: subscribedTopics]"/>
+<g:render template="/topic/create"/>
+<g:render template="/topic/email"/>
+<g:render template="/linkResource/create" model="[subscribed: subscribedTopics]"/>
+
+
+
+
 </body>
+
+
+
+

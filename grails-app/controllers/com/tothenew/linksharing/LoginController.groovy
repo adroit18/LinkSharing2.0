@@ -37,6 +37,7 @@ class LoginController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def inboxData() {
         if (session.user) {
             List inboxList = ReadingItem.userInbox(session.user)
@@ -44,21 +45,27 @@ class LoginController {
         } else {
             render view: '/user/loginAndRegister', model: [loginMessage: "You Must Login First"]
         }
-        Random rnd = new Random()
-        rnd.nextInt()
+
     }
 
-
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def trendingTopics() {
+        Thread.sleep(3000)
         if (session.user) {
-            List<TopicVO> trendingTopics = Topic.getTrendingTopics();
-            render view: "/topic/_trendingTopics", model: [trendingTopics: trendingTopics, subscribedTopics: subscribedTopics]
+            params.max = params.max ? params.max : 5
+            params.offset = params.offset ? params.offset : 0
+            List<TopicVO> trendingTopics = Topic.getTrendingTopics(params);
+            if ((params.query) == '1') {
+                render view: "/topic/_allTrendingTopics", model: [trendingTopics: trendingTopics, subscribedTopics: subscribedTopics]
+            } else {
+                render view: "/topic/_trendingTopics", model: [trendingTopics: trendingTopics, subscribedTopics: subscribedTopics]
+            }
         } else {
             render view: '/user/loginAndRegister', model: [loginMessage: "You Must Login First"]
         }
     }
 
-
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def subscriptions() {
         if (session.user) {
             List subscriptionList = Subscription.getSubscriptions(session.user)

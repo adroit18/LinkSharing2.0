@@ -1,3 +1,4 @@
+<%@ page import="com.tothenew.linksharing.User" %>
 <head>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
@@ -69,7 +70,7 @@
                 <div class="col-xs-5"><label class="control-label">First Name<sup>*</sup></label></div>
 
                 <div class="col-xs-7 "><g:textField id="firstName" name="firstName"
-                                                    value="${session.user.firstName}"
+                                                    value="${(User.get(session.user.id)).firstName}"
                                                     class="col-xs-7 form-control form-register-field"></g:textField>
                 </div>
             </div>
@@ -78,7 +79,7 @@
                 <div class="col-xs-5"><label class="control-label">Last Name<sup>*</sup></label></div>
 
                 <div class="col-xs-7"><g:textField id="lastName" name="lastName"
-                                                   value="${session.user.lastName}"
+                                                   value="${(User.get(session.user.id)).lastName}"
                                                    class="col-xs-7 form-control form-register-field"></g:textField></div>
             </div>
 
@@ -87,7 +88,7 @@
                 <div class="col-xs-5"><label class="control-label">Username<sup>*</sup></label></div>
 
                 <div class="col-lg-7"><g:textField name="username" id="username"
-                                                   value="${session.user.username}"
+                                                   value="${(User.get(session.user.id)).username}"
                                                    class="form-control form-register-field"></g:textField>
                 </div></div>
 
