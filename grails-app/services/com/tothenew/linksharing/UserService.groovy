@@ -16,8 +16,8 @@ class UserService {
         co.profilePic = f.bytes
         co.photoType = f.contentType
         User user = new User(co.properties)
-        user.lastLoginTime=new Date()
-        if (user.save(flush: true,failOnError: true)) {
+        user.lastLoginTime = new Date()
+        if (user.save(flush: true, failOnError: true)) {
             def userRole = SecRole.findByAuthority('ROLE_USER')
             create(user, userRole, true)
             return true

@@ -192,7 +192,7 @@
 
                 <div class="col-xs-2 pull-${i % 2 != 0 ? 'right' : 'left'}">
 
-<g:include controller="user" action="userImage" params='[username: "${inbox[3]}"]'/>
+                    <g:include controller="user" action="userImage" params='[username: "${inbox[3]}"]'/>
 
                     <img src="${g.createLink(controller: 'user', action: 'image', params: [id: inbox[3].id])}"
                          width="65px"
@@ -214,18 +214,16 @@
                         <p class="fb-share-button" data-href="${request.getRequestURL().toString()}"
                            data-layout="button_count"></p>
                         <br>
-                        ............................${inbox[0]}
-
                         <input type="button"
                                id="customBtn"
                                class="g-interactivepost"
-                               data-contenturl="${inbox[2]?:inbox[1]}"
+                               data-contenturl="${inbox[2] ?: "https://www.linksharing.com"}"
                                data-contentdeeplinkid="/pages"
                                data-clientid="447898827649-nsncn6vq1fa3uguv8jhgsggl9lru73rv.apps.googleusercontent.com"
                                data-cookiepolicy="single_host_origin"
                                data-prefilltext="Want to Say Something..."
                                data-calltoactionlabel="CREATE"
-                               data-calltoactionurl="${inbox[2]?:inbox[1]}"
+                               data-calltoactionurl="${inbox[2] ?: "https://www.linksharing.com"}"
                                data-calltoactiondeeplinkid="/pages/create"
                                value="Google+">
 
@@ -272,7 +270,7 @@
 <g:render template="/linkResource/create" model="[subscribed: subscribedTopics]"/>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.scroll').jscroll({
             autoTrigger: false
         });

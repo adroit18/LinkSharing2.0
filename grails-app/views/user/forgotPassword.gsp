@@ -1,7 +1,7 @@
 <!doctype HTML>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="index"/>
 
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
@@ -35,7 +35,11 @@
 </head>
 
 <body>
-<div class="col-xs-4"></div>
+<div class="col-xs-12"></div>
+<div class="col-xs-12"></div>
+<div class="col-xs-12"></div>
+<div class="col-xs-12"></div>
+<div class="col-xs-5"></div>
 <div class="col-xs-4">
 <div class="panel panel-primary forgot-pass">
     <div class="panel-heading" style="background-color: rgba(0, 188, 212, 0.58); ">

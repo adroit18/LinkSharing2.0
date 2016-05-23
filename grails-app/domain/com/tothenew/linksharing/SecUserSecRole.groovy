@@ -54,7 +54,6 @@ class SecUserSecRole implements Serializable {
 	static SecUserSecRole create(User user, SecRole secRole, boolean flush = false) {
 		def instance = new SecUserSecRole(user: user, secRole: secRole)
 		instance.save(flush: true, insert: true)
-		println instance.errors
 		instance
 	}
 

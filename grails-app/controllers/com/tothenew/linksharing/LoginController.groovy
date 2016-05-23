@@ -37,7 +37,6 @@ class LoginController {
         }
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def inboxData() {
         if (session.user) {
             List inboxList = ReadingItem.userInbox(session.user)
@@ -48,7 +47,7 @@ class LoginController {
 
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+
     def trendingTopics() {
         Thread.sleep(3000)
         if (session.user) {
@@ -65,7 +64,7 @@ class LoginController {
         }
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+
     def subscriptions() {
         if (session.user) {
             List subscriptionList = Subscription.getSubscriptions(session.user)
